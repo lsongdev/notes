@@ -17,57 +17,255 @@ Proxmark3 是一款开源的 RFID 研究工具，用于读取、分析和模拟�
 
 ### 步骤 2：安装 Proxmark3 软件
 
-Proxmark3 软件是开源的，并且可以在 GitHub 上找到。以下是安装 Proxmark3 软件的基本步骤：
+Proxmark3 软件是开源的，并且可以在 GitHub 上找到，原版的 Proxmark 官方仓库已经不再维护，这里推荐使用 [Iceman Fork](https://github.com/RfidResearchGroup/proxmark3)：
 
-1. 打开终端窗口，并确保你的计算机已经安装了 Git。
-2. 使用以下命令克隆 Proxmark3 存储库：
+使用以下命令克隆 Proxmark3 存储库：
 
 ```shell
-git clone https://github.com/Proxmark/proxmark3.git
+https://github.com/RfidResearchGroup/proxmark3
 ```
 
-3. 进入克隆的目录：
+进入克隆的目录：
 
 ```shelll
 cd proxmark3
 ```
 
-4. 编译 Proxmark3 软件：
+编译 Proxmark3 软件
+
+如果你和我一样使用 macOS 系统，可以参考这里 [macOS - Compilation from source instructions](https://github.com/RfidResearchGroup/proxmark3/blob/master/doc/md/Installation_Instructions/macOS-Compile-From-Source-Instructions.md)
+
+
+```shell
+brew install readline qt5 pkgconfig coreutils
+brew install RfidResearchGroup/proxmark3/arm-none-eabi-gcc
+```
+
+也可以从源码编译
 
 ```shell
 make clean && make all
 ```
 
-### 步骤 3：连接 Proxmark3 设备
+### 连接 Proxmark3 设备
 
 将 Proxmark3 设备连接到你的计算机。通常，你需要通过 USB 线连接 Proxmark3 设备，并确保设备已正确安装驱动程序。
 
-### 步骤 4：启动 Proxmark3 软件
-
-在终端窗口中，进入 Proxmark3 软件的目录，并启动它：
+### 启动 Proxmark3 软件
 
 ```shell
-./client/proxmark3 /dev/ttyACM0
+proxmark3 /dev/tty.usbmodemiceman1
 ```
 
-请确保 `/dev/ttyACM0` 是你的 Proxmark3 设备的正确串口。你可以使用 `ls /dev/ttyACM*` 命令来查找正确的串口。
-
-### 步骤 5：基本操作
+### 基本操作
 
 一旦启动了 Proxmark3 软件，你可以执行以下基本操作：
 
-- 读取 RFID 标签：使用 `lf search` 命令来搜索附近的 RFID 标签。
-- 写入 RFID 标签：使用 `lf hid clone` 命令来克隆一个 HID 类型的 RFID 标签。
-- 模拟 RFID 标签：使用 `lf t55xx` 命令来模拟 T55xx 类型的 RFID 标签。
-- 分析 RFID 数据：使用 `hf 14a info` 命令来分析 14A 类型的 RFID 数据。
-- 保存数据：使用 `data save` 命令来保存你捕获的 RFID 数据。
+```shell
+21:12:34 in ~ took 13m 37s
+➜ proxmark3 /dev/cu.usbmodemiceman1
+[=] Session log /Users/Lsong/.proxmark3/logs/log_20231010131235.txt
+[+] loaded from JSON file `/Users/Lsong/.proxmark3/preferences.json`
+[=] Using UART port /dev/cu.usbmodemiceman1
+[=] Communicating with PM3 over USB-CDC
 
-### 步骤 6：学习更多
+
+  8888888b.  888b     d888  .d8888b.
+  888   Y88b 8888b   d8888 d88P  Y88b
+  888    888 88888b.d88888      .d88P
+  888   d88P 888Y88888P888     8888"
+  8888888P"  888 Y888P 888      "Y8b.
+  888        888  Y8P  888 888    888
+  888        888   "   888 Y88b  d88P
+  888        888       888  "Y8888P"    [ ☕ ]
+
+Release v4.17140 - Raccoon
+  [ Proxmark3 RFID instrument ]
+
+    MCU....... AT91SAM7S512 Rev B
+    Memory.... 512 KB ( 60% used )
+
+    Client.... Iceman/master/v4.17140 2023-09-09 11:00:00
+    Bootrom... Iceman/master/v4.16717-9-gadfebd651 2023-06-26 21:52:08
+    OS........ Iceman/master/v4.16717-9-gadfebd651 2023-06-26 21:52:14
+    Target.... PM3 GENERIC
+
+
+[!] ⚠️   --> ARM firmware does not match the source at the time the client was compiled
+[!] ⚠️   --> Make sure to flash a correct and up-to-date version
+```
+
+
+```shell
+[usb] pm3 --> hw ping
+[=] Ping sent with payload len 32
+[+] Ping response received and content () ok )
+```
+
+```shell
+[usb] pm3 --> hw status
+[#] Memory
+[#]   BigBuf_size............. 42712
+[#]   Available memory........ 42712
+[#] Tracing
+[#]   tracing ................ 0
+[#]   traceLen ............... 0
+[#] Current FPGA image
+[#]   mode.................... LF image 2s30vq100 2023-05-24 14:12:56
+[#] LF Sampling config
+[#]   [q] divisor............. 95 ( 125.00 kHz )
+[#]   [b] bits per sample..... 8
+[#]   [d] decimation.......... 1
+[#]   [a] averaging........... yes
+[#]   [t] trigger threshold... 0
+[#]   [s] samples to skip..... 0
+[#]
+[#] LF T55XX config
+[#]            [r]               [a]   [b]   [c]   [d]   [e]   [f]   [g]
+[#]            mode            |start|write|write|write| read|write|write
+[#]                            | gap | gap |  0  |  1  | gap |  2  |  3
+[#] ---------------------------+-----+-----+-----+-----+-----+-----+------
+[#] fixed bit length (default) |  31 |  20 |  18 |  50 |  15 | N/A | N/A |
+[#]     long leading reference |  31 |  20 |  18 |  50 |  15 | N/A | N/A |
+[#]               leading zero |  31 |  20 |  18 |  40 |  15 | N/A | N/A |
+[#]    1 of 4 coding reference |  31 |  20 |  18 |  34 |  15 |  50 |  66 |
+[#]
+[#] HF 14a config
+[#]   [a] Anticol override.... std    ( follow standard )
+[#]   [b] BCC override........ std    ( follow standard )
+[#]   [2] CL2 override........ std    ( follow standard )
+[#]   [3] CL3 override........ std    ( follow standard )
+[#]   [r] RATS override....... std    ( follow standard )
+[#] Transfer Speed
+[#]   Sending packets to client...
+[#]   Time elapsed................... 500ms
+[#]   Bytes transferred.............. 300544
+[#]   Transfer Speed PM3 -> Client... 601088 bytes/s
+[#] Various
+[#]   Max stack usage......... 4952 / 8480 bytes
+[#]   Debug log level......... 1 ( error )
+[#]   ToSendMax............... 6
+[#]   ToSend BUFFERSIZE....... 2308
+[#]   Slow clock.............. 31011 Hz
+[#] Installed StandAlone Mode
+[#]   LF HID26 standalone - aka SamyRun (Samy Kamkar)
+[#]
+```
+
+```shell
+[usb] pm3 --> auto
+[=] lf search
+
+[=] NOTE: some demods output possible binary
+[=] if it finds something that looks like a tag
+[=] False Positives ARE possible
+[=]
+[=] Checking for known tags...
+[=]
+[!] ⚠️  Specify one authentication mode
+[-] ⛔ No known 125/134 kHz tags found!
+[=] Couldn't identify a chipset
+[=] hf search
+ 🕕  Searching for ISO14443-A tag...
+[+]  UID: D3 8F 46 4E
+[+] ATQA: 00 04
+[+]  SAK: 08 [2]
+[+] Possible types:
+[+]    MIFARE Classic 1K
+[=] proprietary non iso14443-4 card found, RATS not supported
+[+] Prng detection: weak
+[#] Auth error
+[?] Hint: try `hf mf` commands
+
+
+[+] Valid ISO 14443-A tag found
+```
+
+```shell
+[usb] pm3 --> hf mf autopwn
+[!] ⚠️  no known key was supplied, key recovery might fail
+[+] loaded 56 keys from hardcoded default array
+[=] running strategy 1
+[=] Chunk 0.3s | found 32/32 keys (56)
+[+] target sector   0 key type A -- found valid key [ FFFFFFFFFFFF ] (used for nested / hardnested attack)
+[+] target sector   0 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   1 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   1 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   2 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   2 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   3 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   3 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   4 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   4 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   5 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   5 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   6 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   6 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   7 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   7 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   8 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   8 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   9 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector   9 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  10 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  10 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  11 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  11 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  12 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  12 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  13 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  13 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  14 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  14 key type B -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  15 key type A -- found valid key [ FFFFFFFFFFFF ]
+[+] target sector  15 key type B -- found valid key [ FFFFFFFFFFFF ]
+
+[+] found keys:
+
+[+] -----+-----+--------------+---+--------------+----
+[+]  Sec | Blk | key A        |res| key B        |res
+[+] -----+-----+--------------+---+--------------+----
+[+]  000 | 003 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  001 | 007 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  002 | 011 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  003 | 015 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  004 | 019 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  005 | 023 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  006 | 027 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  007 | 031 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  008 | 035 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  009 | 039 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  010 | 043 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  011 | 047 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  012 | 051 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  013 | 055 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  014 | 059 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+]  015 | 063 | FFFFFFFFFFFF | D | FFFFFFFFFFFF | D
+[+] -----+-----+--------------+---+--------------+----
+[=] ( D:Dictionary / S:darkSide / U:User / R:Reused / N:Nested / H:Hardnested / C:statiCnested / A:keyA  )
+
+
+[+] Generating binary key file
+[+] Found keys have been dumped to /Users/Lsong/hf-mf-D38F464E-key-001.bin
+[=] --[ FFFFFFFFFFFF ]-- has been inserted for unknown keys where res is 0
+[=] transferring keys to simulator memory ( ok )
+[=] dumping card content to emulator memory (Cmd Error: 04 can occur)
+[=] downloading card content from emulator memory
+[+] saved 1024 bytes to binary file /Users/Lsong/hf-mf-D38F464E-dump-001.bin
+[+] saved 64 blocks to text file /Users/Lsong/hf-mf-D38F464E-dump-001.eml
+[+] saved to json file /Users/Lsong/hf-mf-D38F464E-dump-001.json
+[=] autopwn execution time: 2 seconds
+```
+
++ https://github.com/RfidResearchGroup/proxmark3/blob/master/doc/cheatsheet.md
+
+### 学习更多
 
 Proxmark3 是一个强大的工具，具有丰富的功能和选项。要深入了解其更高级的用法，请查阅 Proxmark3 文档和社区资源。
 
 - https://proxmark.com
 - https://github.com/RfidResearchGroup/proxmark3
+- https://github.com/wh201906/Proxmark3GUI/releases
 
 ### 注意事项
 
