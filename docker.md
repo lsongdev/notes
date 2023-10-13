@@ -277,3 +277,12 @@ Cleanup unused volumes
 $ docker volume prune
 ```
 
+### FAQ
+
+**docker panic page 10 already freed**
+
+[Docker won't start after reboot #19678](https://github.com/moby/moby/issues/19678)
+
+```shell
+~$ rm -f /var/lib/docker/network/files/local-kv.db
+```
