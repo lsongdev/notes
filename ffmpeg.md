@@ -96,4 +96,26 @@ https://trac.ffmpeg.org/wiki/Capture/Desktop
 	output.mkv
 ```
 
+### YouTube Live
+
+Record Screen with Camera and Push to YouTube
+
+```bash
+#!/usr/bin/env sh
+
+RTMP_STREAM_URL="rtmp://a.rtmp.youtube.com/live2/<token>"
+
+ffmpeg -y \
+	-f avfoundation -r 30 -video_size 1920x1080 -capture_cursor true -capture_mouse_clicks true -i "2:2" \
+	-f avfoundation -r 30 -video_size 1280x720 -i "0" \
+	-filter_complex "[1]scale=iw/2:ih/2 [pip]; [0][pip] overlay=W-w-50:H-h-50" \
+	-f flv "$RTMP_STREAM_URL"
+```
+
+### Clip Video
+
+```shell
+ffmpeg -i input.mp4 -ss 30 -c copy output.mp4
+```
+
 ---

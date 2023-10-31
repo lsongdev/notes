@@ -1,3 +1,8 @@
+---
+layout: default
+title: Synology
+---
+
 # xpenology
 
 目前 [RedPill Loader Builder](<https://github.com/RedPill-TTG/redpill-load>) 支持的黑群晖主要型号有：
