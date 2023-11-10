@@ -1,7 +1,7 @@
 ---
 layout: default
 title: adb
-parent: Linux
+parent: Android
 ---
 
 # ADB (Android Debug Bridge)
