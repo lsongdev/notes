@@ -51,6 +51,12 @@ FFmpeg 的命令行参数非常多，可以分成五个部分
 4. 输出文件参数
 5. 输出文件
 
+### Clip Video
+
+```shell
+ffmpeg -i input.mp4 -ss 30 -c copy output.mp4
+```
+
 ### List Devices
 
 ```shell
@@ -110,12 +116,6 @@ ffmpeg -y \
 	-f avfoundation -r 30 -video_size 1280x720 -i "0" \
 	-filter_complex "[1]scale=iw/2:ih/2 [pip]; [0][pip] overlay=W-w-50:H-h-50" \
 	-f flv "$RTMP_STREAM_URL"
-```
-
-### Clip Video
-
-```shell
-ffmpeg -i input.mp4 -ss 30 -c copy output.mp4
 ```
 
 ---

@@ -3,9 +3,16 @@ layout: default
 title: DELL R720
 ---
 
-# DELL R720
+# DELL PowerEdge r720
+<img style="width:100%; max-width: 600px;" src="https://www.stalliontek.com/media/catalog/product/r/7/r720_8bay_3.5_1.jpg" />
+<br />
+<img style="width:100%; max-width: 600px;" src="https://cdn.bargainhardware.co.uk/media/product/c91/dell-poweredge-r720-xd-16x-sff-hot-swap-sas-psu-2u-barebones-server-829.jpg" />
 
-R720 3.5寸8盘位 CPU 2650 + 8G*2 内存 H710阵列卡 单750W电源+满盘架 
++ CPU: Intel Xeon 2560
++ RAM: 64GB（24slot）
++ HDD: 12TB（3.5inch x 8Ray）
++ NIC: 4 * 1G + iDRAC
++ Power: 750W * 2
 
 ## iDRAC
 
@@ -21,7 +28,11 @@ https://www.dell.com/support/kbdoc/en-us/000135299/idrac7-idrac8-red007-error-wh
 
 根据我的经验 VMware 的性能会好一些，而 Proxmox PVE 对机器的兼容性方面会好一些。
 
-### Nvidia P40 GPU
+## Nvidia P40 GPU
+
+![](https://www.elsa-jp.co.jp/wp-content/uploads/2019/03/nvidia_tesla_p40_3qtr_s.png)
+
+https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/documents/nvidia-p40-datasheet.pdf
 
 ```shell
 apt-get update
