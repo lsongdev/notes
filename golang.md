@@ -979,6 +979,36 @@ func main() {
 | % | &gt;&gt; | %= | &gt;&gt;= | -- | ! | ... | . | : |
 |  | &^ | &^= |  |  |  |  |  |  |
 
+### Example
+
+```go
+package main
+
+import (
+	"html/template"
+	"net/http"
+)
+
+type H map[string]interface{}
+
+func (r *Server) Render(w http.ResponseWriter, name string, data H) {
+	t, err := template.ParseFiles("./templates/" + name + ".html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Add("Content-Type", "text/html; charset=utf-8")
+	err = t.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func (s *Server) IndexView(w http.ResponseWriter, r *http.Request) {
+	s.Render(w, "index", H{})
+}
+```
+
 ## References
 
 * [Devhints](https://devhints.io/go) _\(devhints.io\)_

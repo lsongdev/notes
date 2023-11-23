@@ -196,13 +196,41 @@ proxy-providers:
 
 ### Install 安装部署
 
-我以 OpenWRT 为例，实际上其他系统也差不多
+我这里以 *OpenWRT* 为例，实际上其他系统也差不多
 
 1. Download [Clash Premium](https://github.com/Dreamacro/clash/releases/tag/premium) from github.com
-2. `gunzip -c ` to /usr/local/bin
-3. copy config files to /etc/clash, make sure mode is *fakeip* in config file.
-4. start up clash using `/usr/local/bin/clash -d /etc/clash`, 首次启动会下载 mmdb 数据库文件，It'll take a moment，同时观察一下端口情况是否 *port in used* 。
-5. copy startup script to init.d/clash, `service clash start` and `service clash enable`
-6. clash dns listen 1053, dnsmasq `server=/127.0.0.1#1053/` and `no-cache`, then restart dnsmasq service.
-7. Set forwarding from `reject` to `allow` in OpenWRT's *Firewall Zone Settings* /etc/config/firewall.
+2. `gunzip -c` to `/usr/bin`
+3. put your config files to `/etc/clash`, make sure mode is *fakeip* in config file.
+4. start up clash
+
+```shell
+~$ opkg update
+~$ opkg install kmod-tun
+~$
+~$ chmod +x /usr/bin/clash
+~$ clash -d /etc/clash
+
+```
+首次启动会下载 *mmdb* 数据库文件，It'll take a moment，同时观察一下端口情况是否 *port in used*, 确保正常启动。
+
+5. copy startup script to `/etc/init.d/clash`, run `service clash start` and `service clash enable`
+
+```shell
+~$ service clash start
+~$ service clash enable
+```
+6. clash dns listen *1053*, add `127.0.0.1#1053` to *DNS forwardings* and *Size of DNS query cache* set `0` to disable cache.
+```patch
+# /etc/config/dhcp
+config dnsmasq
+  ...
+  option domainneeded '1'
+  option leasefile '/tmp/dhcp.leases'
+  option ednspacket_max '1232'
+  option nonegcache '1'
+  ...
++ list server '127.0.0.1#1053'
++ option cachesize '0'
+```
+7. Set *input* and *forwarding* from `reject` to `allow` in OpenWRT's *Firewall Zone Settings*.
 8. Reboot the Router.

@@ -5,6 +5,8 @@ title: Docker
 
 # Docker
 
+![](https://devopedia.org/images/article/101/8323.1565281088.png)
+
 Docker is a tool for building, shipping, and running applications.
 
 ## Getting started

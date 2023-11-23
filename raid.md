@@ -27,36 +27,36 @@ RAID（冗余阵列独立磁盘）是一种数据存储虚拟化技术，它将�
 
 1. **安装mdadm**：
    ```shell
-   sudo apt-get install mdadm  # Debian/Ubuntu
-   sudo yum install mdadm      # CentOS/RHEL
+   apt-get install mdadm  # Debian/Ubuntu
+   yum install mdadm      # CentOS/RHEL
    ```
 
 2. **创建RAID阵列**：
    例如，创建一个RAID 1阵列：
    ```shell
-   sudo mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sd{a..b}
+   mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sd{a..b}
    ```
 
 3. **查看RAID阵列状态**：
    ```shell
    cat /proc/mdstat
-   sudo mdadm --detail /dev/md0
+   mdadm --detail /dev/md0
    ```
 
 4. **添加磁盘到阵列**：
    ```shell
-   sudo mdadm --add /dev/md0 /dev/sdc1
+   mdadm --add /dev/md0 /dev/sdc1
    ```
 
 5. **移除磁盘**：
    ```shell
-   sudo mdadm /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1
+   mdadm /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1
    ```
 
 6. **停止和删除RAID阵列**：
    ```shell
-   sudo mdadm --stop /dev/md0
-   sudo mdadm --remove /dev/md0
+   mdadm --stop /dev/md0
+   mdadm --remove /dev/md0
    ```
 
 7. **配置文件**：
@@ -69,3 +69,38 @@ RAID（冗余阵列独立磁盘）是一种数据存储虚拟化技术，它将�
 - 硬件RAID通常由独立的RAID卡处理，对系统性能影响较小，但成本较高。
 
 RAID提供了数据冗余和性能提升的解决方案，但它不是数据备份的替代品。始终建议除了使用RAID外，还应定期进行数据备份。
+
+### 检查 RAID 健康状态
+
+```bash
+#!/bin/bash
+
+# 检查是否安装了必要的工具
+if ! command -v mdadm &> /dev/null
+then
+    echo "mdadm could not be found, please install it."
+    exit 1
+fi
+
+if ! command -v smartctl &> /dev/null
+then
+    echo "smartctl could not be found, please install smartmontools."
+    exit 1
+fi
+
+# 获取所有的RAID设备
+raid_devices=$(cat /proc/mdstat | grep '^md' | cut -d ' ' -f 1)
+
+# 检查每个RAID设备
+for raid in $raid_devices; do
+    echo "RAID device /dev/$raid:"
+    # 获取RAID设备中的磁盘
+    disks=$(mdadm --detail /dev/$raid | grep 'active sync' | awk '{print $7}')
+    
+    # 检查每个磁盘的SMART状态
+    for disk in $disks; do
+        health=$(smartctl -H $disk | grep -i health)
+        echo "$disk: ${health##*:}"
+    done
+done
+```

@@ -5,6 +5,8 @@ layout: default
 
 # FFmpeg
 
+![](https://i.namu.wiki/i/8NdXryEFjMXYhItCYvNx7vdTinXJfouFFrhngaj7rfIOCBB0LvassnR7eEGt5RXsxQEecZlqDQLZrsh0MIY1mA.svg)
+
 ffmpeg is a complete, cross-platform solution to record, convert and stream audio and video. It is the reference multimedia library for the FFmpeg project.
 
 查看 FFmpeg 支持的容器
