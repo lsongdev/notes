@@ -3,7 +3,6 @@ layout: default
 title: Rclone
 ---
 
-
 # rclone
 
 rclone is a file synchronisation tool for the cloud.
@@ -26,8 +25,8 @@ rclone ls gphotos:media/all
 
 ## sync vs copy
 
-rclone copy - Copy files from source to dest, skipping already copied
-rclone sync - Make source and dest identical, modifying destination only.
++ *rclone copy* - Copy files from source to dest, skipping already copied
++ *rclone sync* - Make source and dest identical, modifying destination only.
 
 ```shell
 rclone sync -v --ptogress gphotos:media/all /data/google-photos

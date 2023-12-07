@@ -209,8 +209,8 @@ proxy-providers:
 ~$
 ~$ chmod +x /usr/bin/clash
 ~$ clash -d /etc/clash
-
 ```
+
 首次启动会下载 *mmdb* 数据库文件，It'll take a moment，同时观察一下端口情况是否 *port in used*, 确保正常启动。
 
 5. copy startup script to `/etc/init.d/clash`, run `service clash start` and `service clash enable`

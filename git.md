@@ -282,11 +282,12 @@ $ git log --stat -M
 
 ### Ignoring Files
 
+```
 /logs/*
 
 !logs/.gitkeep
 
-/# Ignore Mac system files
+# Ignore Mac system files
 .DS_store
 
 # Ignore node_modules folder
@@ -305,25 +306,19 @@ A `.gitignore` file specifies intentionally untracked files that Git should igno
 * **Renamed to `new_name`**
 
 ```shell
-
 $ git branch -m
-
 ```
 
 * **Push and reset**
 
 ```shell
-
 $ git push origin -u
-
 ```
 
 * **Delete remote branch**
 
 ```shell
-
 $ git push origin --delete
-
 ```
 
 ### Log
