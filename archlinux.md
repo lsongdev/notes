@@ -8,7 +8,7 @@ parent: Linux
 
 archlinux is a Linux distribution based on the Linux kernel and other open-source software.
 
-## Initial Installation
+## Installation
 
 ### Partitioning
 
