@@ -3,7 +3,7 @@ layout: default
 title: Rclone
 ---
 
-# rclone
+# Rclone
 
 rclone is a file synchronisation tool for the cloud.
 

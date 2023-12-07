@@ -5,7 +5,7 @@ layout: default
 nav_order: 1
 ---
 
-# Kernel
+# Linux Kernel
 
 Linux 内核是整个操作系统的核心，它为上层应用程序和系统软件提供了一组统一的接口，同时管理着计算机硬件的资源。以下是对 Linux 内核本质的一些看法和描述：
 

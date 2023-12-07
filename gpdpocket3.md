@@ -134,11 +134,11 @@ EndSection
 * [cawilliamson's github repo](https://github.com/cawilliamson/ansible-gpdpocket)
 * [gilbertw1's original arch linux setup guide](https://gist.github.com/gilbertw1/81ef4b0bcf3ddefa4b18)
 * [GPD Pocket Arch Linux Full disk encryption](https://github.com/sigboe/GPD-ArchISO)
-* [GPD Pocket 的折腾日记——安装Arch](https://www.jianshu.com/p/aa72af0e4c44)
 * [Arch Linux setup guide for the GPD Pocket](https://github.com/joshskidmore/gpd-pocket-arch-guide)
-* [运维掌机 GPD Pocket 3 机房体验实测，做运维的馋哭了。UMPC、掌上电脑](https://post.smzdm.com/p/aevgm75q)
-* [GPD Pocket 快速配置](https://plumz.me/archives/7331/)
 * <https://github.com/wimpysworld/umpc-ubuntu>
 * <https://github.com/defencore/gpd-pocket-3-linux>
 * <https://ubuntu-mate.org/download/gpd_pocket_3/>
 * <https://www.reddit.com/r/GPDPocket/comments/s9ka7g/my_gpd_pocket_3_linux_setup/>
+* [GPD Pocket 快速配置](https://plumz.me/archives/7331/)
+* [GPD Pocket 的折腾日记——安装Arch](https://www.jianshu.com/p/aa72af0e4c44)
+* [运维掌机 GPD Pocket 3 机房体验实测，做运维的馋哭了。UMPC、掌上电脑](https://post.smzdm.com/p/aevgm75q)

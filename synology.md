@@ -51,16 +51,16 @@ title: Synology
 ---
 
 ## 参考
+
+0. [Synology Official website](<https://www.synology.com>)
 1. [tinycore-redpill](<https://github.com/pocopico/tinycore-redpill>)
-2. [**Xpenology 7.0.1 on ESXi 7.x**](<https://www.tsunati.com/blog/xpenology-7-0-1-on-esxi-7-x>)
+2. [Xpenology 7.0.1 on ESXi 7.x](<https://www.tsunati.com/blog/xpenology-7-0-1-on-esxi-7-x>)
 3. [Tutorial: Install DSM 7.x with TinyCore RedPill (TCRP) Loader on ESXi](<https://xpenology.com/forum/topic/62547-tutorial-install-dsm-7x-with-tinycore-redpill-tcrp-loader-on-esxi/>)
 4. [Tutorial: Install/Migrate to DSM 7.x with TinyCore RedPill (TCRP) Loader](<https://xpenology.com/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/>)
 5. [How to passthrough SATA drives directly on VMWare EXSI 6.5 as RDMs](<https://gist.github.com/Hengjie/1520114890bebe8f805d337af4b3a064>)
 6. [docker-xpenology-open-vm-tools](<https://github.com/yale-wp/docker-xpenology-open-vm-tools>)
 7. [Experiment on sata_args in grub.cfg](<https://gugucomputing.wordpress.com/2018/11/11/experiment-on-sata_args-in-grub-cfg>)
 8. [ESXi 6.7 client GUI broken - cnMaestro OVA upload fails at times](<https://community.cambiumnetworks.com/t/esxi-6-7-client-gui-broken-cnmaestro-ova-upload-fails-at-times/61731>)
-9. [WikiChip](<https://en.wikichip.org>)
-10. [群晖官网](<https://www.synology.com>)
+10. <https://github.com/zenghongtu/blog/issues/22>
 11. [DSM 7.x Loaders and Platforms](https://xpenology.com/forum/topic/61634-dsm-7x-loaders-and-platforms/)
 12. [Configuring Sataportmap](<https://xpenology.com/forum/topic/35937-configuring-sataportmap/#comment-172654>)
-https://github.com/zenghongtu/blog/issues/22

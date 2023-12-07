@@ -82,7 +82,7 @@ Linux，作为一个复杂而又引人入胜的操作系统，有以下的一些
 2. CLI 安装
 从个人喜好来说我更喜欢 CLI 安装，因为大部分服务器的显卡渲染能力都很弱，GUI 安装操作会很不便，使用 CLI 安装可以更简单直接。
 
-可以参考 [Archlinux#Installation](archlinux#installation) 章节
+可以参考 [Archlinux#Installation](../archlinux#installation) 章节
 
 ---
 
