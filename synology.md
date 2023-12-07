@@ -3,7 +3,9 @@ layout: default
 title: Synology
 ---
 
-# xpenology
+# Synology
+
+# Xpenology
 
 以下介绍两种安装方案，分别是 [pocopico
 ](<https://github.com/pocopico>) 的 [tinycore-redpill](<https://github.com/pocopico/tinycore-redpill>) 和 [fbelavenuto](<https://github.com/fbelavenuto>) 的 [ARPL](<https://github.com/fbelavenuto/arpl>)（Automated Redpill Loader）

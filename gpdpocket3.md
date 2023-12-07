@@ -69,21 +69,13 @@ EndSection
 
 #### 屏幕缩放
 
+由于屏幕分辨率较高，所以 UI 元素较小，需要调整 DPI 来缩放屏幕。
+
 `~/.Xresources`
 
 ```
 Xft.dpi: 144
 ```
-
-两种都能放大, 优先修改 DPI 到 144
-
-`~/.xprofile`
-
-```shell
-xrandr --output DSI1 --scale 0.6
-```
-
-像素缩放后会模糊，修改 DPI 会比较清晰。
 
 如果需要支持多显示器可以设置一下：
 
@@ -146,7 +138,7 @@ EndSection
 * [Arch Linux setup guide for the GPD Pocket](https://github.com/joshskidmore/gpd-pocket-arch-guide)
 * [运维掌机 GPD Pocket 3 机房体验实测，做运维的馋哭了。UMPC、掌上电脑](https://post.smzdm.com/p/aevgm75q)
 * [GPD Pocket 快速配置](https://plumz.me/archives/7331/)
-* https://github.com/wimpysworld/umpc-ubuntu
-* https://github.com/defencore/gpd-pocket-3-linux
-* https://ubuntu-mate.org/download/gpd_pocket_3/
-* https://www.reddit.com/r/GPDPocket/comments/s9ka7g/my_gpd_pocket_3_linux_setup/
+* <https://github.com/wimpysworld/umpc-ubuntu>
+* <https://github.com/defencore/gpd-pocket-3-linux>
+* <https://ubuntu-mate.org/download/gpd_pocket_3/>
+* <https://www.reddit.com/r/GPDPocket/comments/s9ka7g/my_gpd_pocket_3_linux_setup/>

@@ -405,7 +405,7 @@ sudo chmod 600 /home/git/.ssh/*
 ssh git@lsong.org
 ```
 
-## 开始一个项目
+### 开始一个项目
 
 在服务器上启动一个项目
 
@@ -433,9 +433,9 @@ git push origin master
 git clone git@lsong.org:project.git
 ```
 
-## 权限控制
+### 权限控制
 
-### 读写权限
+#### 读写权限
 
 让需要 `git` 服务写权限的用户将 SSH 公钥发给你
 
@@ -457,7 +457,7 @@ cat /tmp/id_rsa.john.pub >> ~/.ssh/authorized_keys
 
 这个用户就可以提交了
 
-### 只读权限
+#### 只读权限
 
 ```shell
 cd ~git/public_html
@@ -481,7 +481,7 @@ git clone https://lsong.org/~git/project.git
 
 来 `clone` 项目
 
-## 安全性
+### 安全性
 
 你可以用 Git 自带的 `git-shell` 工具限制 `git` 用户的活动范围。只要把它设为 `git` 用户登入的 shell，那么该用户就无法使用普通的 bash 或者 csh 什么的 shell 程序。编辑 `/etc/passwd` 文件：
 
@@ -508,3 +508,9 @@ $ ssh git@gitserver
 fatal: What do you think I am? A shell?
 Connection to gitserver closed.
 ```
+
+### Git Server Alternatives
+
++ [GitLab](https://gitlab.com)
++ [Gogs](https://gogs.io)
++ [Gitea](https://gitea.io)
