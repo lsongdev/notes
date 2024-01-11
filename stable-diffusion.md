@@ -9,6 +9,11 @@ title: Stable Diffusion
 
 **Cannot activate python venv, aborting...**
 
+```shell
+python3 -c 'import venv'
+python3 -m venv venv/
+```
+
 <https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/1120>
 
 **Cannot locate TCMalloc**
