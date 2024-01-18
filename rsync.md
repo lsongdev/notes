@@ -1,6 +1,7 @@
 ---
 layout: default
 title: rsync
+parent: Linux
 ---
 
 # Rsync
