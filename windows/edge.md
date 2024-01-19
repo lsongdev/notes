@@ -10,9 +10,7 @@ parent: Windows
 
 Modify newtab location to you like:
 
-`edge://policy`
-
-```reg
+```
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Enrollments\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF] 
@@ -31,4 +29,8 @@ Windows Registry Editor Version 5.00
 "NewTabPageLocation"="https://google.com"
 ```
 
+<edge://policy>
+
 ![](https://assets.den.dev/images/postmedia/edge-blank-new-tab/edge-updated-new-tab.png)
+
++ <https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#newtabpagelocation>
