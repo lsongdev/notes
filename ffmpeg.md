@@ -59,6 +59,12 @@ FFmpeg 的命令行参数非常多，可以分成五个部分
 ffmpeg -i input.mp4 -ss 30 -c copy output.mp4
 ```
 
+### Merge Audio and Video
+
+```shell
+ffmpeg -i video.mp4 -i audio.wav -c copy output.mkv
+```
+
 ### List Devices
 
 ```shell
