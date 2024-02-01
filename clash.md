@@ -200,9 +200,11 @@ proxy-providers:
 
 1. Download [Clash Premium](https://github.com/Dreamacro/clash/releases/tag/premium) from github.com
 2. `gunzip -c` to `/usr/bin`
-3. put your config files to `/etc/clash`, make sure mode is *fakeip* in config file.
+3. Put your config files to `/etc/clash`, make sure mode is *fakeip* in config file.
+```shell
+~$ git clone https://github.com/song940/freefq.git /etc/clash
+```
 4. start up clash
-
 ```shell
 ~$ opkg update
 ~$ opkg install kmod-tun
@@ -210,11 +212,8 @@ proxy-providers:
 ~$ chmod +x /usr/bin/clash
 ~$ clash -d /etc/clash
 ```
-
 首次启动会下载 *mmdb* 数据库文件，It'll take a moment，同时观察一下端口情况是否 *port in used*, 确保正常启动。
-
 5. copy startup script to `/etc/init.d/clash`, run `service clash start` and `service clash enable`
-
 ```shell
 ~$ service clash start
 ~$ service clash enable

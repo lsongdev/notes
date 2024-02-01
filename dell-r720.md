@@ -5,11 +5,9 @@ title: DELL R720
 
 # DELL PowerEdge R720
 
-<img style="width:100%; max-width: 600px;" src="https://www.stalliontek.com/media/catalog/product/r/7/r720_8bay_3.5_1.jpg" />
-<br />
-<img style="width:100%; max-width: 600px;" src="https://cdn.bargainhardware.co.uk/media/product/c91/dell-poweredge-r720-xd-16x-sff-hot-swap-sas-psu-2u-barebones-server-829.jpg" />
+![](https://cdn.bargainhardware.co.uk/media/product/c91/dell-poweredge-r720-xd-16x-sff-hot-swap-sas-psu-2u-barebones-server-829.jpg)
 
-+ CPU: Intel Xeon 2560
++ CPU: Intel Xeon 2650 x 2
 + RAM: 64GB（24slot）
 + HDD: 12TB（3.5inch x 8Ray）
 + NIC: 4 * 1G + iDRAC
@@ -22,7 +20,14 @@ title: DELL R720
     - [vCenter](vmware/vcenter)
 - [Proxmox PVE](pve)
 
-如果你使用的是 戴尔、超微、惠普等公司的服务器，我建议你使用 [VMware](vmware)，因为通常有包含驱动的定制版本，稳定性会比较好，而一些非知名品牌的服务器或者干脆是自己组装的服务器 硬件比较特殊我建议使用 [Proxmox PVE](pve) 驱动会好解决一些。
+如果使用的是 戴尔、超微、惠普等公司的服务器，我建议使用 [VMware](vmware)，因为通常有包含驱动的定制版本，稳定性会比较好，而一些非知名品牌的服务器或者干脆是自己组装的服务器 硬件比较特殊我建议使用 [Proxmox PVE](pve) 驱动会好解决一些。
+
+#### Dell EMC iDRAC Service Module (VIB) for ESXi 7.0
+
+可以在 DELL iDRAC 的 「Host OS」页面中展示「Network Interfaces」等信息。
+
+https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=c8yw2
+https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=x497n
 
 ## iDRAC
 
@@ -41,11 +46,9 @@ iDRAC is the Dell Integrated Dell Remote Access Controller.
 
 1. *「New Virtual Machine」 -> 「Customize settings」-> 「Boot Options」* 将 Firmware 的模式从 *BIOS* 改到 ***UEFI***，否则在系统中无法识别到 GPU。
 2. 在内存选项中选择 *Memory - Check All guest memory (All locked)*「预留所有内存」，否则会遇到 *Failed - Invalid memory setting: memory reservation (sched.mem.min) should be equal to memsize(16384).*
-3. 在「VM Options」的「Advanced」中添加以下配置，否则会遇到 *Failed - Module 'DevicePowerOn' power on failed.*
-
-    ![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/727f63e968ad40bc8859ae1f6e7154fb~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?)
-    ![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ed30afa6a3ea456698b62b6f0c3dda84~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?)
-
+3. 在 *「VM Options」* 的 *「Advanced」* 中添加以下配置，否则会遇到 *Failed - Module 'DevicePowerOn' power on failed.*
+    [P1](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/727f63e968ad40bc8859ae1f6e7154fb~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?)
+    [P2](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ed30afa6a3ea456698b62b6f0c3dda84~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?)
     ```ini
     hypervisor.cpuid.v0=FALSE
     pciPassthru.use64bitMMIO=TRUE
@@ -53,6 +56,10 @@ iDRAC is the Dell Integrated Dell Remote Access Controller.
     ```
 
 解决掉前置条件后，我们就可以在虚拟机中使用 GPU 了。
+
+```shell
+lspci | grep -i nvidia
+```
 
 ```shell
 apt-get update
@@ -83,10 +90,6 @@ EOF
 ```
 
 <https://askubuntu.com/questions/841876/how-to-disable-nouveau-kernel-driver>
-
-```shell
-lspci | grep -i nvidia
-```
 
 ### CUDA Toolkit
 

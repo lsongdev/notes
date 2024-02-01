@@ -279,12 +279,58 @@ Cleanup unused volumes
 $ docker volume prune
 ```
 
+### 停止并删除容器以及镜像
+
+```sh
+#!/bin/bash
+
+# 检查是否提供了容器名称/ID
+if [ $# -eq 0 ]; then
+    echo "请提供要删除的Docker容器名称或ID作为参数。"
+    exit 1
+fi
+
+CONTAINER_NAME_OR_ID=$1
+
+# 停止容器
+echo "正在停止容器: $CONTAINER_NAME_OR_ID"
+docker stop $CONTAINER_NAME_OR_ID
+
+# 删除容器
+echo "正在删除容器: $CONTAINER_NAME_OR_ID"
+docker rm $CONTAINER_NAME_OR_ID
+
+# 查找与容器相关联的镜像ID
+IMAGE_ID=$(docker inspect $CONTAINER_NAME_OR_ID --format='{{.Image}}')
+
+# 删除镜像
+echo "正在删除镜像: $IMAGE_ID"
+docker rmi $IMAGE_ID
+
+echo "操作完成。"
+```
+
 ### FAQ
 
-**docker panic page 10 already freed**
+*docker panic page 10 already freed*
 
 [Docker won't start after reboot #19678](https://github.com/moby/moby/issues/19678)
 
 ```shell
 ~$ rm -f /var/lib/docker/network/files/local-kv.db
+```
+
+*[Cannot start service db: cgroups: cgroup mountpoint does not exist: unknown](https://github.com/docker/for-linux/issues/219#issuecomment-375160449)*
+
+```sh
+sudo mkdir /sys/fs/cgroup/systemd
+sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
+```
+
+## Docker Compose
+
+```sh
+curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin
+chmod +x /usr/local/bin/docker-compose
+docker-compose
 ```

@@ -4,7 +4,6 @@ title: nc
 parent: Linux
 ---
 
-
 # nc
 
 nc is a network client and server program for Unix-like operating systems such as Linux, macOS, and Windows.

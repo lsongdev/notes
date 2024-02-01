@@ -1,6 +1,6 @@
 ---
 layout: default
-title: adb
+title: ADB
 parent: Android
 ---
 

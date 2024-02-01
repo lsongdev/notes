@@ -1,9 +1,9 @@
 ---
 layout: default
-title: ESP8266
+title: ESPx
 ---
 
-# ESP8266
+# ESP8266/32
 
 ![](https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2022/10/ESP8266-Getting.jpg)
 

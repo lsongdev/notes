@@ -90,7 +90,7 @@ class MainActivity : ComponentActivity() {
 
 现在我们就可以运行程序了，但是我们会发现程序运行后，视频并没有播放
 
-```log
+```
 Caused by: androidx.media3.datasource.HttpDataSource$CleartextNotPermittedException: Cleartext HTTP traffic not permitted. See https://developer.android.com/guide/topics/media/issues/cleartext-not-permitted
     at androidx.media3.datasource.DefaultHttpDataSource.open(DefaultHttpDataSource.java:405)
     at androidx.media3.datasource.DefaultDataSource.open(DefaultDataSource.java:272)

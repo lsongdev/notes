@@ -43,3 +43,26 @@ iLO has similar functionality to the lights out management (LOM) technology offe
 ![](https://i.ebayimg.com/images/g/eOoAAOSwUFBjx6FM/s-l1200.webp)
 
 ## 安装 [VMware ESXi](vmware/esxi)
+
+### FAQ
+
+***HP MicroServer Gen8, Solving performance issues with ESXi 6***
+
+If you have installed to a newer version of ESXi on your Gen8 Micro Server and are now suffering from very low performance disk speed, try the following steps to downgrade to a former hpvsa-driver (scsi-hpvsa-5.5.0-88).
+Just follow these simple steps:
+
+Download the driver https://support.hpe.com/connect/s/softwaredetails?language=en_US&softwareId=MTX_dcfe1ad1b6ae442e8ed665c595
+
+```shell
+scp Downloads/scsi-hpvsa-5.5.0-88OEM.550.0.0.1331820.x86_64.vib root@192.168.88.2:/tmp
+cp scsi-hpvsa-5.5.0-88OEM.550.0.0.1331820.x86_64.vib /var/log/vmware/
+esxcli system maintenanceMode set --enable true
+esxcli software vib remove -n scsi-hpvsa -f
+esxcli software vib install -v file:scsi-hpvsa-5.5.0-88OEM.550.0.0.1331820.x86_64.vib --force --no-sig-check --maintenance-mode
+```
+
+Restart your ESXi, stop the maintenance mode, disable SSH connections and start VMs again Hope that helps for you as well.
+
++ https://seiler.it/solving-performance-issues-with-esxi-6-gen8/
++ http://h20564.www2.hpe.com/hpsc/swd/public/detail?swItemId=MTX_bfdbb1dfc5314e02bc01b1436b
++ https://kb.vmware.com/s/article/1017530

@@ -29,8 +29,9 @@ Windows Registry Editor Version 5.00
 "NewTabPageLocation"="https://google.com"
 ```
 
-<edge://policy>
-
-![](https://assets.den.dev/images/postmedia/edge-blank-new-tab/edge-updated-new-tab.png)
+<a href="edge://policy" >
+<img src="https://assets.den.dev/images/postmedia/edge-blank-new-tab/edge-updated-new-tab.png" />
+edge://policy
+</a>
 
 + <https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#newtabpagelocation>
