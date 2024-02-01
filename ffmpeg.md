@@ -65,6 +65,10 @@ ffmpeg -i input.mp4 -ss 30 -c copy output.mp4
 ffmpeg -i video.mp4 -i audio.wav -c copy output.mkv
 ```
 
+```shell
+ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac output.mp4
+```
+
 ### List Devices
 
 ```shell
