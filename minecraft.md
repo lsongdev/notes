@@ -10,9 +10,7 @@ title: Minecraft
 + [PCL2](https://github.com/Hex-Dragon/PCL2)
 + HMCL
 
-## Bedrock Server
-
-<https://www.minecraft.net/en-us/download/server/bedrock>
+## [Bedrock Server](https://www.minecraft.net/en-us/download/server/bedrock)
 
 [Download](https://minecraft.azureedge.net/bin-linux/bedrock-server-1.20.61.01.zip)
 
