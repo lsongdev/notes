@@ -8,9 +8,14 @@ parent: The Legend of Zelda
 
 ![](https://www.hopculture.com/wp-content/uploads/2017/04/zelda-LEAD.jpg)
 
-## 希贝尼罗神庙
+## 希贝尼罗神庙 / 希贝尼亚斯神庙 (双子的记忆)
 
-51242
+电梯到顶后转动视角，滑翔到旁边的平台上拿宝箱
+
+从门到电梯依次顺序：
+
++ 51242
++ 24135
 
 ## 托托伊萨神庙
 
