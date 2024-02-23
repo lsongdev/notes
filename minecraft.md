@@ -16,4 +16,11 @@ title: Minecraft
 
 ```shell
 wget https://minecraft.azureedge.net/bin-linux/bedrock-server-1.20.61.01.zip
+
+unzip bedrock-server-1.20.61.01.zip -d bedrock-server
+
+apt install libcurl4
+
+# start server
+./bedrock-server/bedrock_server
 ```
