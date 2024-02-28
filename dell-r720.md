@@ -102,6 +102,8 @@ wget https://developer.download.nvidia.com/compute/cuda/12.3.1/local_installers/
 
 安装完成后运行 `nvidia-smi` 检查是否安装成功 以及 CUDA 版本
 
++ [nvtop](https://github.com/Syllo/nvtop>)
+
 ## Refs
 
 + <https://juejin.cn/post/7248072694335799333>

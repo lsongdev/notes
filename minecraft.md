@@ -24,3 +24,28 @@ apt install libcurl4
 # start server
 ./bedrock-server/bedrock_server
 ```
+
+
+Create a service file in `/etc/systemd/system/bedrock.service`:
+
+```ini
+[Unit]
+Description=Bedrock Server
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bedrock/bedrock_server
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target
+```
+
+Then start the service:
+
+```bash
+systemctl daemon-reload
+systemctl enable bedrock
+systemctl start bedrock
+```
