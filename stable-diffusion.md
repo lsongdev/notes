@@ -7,6 +7,38 @@ title: Stable Diffusion
 
 <https://lsongdev.feishu.cn/docx/HIhydLq5Cox6qjxNRQxcnq3inEb>
 
+## Stable Diffusion WebUI
+
+`/etc/systemd/system/stable-diffusion.service`
+
+```ini
+[Unit]
+Description=Stable Diffusion AUTOMATIC1111 Web UI service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+User=lsong
+ExecStart=/usr/bin/env bash webui.sh --listen --api
+WorkingDirectory=/data/Projects/stable-diffusion-webui
+StandardOutput=append:/var/log/sdwebui.log
+StandardError=append:/var/log/sdwebui.log
+
+[Install]
+WantedBy=default.target
+```
+
+```shell
+systemctl daemon-reload
+systemctl enable stable-diffusion
+systemctl start stable-diffusion
+systemctl status stable-diffusion
+```
+
+## FAQ
+
 **Cannot activate python venv, aborting...**
 
 ```shell

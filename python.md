@@ -1101,3 +1101,8 @@ finally:                 # Execute under all circumstances
     print("We can clean up resources here")
 ```
 
+### FAQ
+
+```
+apt install python-is-python3
+```
