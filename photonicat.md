@@ -11,6 +11,8 @@ Photonicat - 光影猫是一个便携型路由器
 
 ![](https://photonicat.com/assets/PCB-Back-3e33adefc3d4e75753c384bf83c20cc62a270ac1.png)
 
+<https://photonicat.com/wiki/Main_Page>
+
 ## Flash
 
 + MiniLoaderAll.bin

@@ -1,9 +1,11 @@
 ---
 layout: default
-title: Chrome
+title: Google Chrome
 ---
 
-# Chrome
+# Google Chrome
+
+![](https://www.bleepstatic.com/content/hl-images/2017/08/17/GoogleChrome.png)
 
 ```shell
 lsong at devterm in ~
