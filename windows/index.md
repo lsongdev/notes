@@ -26,3 +26,10 @@ slmgr /skms kms.v0v.bid && slmgr /ato
 + winget
 + powertoy
 + vscode
+
+## Write Protected
+
+```
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\StorageDevicePolicies]
+WriteProtect = 1
+```
