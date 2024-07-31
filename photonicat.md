@@ -24,10 +24,18 @@ Photonicat - 光影猫是一个便携型路由器
 
 ## Apps
 
+删除一些不需要的包
+
 ```shell
 opkg remove --force-removal-of-dependent-packages \
-    samba4-client samba4-server samba4-utils samba4-libs samba4-admin \
-    minidlna strongswan udpxy haproxy aria2 nlbwmon luci-app-socat \
-    watchcat luci-app-ttyd luci-app-filebrowser luci-app-filetransfer \
-    luci-app-statistics luci-app-wifischedule luci-app-ntpc  luci-app-commands
+  samba4-client samba4-server samba4-utils samba4-libs \
+  mwan3 luci-app-mwan3 \
+  filebrowser luci-app-filebrowser \
+  wifischedule luci-app-wifischedule \
+  minidlna strongswan udpxy haproxy  \
+  aria2 nlbwmon watchcat adblock adbyby dns2socks dnsforwarder dnsproxy \
+  luci-app-advanced luci-app-advanced-reboot luci-app-autoreboot luci-app-turboacc \
+  luci-app-rclone luci-app-ramfree luci-app-frps luci-app-frpc luci-app-wol luci-app-diskman  \
+  luci-app-ttyd luci-app-filetransfer luci-app-socat luci-app-accesscontrol luci-app-upnp \
+  luci-app-statistics  luci-app-ntpc  luci-app-commands  luci-app-arpbind luci-app-qos 
 ```
