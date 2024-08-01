@@ -100,6 +100,14 @@ ffmpeg -i input.webm -c:v copy -c:a copy output.mp4
 ffmpeg -i input.webm -c:v libx264 -preset slow -crf 22 -c:a aac -b:a 128k output.mp4
 ```
 
+### Video Compression
+
+```shell
+ffmpeg -i input.mp4 -c:v libvpx-vp9 -b:v 0 -crf 30 -preset superfast output.mp4
+ffmpeg -i input.mp4 -c:v libaom-av1 -crf 30 -b:v 0 -strict experimental output.mp4
+ffmpeg -i input.mp4 -c:v libx264 -tag:v avc1 -movflags faststart -crf 30 -preset superfast output.mp4
+```
+
 ### Clip Video
 
 ```shell
@@ -173,5 +181,6 @@ ffmpeg -y \
 ```shell
 ffmpeg -i rtsp://admin:xxx@192.168.2.102/stream1 -vframes 1 -q:v 2 output.jpg
 ```
+
 
 ---
