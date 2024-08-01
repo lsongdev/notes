@@ -53,10 +53,30 @@ FFmpeg 的命令行参数非常多，可以分成五个部分
 4. 输出文件参数
 5. 输出文件
 
-### Clip Video
+### Concat Videos
 
 ```shell
-ffmpeg -i input.mp4 -ss 30 -c copy output.mp4
+ffmpeg -i "concat:1.avi|2.avi" -codec copy output.avi
+ffmpeg -f concat -i input.txt -c copy output.mp4
+```
+
+First, create a file that contains the list of all your .avi files. You can do this manually, but if your files are named in a sequence like 01.avi, 02.avi, 03.avi, and so on, you can generate this list automatically using a bash command. Here's how you can do it:
+
+```shell
+for f in *.avi; do echo "file '$f'" >> mylist.txt; done
+```
+
+This will create a file mylist.txt that contains a list of your .avi files in this format:
+
+```shell
+file '01.avi'
+file '02.avi'
+file '03.avi'
+...
+```
+
+```shell
+ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.avi
 ```
 
 ### Merge Audio and Video
@@ -69,14 +89,22 @@ ffmpeg -i video.mp4 -i audio.wav -c copy output.mkv
 ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac output.mp4
 ```
 
-### Convert WebM to MP4
+### Convert to MP4
 
 ```shell
+ffmpeg -i input.avi -c:v copy -c:a copy output.mp4
 ffmpeg -i input.webm -c:v copy -c:a copy output.mp4
 ```
 
 ```shell
 ffmpeg -i input.webm -c:v libx264 -preset slow -crf 22 -c:a aac -b:a 128k output.mp4
+```
+
+### Clip Video
+
+```shell
+ffmpeg -i input.mp4 -ss 30 -c copy output.mp4
+ffmpeg -ss 00:06:38 -to 00:10:38 -i input.mp4 -c copy output.mp4
 ```
 
 ### List Devices
