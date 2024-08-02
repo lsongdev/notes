@@ -52,3 +52,7 @@ VMware ESXi 有专门针对服务器做优化的自定义镜像的版本
 ```sh
 partedUtil setptbl /vmfs/devices/disks/naa.55cd2e41241cec36 msdos
 ```
+
+*** 虚拟机磁盘空间满了，如何扩容？ ***
+
+首先在虚拟机设置中直接修改磁盘大小，然后重启虚拟机并参考: [Linux - Resize Partition](../linux/fdisk#resize-partition) 中的操作进行扩容。
