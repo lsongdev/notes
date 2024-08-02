@@ -153,6 +153,8 @@ config 'mount'
 
 ## Expanding the filesystem
 
+参考：[Linux - Resize Partition](linux/fdisk#resize-partition)
+
 ```shell
 ~$ opkg update
 ~$ opkg install fdisk resize2fs
