@@ -122,6 +122,7 @@ ADB，即 [Android Debug Bridge](https://developer.android.com/studio/command-li
 ```shell
 apt install android-tools-adb
 apt install android-tools-fastboot
+brew install android-platform-tools
 ```
 
 ### 命令语法
