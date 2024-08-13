@@ -20,12 +20,6 @@ This repository serves as a personal notebook for recording various issues and s
 - `awk.md`: Basics of AWK programming（AWK 编程基础）
 ...（其他文件）
 
-### English Learning
-
-- `adjectiveToNoun.md`: Relationship between adjectives and nouns（形容词和名词的关系）
-- `adverb.md`: Usage of adverbs（副词用法）
-...（其他文件）
-
 ### Linux
 
 - `build.md`: Linux kernel compilation（Linux 内核编译）
