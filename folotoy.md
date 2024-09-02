@@ -7,7 +7,7 @@ title: FoloToy
 
 FoloToy a collection of AI Conversation toys that harnesses the latest AI technology and the power of love ♥️. you can personally create a one-of-a-kind toy character, bringing limitless joy to your loved ones.
 
-![Alilo G6](https://folotoy.com/_astro/blue.b260bc8e_Z1rgL31.avif)
+![Alilo G6](https://folotoy.com/_astro/g6.6c7655a3_Z1yFlhS.avif)
 
 <https://folotoy.com>
 
