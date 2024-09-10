@@ -19,6 +19,17 @@ parent: JavaScript
 
 访问 [Node.js 官网](https://nodejs.org/) 下载并安装合适的版本。安装完成后，你可以在命令行中使用 `node` 和 `npm`（Node 的包管理器）。
 
+
+### pnpm
+
+[pnpm](https://pnpm.io/) is fast, disk space efficient package manager, works as an alternative of [npm](https://www.npmjs.com/).
+
+Install pnpm using Homebrew:
+
+```shell
+$ brew install pnpm
+```
+
 **3. 创建你的第一个 Node.js 应用**
 
 创建一个名为 `app.js` 的文件：
