@@ -202,3 +202,9 @@ $ tmux info
 | `setw synchronize-panes` | Sync Panes |
 | `join-pane -t :#` | Join pane |
 
+
+###### Saving Buffer
+
+```shell
+tmux save-buffer /tmp/tmux_buffer
+```
