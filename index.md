@@ -6,25 +6,8 @@ nav_order: 1
 
 # Notebook
 
-## Introduction
-
 This repository serves as a personal notebook for recording various issues and solutions encountered in daily life.
 这个仓库作为一个个人笔记本，用于记录日常生活中遇到的各种问题和解决方案。
-
-## Overview
-
-### Development & Tools
-
-- `adb.md`: Android Debug Bridge usage guide（Android Debug Bridge 使用指南）
-- `archlinux.md`: Arch Linux installation and configuration（Arch Linux 安装和配置）
-- `awk.md`: Basics of AWK programming（AWK 编程基础）
-...（其他文件）
-
-### Linux
-
-- `build.md`: Linux kernel compilation（Linux 内核编译）
-
-## How to Use
 
 You can browse these files directly on GitHub, or clone the repository to your local machine for further reading.
 您可以直接在 GitHub 上浏览这些文件，或者克隆仓库到本地进行查阅。
