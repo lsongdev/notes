@@ -93,8 +93,8 @@ TODO: 存储频道
 
 ***3D 打印外壳文件来自群友 @Sandy 提供。***
 
-+ [外壳 - 前](./case-front.STL)
-+ [外壳 - 后](./case-back.STL)
++ [外壳 - 前](https://drive.google.com/file/d/1i0ALeSgbCvX1osSV3ONp1mHh_6cz6qKE/view?usp=drive_link)
++ [外壳 - 后](https://drive.google.com/file/d/1wmHFhIokOlLcNKbirj6KLlFqNyfN-DuN/view?usp=drive_link)
 
 ![](./3dprint-config.png)
 
@@ -116,7 +116,7 @@ FDM 需要将模型放大 1mm（宽 99mm -> 100mm），然后打印
 
 可以参考 [ESP32刷写固件](../espx) 方面的说明
 
-选择固件 [FW_0.2.9.8_for_V5A_240412.bin](FW_0.2.9.8_for_V5A_240412.bin)，起始地址为：`0x00000000`，点 Flash 即可。
+选择固件 [FW_0.2.9.8_for_V5A_240412.bin](https://drive.google.com/file/d/1U7W7IpZCjkehXae285qaNFG_euhQPNQP/view?usp=sharing)，起始地址为：`0x00000000`，点 Flash 即可。
 
 *有部分群友使用 Windows 刷机软件有遇到写入后设备自检错误的情况，可以按 RST 重置或者重新拔插电池，我使用 WebESP 没有遇到此问题。*
 
