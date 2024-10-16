@@ -1,6 +1,6 @@
 ---
-title: The Legend of Zelda
 layout: default
+title: The Legend of Zelda
 has_children: true
 ---
 

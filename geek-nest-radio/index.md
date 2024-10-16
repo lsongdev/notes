@@ -108,13 +108,13 @@ FDM 需要将模型放大 1mm（宽 99mm -> 100mm），然后打印
 
 ## 固件升级
 
-固件可以从群文件中获取，目前提供*无线电收音机固件*和*网络收音机固件*。
+固件可以从群文件中获取，目前提供 *无线电收音机固件* 和 *网络收音机固件*。
 
 可以使用 esptool.py 或者 WebESP <https://lsong.org/webesp> 浏览器 写入固件。
 
 ![WebESP](https://github.com/song940/webesp/raw/master/webesp.png)
 
-可以参考 [ESP32刷写固件](../espx) 方面的说明
+可以参考 [ESP32刷写固件](../espx#Flash) 方面的说明
 
 选择固件 [FW_0.2.9.8_for_V5A_240412.bin](https://drive.google.com/file/d/1U7W7IpZCjkehXae285qaNFG_euhQPNQP/view?usp=sharing)，起始地址为：`0x00000000`，点 Flash 即可。
 

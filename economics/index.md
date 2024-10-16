@@ -7,9 +7,10 @@ title: "Economics"
 
 经济学是一门研究资源分配的学科，旨在理解人们如何使用有限的资源来满足无穷无尽的需求和欲望。通过分析个人、企业、政府和社会的决策，经济学家可以帮助我们了解市场如何运作，资源如何配置，以及各种经济政策的影响。
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/PHe0bXAIuk0?si=z0Td0EnZjeiu3yK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/PHe0bXAIuk0?si=z0Td0EnZjeiu3yK8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## 供给与需求
+
 供给与需求是市场经济的核心概念之一。它描述了市场中买卖双方的行为：
 
 - **需求**：需求是指消费者在不同价格水平下愿意且能够购买的商品或服务数量。一般来说，价格越低，需求量越大。
