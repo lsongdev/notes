@@ -98,7 +98,7 @@ TODO: 存储频道
 
 ![](./3dprint-config.png)
 
-FDM 需要将模型放大 1mm（宽 99mm -> 100mm），然后打印
+由于原设计是为光固化设计的，FDM 打印由于热胀冷缩的原因会有点小，需要将模型放大 1mm（宽 99mm -> 100mm），然后打印
 
 <blockquote class="twitter-tweet" data-media-max-width="560"><p lang="zxx" dir="ltr"><a href="https://t.co/eeSw8gkJfp">pic.twitter.com/eeSw8gkJfp</a></p>&mdash; Lsong  (@lsongdev) <a href="https://twitter.com/lsongdev/status/1778771674772668494?ref_src=twsrc%5Etfw">April 12, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -106,9 +106,17 @@ FDM 需要将模型放大 1mm（宽 99mm -> 100mm），然后打印
 
 ![](./case.png)
 
+这里提供一份来自 [DD6CN](https://radioid.net/database/view?callsign=DD6CN) 修改的外壳 [V5A_Front_new_Hardware_1_0_12.stl](https://drive.google.com/drive/folders/12t7FQGX1bZ6lhiZnXMrL1cxCKWaP92sw) 有兴趣的可以试试看，非常感谢 [DD6CN](https://radioid.net/database/view?callsign=DD6CN) 的工作 🙏
+
 ## 固件升级
 
-固件可以从群文件中获取，目前提供 *无线电收音机固件* 和 *网络收音机固件*。
+### 固件下载
+
+固件可以从群文件或 [Google Drive](https://drive.google.com/drive/folders/12t7FQGX1bZ6lhiZnXMrL1cxCKWaP92sw?usp=drive_link) 处获得。
+
+[Release Notes](https://docs.google.com/document/d/1PJkadxArD_aoqsxte2u2parEDvmsbEzSZbrJLtYixfE/edit?usp=drive_link)
+
+### 固件刷机
 
 可以使用 esptool.py 或者 WebESP <https://lsong.org/webesp> 浏览器 写入固件。
 
