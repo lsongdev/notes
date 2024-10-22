@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Physics
+nav_order: 3
 ---
 
 # 物理学

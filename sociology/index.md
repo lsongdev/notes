@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Sociology
+nav_order: 8
 ---
 
 # 社会学

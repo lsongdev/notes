@@ -1,8 +1,7 @@
 ---
-title: 文件系统
+title: File System
 parent: Linux
 layout: default
-nav_order: 2
 ---
 
 # Linux 文件系统

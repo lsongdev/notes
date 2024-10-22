@@ -1,6 +1,7 @@
 ---
 title: HackRF One
 layout: default
+parent: Radio
 ---
 
 # HackRF One

@@ -9,7 +9,7 @@ OpenWRT is a open source Linux distribution.
 
 ## First Login
 
-完成后将本机与WR720N 的 WAN/LAN 用网线连接 , 网络设置为 `192.168.1.1` ,然后使用 `Telnet` 登录 `telnet 192.168.1.1`
+完成后将本机与 WAN/LAN 用网线连接 , 网络设置为 `192.168.1.1` ,然后使用 `Telnet` 登录 `telnet 192.168.1.1`
 
 ```shell
 BusyBox v1.17.3 (2011-02-22 23:42:42 CET) built-in shell (ash)

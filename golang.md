@@ -979,34 +979,86 @@ func main() {
 | % | &gt;&gt; | %= | &gt;&gt;= | -- | ! | ... | . | : |
 |  | &^ | &^= |  |  |  |  |  |  |
 
-### Example
+### Snippets
 
 ```go
-package main
-
-import (
-	"html/template"
-	"net/http"
-)
-
 type H map[string]interface{}
 
-func (r *Server) Render(w http.ResponseWriter, name string, data H) {
-	t, err := template.ParseFiles("./templates/" + name + ".html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	w.Header().Add("Content-Type", "text/html; charset=utf-8")
-	err = t.Execute(w, data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+func (s *Server) Render(w http.ResponseWriter, name string, data H) {
+  t, err := template.ParseFiles("./templates/" + name + ".html")
+  if err != nil {
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
+  }
+  w.Header().Add("Content-Type", "text/html; charset=utf-8")
+  err = t.Execute(w, data)
+  if err != nil {
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+  }
 }
 
 func (s *Server) IndexView(w http.ResponseWriter, r *http.Request) {
-	s.Render(w, "index", H{})
+  s.Render(w, "index", H{})
 }
+```
+
+```golang
+// Render renders an HTML template with the provided data.
+func (s *Server) Render(w http.ResponseWriter, name string, data H) {
+  if data == nil {
+    data = H{}
+  }
+  // Parse templates from embedded file system
+  // tmpl, err := template.New("").ParseFS(templates.Files, "layout.html", templateName+".html")
+  tmpl, err := template.ParseFiles("templates/layout.html", "templates/"+name+".html")
+  if err != nil {
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
+  }
+  err = tmpl.ExecuteTemplate(w, "layout", data)
+  if err != nil {
+    log.Println(err)
+    http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
+  }
+}
+```
+
+layout.html
+
+```html
+\{\{define "layout"\}\}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div class="container">
+    <h1><a href="/">Server</a></h1>
+    <nav>
+      <a href="/">Home</a>
+    </nav>
+    <main>
+      \{\{template "page" .\}\}
+    </main>
+  </div>
+</body>
+
+</html>
+
+\{\{end\}\}
+```
+
+index.html
+
+```html
+\{\{define "page"\}\}
+<h2>Index</h2>
+\{\{end\}\}
 ```
 
 ## References

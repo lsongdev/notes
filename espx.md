@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Espressif
+title: ESP32
+parent: Electricity
 ---
 
 # ESP8266/32
