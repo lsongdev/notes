@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Logical"
-nav_order: 5
+nav_order: 6
 ---
 
 # 逻辑学

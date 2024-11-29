@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Medicine
-parent: Medical
+parent: Biologic
 ---
 
 # 药物

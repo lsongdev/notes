@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Medical
-nav_order: 6
+parent: Biologic
 ---
 
 # 医学
