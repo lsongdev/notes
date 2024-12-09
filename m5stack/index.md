@@ -11,6 +11,6 @@ M5Stack is a microcontroller board based on ESP32. It has a built-in Wi-Fi modul
 
 ## M5Stick-V & [M5Stick-C](./m5stick-c)
 
-![](./m5sick.webp)
+![](./m5stick.webp)
 
 ---
