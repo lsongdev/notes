@@ -175,6 +175,16 @@ https://hdhospital.com/Html/News/Articles/12907.html
 + [同仁堂仁丹汞含量超标5万倍，北京门店已下架仁丹，多个网售平台仍可购买](https://city.sina.cn/finance/2024-04-29/detail-inatkrax0706241.d.html)
 + [同仁堂仁丹汞“超标”背后](https://news.ifeng.com/c/8Z7YttNVqk8)
 
+
+### 安乃近
+
+![](https://p6.itc.cn/images01/20211126/135fb501c28f46749af68988c70e5eca.jpeg)
+
+安乃近（Metamizole Sodium Tablets），为氨基比林和亚硫酸钠相结合的化合物，易溶于水，解热、镇痛作用较氨基比林快而强。 一般不作首选用药，仅在急性高热、病情急重，又无其他有效解热药可用的情况下用于紧急退热。
+
++ [安乃近片说明书](https://www.grandpharm.com/assets/uploads/2023/05/安乃近片说明书.pdf)
++ [存在严重副作用！70年退烧神药安乃近退出历史舞台](https://tech.sina.cn/2020-03-20/detail-iimxyqwa1841483.d.html)
+
 ## 呼吸道
 
 ### 氯化铵

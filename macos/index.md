@@ -12,7 +12,25 @@ Setting up a new Macbook will be tough and cumbersome. Every time I am getting a
 
 I create a record of my setup, hoping it's helpful for others too!
 
+## Install
+
+Install [Older versions](https://support.apple.com/en-gb/102662)
+
++ [Sierra 10.12](http://updates-http.cdn-apple.com/2019/cert/061-39476-20191023-48f365f4-0015-4c41-9f44-39d3d2aca067/InstallOS.dmg)
++ [El Capitan 10.11](http://updates-http.cdn-apple.com/2019/cert/061-41424-20191024-218af9ec-cf50-4516-9011-228c78eda3d2/InstallMacOSX.dmg)
++ [Yosemite 10.10](http://updates-http.cdn-apple.com/2019/cert/061-41343-20191023-02465f92-3ab5-4c92-bfe2-b725447a070d/InstallMacOSX.dmg)
++ [Mountain Lion 10.8](https://updates.cdn-apple.com/2021/macos/031-0627-20210614-90D11F33-1A65-42DD-BBEA-E1D9F43A6B3F/InstallMacOSX.dmg)
++ [Lion 10.7](https://updates.cdn-apple.com/2021/macos/041-7683-20210614-E610947E-C7CE-46EB-8860-D26D71F0D3EA/InstallMacOSX.dmg)
+
 ## Get started
+
+## Setting Up Your Mouse
+
+[Mac Mouse Fix](https://github.com/noah-nuebling/mac-mouse-fix)
+
+### Activate Misson Control with a mouse button
+
+![](https://raw.githubusercontent.com/maoxiaoke/setup-a-mac-for-frontend-dev/main/mouse-mission-control.png)
 
 ### Enable Tap to Click
 
@@ -63,9 +81,10 @@ Compared to multiple windows, I prefer [Stage Manager](https://support.apple.com
 
 ![](https://raw.githubusercontent.com/maoxiaoke/setup-a-mac-for-frontend-dev/main/enable-stage-manager.png)
 
+## Software
 
-## Setting Up Your Mouse
-
-### Activate Misson Control with a mouse button
-
-![](https://raw.githubusercontent.com/maoxiaoke/setup-a-mac-for-frontend-dev/main/mouse-mission-control.png)
++ [Xcode](./xcode)
++ [Alfred](./alfred)
++ [Homebrew](./brew)
++ <https://github.com/milanvarady/Applite>
++ <https://github.com/alienator88/Pearcleaner>

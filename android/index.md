@@ -8,6 +8,10 @@ has_children: true
 
 Android is a mobile operating system developed by Google.
 
+## Android Flash Tool
+
+<https://flash.android.com/build/9382335?target=coral-user&signed=true&wipe=true>
+
 ## 使用 Android Studio 的 Java
 
 ```shell
