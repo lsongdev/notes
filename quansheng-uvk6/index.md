@@ -34,38 +34,34 @@ mod 的特点是，它是在原版的固件上工作的，可以看一下 [piotr
 
 人们一直尝试对其进行反向工程：
 
-* https://github.com/sq5bpf/k5emulator 模拟 UV K5 来观察固件的细节
+* [sq5bpf/k5emulator](https://github.com/sq5bpf/k5emulator) 模拟 UV K5 来观察固件的细节
 * [sq5bpf/uvk5-reverse-engineering](https://github.com/sq5bpf/uvk5-reverse-engineering)
 
-[@DualTachyon](https://github.com/DualTachyon) 通过逆向工程提供了重新实现的原始固件的源代码：
+直到 [@DualTachyon](https://github.com/DualTachyon) 通过逆向工程提供了重新实现的原始固件的源代码：
 
-**Open reimplementation of the Quan Sheng UV K5 firmware v2.1.27**
-
-**>> https://github.com/DualTachyon/uv-k5-firmware <<**
+**>>[Open reimplementation of the Quan Sheng UV K5 firmware v2.1.27](https://github.com/DualTachyon/uv-k5-firmware)<<**
 
 它的目标是提供开源实现，并不添加任何额外的功能。
 
 这是一个非常重要的里程碑，这使得我们后续可以不用局限于外挂式运行，可以做更多有趣的功能，也是从这个时间点开始，UV K5 固件遍地开花。
 
-首先就是 **[OneOfEleven/uv-k5-firmware-custom](https://github.com/OneOfEleven/uv-k5-firmware-custom)** 基于开源固件做了一些改动
+[OneOfEleven/uv-k5-firmware-custom](https://github.com/OneOfEleven/uv-k5-firmware-custom) 基于开源固件做了一些改动
 
-然后 [@egzumer](https://github.com/egzumer) 将 [OneOfEleven/uv-k5-firmware-custom]() 和 [fagci/uv-k5-firmware-fagci-mod](https://github.com/egzumer/uv-k5-firmware-custom) 做了功能合并。
+然后 [@egzumer](https://github.com/egzumer) 将 [OneOfEleven/uv-k5-firmware-custom](https://github.com/OneOfEleven/uv-k5-firmware-custom) 和 [fagci/uv-k5-firmware-fagci-mod](https://github.com/egzumer/uv-k5-firmware-custom) 做了功能合并。
 
-[KD8CEC](http://www.hamskey.com) 也整合了 [@OneOfEleven]() 和 [@fagci]() 的功能，额外添加了一些非常探索性的功能，比如 SI4732 短波收音机替换和 FT8 解码器等。释放出了 CEC 固件 <https://github.com/phdlee/uvk5cec>。
+[KD8CEC](http://www.hamskey.com) 也整合了 [@OneOfEleven](https://github.com/OneOfEleven) 和 [@fagci](https://github.com/fagci) 的功能，额外添加了一些非常探索性的功能，比如 SI4732 短波收音机替换和 FT8 解码器等。释放出了 CEC 固件 <https://github.com/phdlee/uvk5cec>。
 
 目前功能比较全面的是 [@losehu](https://github.com/losehu) 的版本 [losehu/uv-k5-firmware-custom](https://github.com/losehu/uv-k5-firmware-custom) 算是集各家之所长吧。
 
 # Links
 
-* https://github.com/dkxce/Quansheng-UV-K5
-* https://github.com/manujedi/UV_K5-Tools
-* https://github.com/hank9999/K5_Tools
-* https://github.com/egzumer/uvtools
-* https://github.com/whosmatt/uvmod
-* https://github.com/silenty4ng/k5web
 * [Quansheng UV-K5 Wiki](https://github.com/ludwich66/Quansheng_UV-K5_Wiki/wiki) by [@ludwich66](https://github.com/ludwich66)
 * [UV_K5-Tools](https://github.com/manujedi/UV_K5-Tools) by [@manujedi](https://github.com/manujedi)
 * [Quansheng-UV-K5](https://github.com/dkxce/Quansheng-UV-K5) by [@dkxce](https://github.com/dkxce)
+* <https://github.com/hank9999/K5_Tools>
+* <https://github.com/egzumer/uvtools>
+* <https://github.com/whosmatt/uvmod>
+* <https://github.com/silenty4ng/k5web>
 * [Hackaday article 🛠](https://hackaday.com/2023/06/23/easy-modifications-for-inexpensive-radios/)
 * Official UV-K5 support page: [Chinese](http://qsfj.com/support/downloads/3002) [English](http://en.qsfj.com/support/downloads/3002)
 * Official UV-K5 product page:              [Chinese](http://qsfj.com/products/3002)      [English](http://en.qsfj.com/products/3002)
