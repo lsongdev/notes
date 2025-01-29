@@ -7,8 +7,9 @@ title: Tailscale
 
 ```shell
 opkg update
+opkg install iptables ip6tables iptables-nft ip6tables-nft kmod-tun
 opkg install tailscale
-opkg install iptables-nft
+
 ```
 
 ```shell
@@ -17,12 +18,6 @@ service tailscale restart
 ```
 
 Open Luci Web interface:
-
-Network --> Interfaces --> Add new interface
-
-+ General settings --> Protocol --> Unmanaged
-+ General settings --> Device --> tailscale0
-+ Firewall Settings --> tailscale
 
 Network --> Firewall --> Add
 
@@ -35,8 +30,14 @@ Network --> Firewall --> Add
 + General settings --> Allow forward from source zones --> set as you wish
 + Advanced settings --> Covered devices --> tailscale0
 
+Network --> Interfaces --> Add new interface
+
++ General settings --> Protocol --> Unmanaged
++ General settings --> Device --> tailscale0
++ Firewall Settings --> tailscale
+
 ```shell
-root@bj:~# tailscale up --netfilter-mode=off --advertise-exit-node --advertise-routes=192.168.2.0/24,10.200.2.0/24 --reset
+root@bj:~# tailscale up --netfilter-mode=off --advertise-exit-node --advertise-routes=192.168.6.0/24,10.0.0.0/24 --accept-routes # --reset
 Warning: netfilter=off; configure iptables yourself.
 
 To authenticate, visit:
