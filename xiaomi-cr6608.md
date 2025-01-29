@@ -12,3 +12,9 @@ title: Xiaomi CR6608
 網線連接 WAN 口，瀏覽器輸入 192.168.1.1 進入路由器 刷入固件
 
 Download [firmware bin](https://downloads.openwrt.org/snapshots/targets/ramips/mt7621/openwrt-ramips-mt7621-xiaomi_mi-router-cr6608-squashfs-firmware.bin) from [OpenWRT](https://openwrt.org/toh/hwdata/xiaomi/xiaomi_mi_router_cr6608) website 
+
+### Clash
+
+https://lsong.org/notes/clash
+
+https://github.com/MetaCubeX/mihomo/releases/download/v1.19.1/mihomo-linux-mipsle-softfloat-v1.19.1.gz
