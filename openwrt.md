@@ -7,6 +7,9 @@ title: OpenWRT
 
 OpenWRT is a open source Linux distribution.
 
+## Install
+
++ [NanoPi r2s](./nanopi-r2s)
 
 ## First Login
 
@@ -55,21 +58,12 @@ wget http://downloads.openwrt.org/snapshots/trunk/PLATFORM/xxx-sysupgrade.bin
 sysupgrade -v /tmp/openwrt-ar71xx-generic-wzr-hp-ag300h-squashfs-sysupgrade.bin
 ```
 
-## 安装软件
-
 使用 `ssh root@192.168.1.1` 登陆
 
-### 更新软件源
 
-`opkg update`
-
-安装 Web 管理界面
-
-`opkg install luci`
-
-重新启动
-
-`reboot && exit`
+```shell
+dropbearkey -t ed25519 -f ~/.ssh/id_dropbear
+```
 
 ## 配置
 
@@ -89,7 +83,7 @@ option ip6assign '60'
 
 `vi /etc/config/wireless`
 
-```
+```patch
 config wifi-device  radio0
     option type     mac80211
     option channel  11
@@ -100,16 +94,16 @@ config wifi-device  radio0
     list ht_capab   SHORT-GI-40
     list ht_capab   RX-STBC1
     list ht_capab   DSSS_CCK-40
-    # REMOVE THIS LINE TO ENABLE WIFI:
-    # option disabled 1             #将该行注释 , 启用WIFI
+-   # REMOVE THIS LINE TO ENABLE WIFI:
+-   option disabled 1
 
 config wifi-iface
     option device 'radio0'
     option network 'lan'
     option mode 'ap'
-    option ssid 'mini@lsong.org'    #SSID 名称
-    option encryption 'psk-mixed'   #加密方法
-    option key 'song940@163.com'    #密码
++   option ssid 'wifi@lsong.org'   # SSID 名称
++   option encryption 'psk-mixed'  # 加密方法
++   option key 'wifi@lsong.org'    # 密码
 ```
 
 ### Boot from usb
@@ -133,7 +127,7 @@ tar -C /overlay -cvf - . | tar -C /mnt -xf -
 
 `/etc/config/fstab`
 
-```
+```patch
 config 'global'
     option  anon_swap       '0'
     option  anon_mount      '0'
@@ -142,14 +136,14 @@ config 'global'
     option  delay_root      '5'
     option  check_fs        '0'
 
-config 'mount'
-    option  target  '/mnt'
-    option  uuid    'ced46a51-951a-4d22-be2a-b7cebbd66d44'
-    option  enabled '1'
-    option fstype   ext4
-    option options  rw,sync
-    option enabled_fsck 1
-    option is_rootfs 1
++ config 'mount'
++     option  target  '/mnt'
++     option  uuid    'ced46a51-951a-4d22-be2a-b7cebbd66d44'
++     option  enabled '1'
++     option fstype   ext4
++     option options  rw,sync
++     option enabled_fsck 1
++     option is_rootfs 1
 ```
 
 ## Expanding the filesystem
@@ -274,9 +268,3 @@ for more information, please refer to <https://openwrt.org/docs/guide-user/insta
 + **Destination zone**: *Device (input)*
 + **Destination address**: *-- add IP --*
 + **Destination port**: *8888*
-
-## Packages
-
-```shell
-opkg install htop vim-full nginx-full tmux git
-```
