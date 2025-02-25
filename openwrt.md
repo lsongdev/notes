@@ -71,12 +71,13 @@ dropbearkey -t ed25519 -f ~/.ssh/id_dropbear
 
 `vi /etc/config/network`
 
-```text
+```patch
 config interface 'lan'
 option ifname 'eth1'
 option type 'bridge'
 option proto 'static'
-option ipaddr '10.1.2.1'            #WR720N的地址
+- option ipaddr '192.168.1.1'
++ option ipaddr '192.168.2.1'
 option netmask '255.255.255.0'
 option ip6assign '60'
 ```
