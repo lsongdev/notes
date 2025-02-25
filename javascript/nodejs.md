@@ -20,6 +20,13 @@ parent: JavaScript
 访问 [Node.js 官网](https://nodejs.org/) 下载并安装合适的版本。安装完成后，你可以在命令行中使用 `node` 和 `npm`（Node 的包管理器）。
 
 
+### npm 
+
+```shell
+sudo chown -R $USER: /usr/local/bin
+sudo chown -R $USER: /usr/local/lib/node_modules
+```
+
 ### pnpm
 
 [pnpm](https://pnpm.io/) is fast, disk space efficient package manager, works as an alternative of [npm](https://www.npmjs.com/).
