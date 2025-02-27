@@ -24,15 +24,21 @@ Install [Older versions](https://support.apple.com/en-gb/102662)
 
 ## Get started
 
-## Setting Up Your Mouse
+### Dock
 
-[Mac Mouse Fix](https://github.com/noah-nuebling/mac-mouse-fix)
+```shell
+# Dock
+defaults write com.apple.dock autohide -boolean true
+defaults write com.apple.dock tilesize -int 20
+defaults write com.apple.dock largesize -int 30
+defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock persistent-apps -array
+killall Dock # restart dock app
+```
 
-### Activate Misson Control with a mouse button
+### Mouse & Trackpad
 
-![](https://raw.githubusercontent.com/maoxiaoke/setup-a-mac-for-frontend-dev/main/mouse-mission-control.png)
-
-### Enable Tap to Click
+#### Enable Tap to Click
 
 When setting up a new Macbook, one of the first changes we make is enabling the tap-to-click feature for the trackpad.
 
@@ -41,10 +47,14 @@ Go「**System Preference -> Trackpad -> Point & Click**」and enable 「**Tap to
 ![](https://raw.githubusercontent.com/maoxiaoke/setup-a-mac-for-frontend-dev/main/enable-tap-to-click.png)
 
 ```shell
-$ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 1
+# https://apple.stackexchange.com/questions/382098/how-to-enable-tap-to-click-using-keyboard-only
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 ```
 
-### Enable Three Finger Dragging
+#### Enable Three Finger Dragging
 
 In general, "tap to click" on your Macbook to avoid a force-click on the trackpad. But this doesn't work when it comes to dragging and repositioning windows.
 
@@ -58,10 +68,18 @@ Also, I'm big fan of tree finger dragging.
 ![](https://raw.githubusercontent.com/maoxiaoke/setup-a-mac-for-frontend-dev/main/enable-three-finger-drag.png)
 
 ```shell
-$ defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 1
+# https://apple.stackexchange.com/questions/110277/how-to-enable-three-finger-drag-from-command-line
+defaults write com.apple.AppleMultitouchTrackpad DragLock -bool false
+defaults write com.apple.AppleMultitouchTrackpad Dragging -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 ```
 
-### Enable App Exposé with trackpad
+#### Activate Misson Control with a mouse button
+
+![](https://raw.githubusercontent.com/maoxiaoke/setup-a-mac-for-frontend-dev/main/mouse-mission-control.png)
+
+
+#### Enable App Exposé with trackpad
 
 "App Exposé" lets you see shows you all open and unhidden windows for your current app.
 
@@ -73,13 +91,26 @@ $ defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 
 
 ![](https://raw.githubusercontent.com/maoxiaoke/setup-a-mac-for-frontend-dev/main/enable-app-exposé.png)
 
-### Enable Stage Manager
+#### Enable Stage Manager
 
 Compared to multiple windows, I prefer [Stage Manager](https://support.apple.com/en-ph/102355). This feature arrived with macOS Ventura, and provides a little bit of ability to make your windows less cluttered.
 
 1. Click Control Center in the menu bar, then click Stage Manager.
 
 ![](https://raw.githubusercontent.com/maoxiaoke/setup-a-mac-for-frontend-dev/main/enable-stage-manager.png)
+
+[Mac Mouse Fix](https://github.com/lsongdev/mac-mouse-fix)
+
+
+### Keyboard
+
+repeat speed
+
+```shell
+# https://apple.stackexchange.com/questions/10467/how-to-increase-keyboard-key-repeat-rate-on-os-x
+defaults write -g InitialKeyRepeat -int 10
+defaults write -g KeyRepeat -int 2
+```
 
 ## Software
 
