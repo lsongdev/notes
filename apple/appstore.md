@@ -1,6 +1,7 @@
 ---
 layout: default
 title: App Store
+parent: Apple
 ---
 
 # App Store 发布流程总结
