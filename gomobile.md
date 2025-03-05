@@ -1,6 +1,7 @@
 ---
 layout: default
 title: gomobile
+parent: Golang
 ---
 
 # gomobile

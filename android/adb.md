@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ADB
+title: Android Debug Bridge
 parent: Android
 ---
 
