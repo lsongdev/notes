@@ -1,6 +1,7 @@
 ---
 layout: default
 title: macOS
+parent: Apple
 has_children: true
 ---
 
@@ -50,7 +51,6 @@ Go「**System Preference -> Trackpad -> Point & Click**」and enable 「**Tap to
 # https://apple.stackexchange.com/questions/382098/how-to-enable-tap-to-click-using-keyboard-only
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 ```
 
