@@ -45,6 +45,15 @@ sudo make -j$(nproc)
 sudo make install
 ```
 
+```shell
+[ERROR] _sqlite3 failed to import: libsqlite3.so: cannot open shared object file: No such file or directory
+
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+./python -m sqlite3
+/usr/local/bin/python3.13 -c "import sqlite3; print(sqlite3.sqlite_version)"
+```
+
 ### Introduction
 
 * [Python](https://www.python.org/)  _\(python.org\)_

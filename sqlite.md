@@ -17,6 +17,11 @@ make
 sudo make install
 ```
 
+```shell 
+echo "/usr/local/lib" | sudo tee /etc/ld.so.conf.d/sqlite3.conf
+sudo ldconfig
+```
+
 ## Show tables
 
 ```sql
