@@ -72,3 +72,27 @@ sudo systemctl start home-assistant
 ```bash
 sudo systemctl status home-assistant
 ```
+
+
+sudo nano /etc/dbus-1/system.d/homeassistant-bluetooth.conf
+
+```xml
+<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-Bus Bus Configuration 1.0//EN"
+        "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+  <policy user="homeassistant">
+    <allow send_destination="org.bluez"/>
+    <allow send_interface="org.freedesktop.DBus.ObjectManager"/>
+    <allow send_interface="org.bluez.Adapter1"/>
+    <allow send_interface="org.bluez.Device1"/>
+  </policy>
+</busconfig>
+```
+
+```shell
+hciconfig
+sudo hciconfig hci0 up
+
+sudo systemctl restart bluetooth
+sudo systemctl restart home-assistant
+```
