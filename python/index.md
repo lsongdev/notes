@@ -10,6 +10,41 @@ Python is a programming language created by Guido van Rossum.
 
 ## Getting Started
 
+```shell
+apt install python-is-python3
+```
+
+```shell
+sudo apt update
+sudo apt-get update
+sudo apt-get install -y \
+  build-essential \
+  libsqlite3-dev \
+  libssl-dev \
+  zlib1g-dev \
+  libbz2-dev \
+  libreadline-dev \
+  libncursesw5-dev \
+  libgdbm-dev \
+  libnss3-dev \
+  libffi-dev \
+  liblzma-dev \
+  libbluetooth-dev \
+  uuid-dev \
+  g++
+
+# 下载源码
+cd /usr/src
+sudo wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0a5.tgz
+sudo tar xzf Python-3.13.0a5.tgz
+cd Python-3.13.0a5
+
+# 编译安装
+sudo ./configure --enable-optimizations
+sudo make -j$(nproc)
+sudo make install
+```
+
 ### Introduction
 
 * [Python](https://www.python.org/)  _\(python.org\)_
@@ -1102,7 +1137,3 @@ finally:                 # Execute under all circumstances
 ```
 
 ### FAQ
-
-```
-apt install python-is-python3
-```
