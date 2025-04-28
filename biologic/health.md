@@ -303,29 +303,29 @@ Sinclair 也对比了一些上个世纪失败的研究，比如通过抗氧化�
 
 先来总览看一下各种抗衰老的手段。
 
-####饮食
+#### 饮食
 
 包括食物结构和饮食控制。饮食控制方面前面有提到过，建议缩短进食窗口到 8 小时左右。饮食结构可以参考最新发表在 Cell 上的这篇文章 [Nutrition, longevity and disease: From molecular mechanisms to interventions](https://www.cell.com/cell/pdf/S0092-8674(22)00398-1.pdf)。简单总结一下就是多吃植物类的蛋白（花生，藜麦，豆类，西兰花等），脂肪（橄榄油，坚果，牛油果等），减少精制碳水（白米饭，白面包，蛋糕，饼干等）；动物脂肪，动物蛋白质，糖这些总体来说是加速衰老的。
 
-![长寿饮食建议](imgs/diet_for_longevity.png)
+![长寿饮食建议](https://raw.githubusercontent.com/zijie0/HumanSystemOptimization/main/imgs/diet_for_longevity.png)
 
-####体育锻炼
+#### 体育锻炼
 
 有氧锻炼对心肺功能，血管健康等方面的促进对延寿很有帮助。力量训练也能持续保持我们的肌肉，关节，韧带的力量水平，支撑保护能力等，在年纪大时减少各种跌倒或者受伤的风险。一般建议是一周 3 小时左右的有氧运动，搭配 2 到 3 次的力量训练。有氧运动一般比较简单，跑步，骑车，游泳都可以。力量训练有一定的门槛，个人也最近正在学习一些入门训练方式。
 
-![力量训练计划](imgs/workout_plan.png)
+![力量训练计划](https://raw.githubusercontent.com/zijie0/HumanSystemOptimization/main/imgs/workout_plan.png)
 
-####药物
+#### 药物
 
 药物方面的研究也非常多，不过绝大多数都还在人体实验的早期。具体可以参考发表在 Nature 上的这篇 [The quest to slow ageing through drug discovery](https://www.nature.com/articles/s41573-020-0067-7)，总结了各种相关研究，其中就包括了著名的二甲双胍，NMN 等。
 
-![长寿药物](imgs/drugs_for_longevity.png)
+![长寿药物](https://raw.githubusercontent.com/zijie0/HumanSystemOptimization/main/imgs/drugs_for_longevity.png)
 
-####细胞重编程
+#### 细胞重编程
 
 前面也提到了基因表达是影响衰老最重要的因素，那么有没有手段来控制人体细胞的基因表达呢？著名的山中因子（Yamanaka Factors）给出了一种可能。山中伸弥团队发现的诱导方法是，通过慢病毒载体将 Oct4、Sox2、c-Myc、Klf4 四种转录因子基因转入成体细胞，将其转化为类似于胚胎干细胞的多能干细胞（iPS 细胞）。iPS 细胞与胚胎干细胞拥有相似的再生能力，理论上可以分化为成体的所有器官、组织，而这一点完美地对冲了由细胞衰减带来的人体衰老。听起来是不是非常的神奇？基于这些新技术也出现了很多主攻长寿领域的科技创新公司，如 [Life Biosciences](https://www.lifebiosciences.com/)，[Altos Labs](https://altoslabs.com/) 等，我们可以期待一下未来这些技术的普及应用。
 
-![山中因子](imgs/cell_reprogramming.png)
+![山中因子](https://raw.githubusercontent.com/zijie0/HumanSystemOptimization/main/imgs/cell_reprogramming.png)
 
 ### 实践
 
