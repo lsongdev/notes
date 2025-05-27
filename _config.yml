@@ -16,3 +16,26 @@ aux_links:
 
 compress_html:
   blanklines: true
+
+gh_edit_link: true
+gh_edit_link_text: "Edit this page on GitHub"
+gh_edit_repository: "https://github.com/lsongdev/notes"
+gh_edit_branch: "master"
+gh_edit_view_mode: "tree"
+
+callouts_level: quiet
+callouts:
+  highlight:
+    color: yellow
+  important:
+    title: Important
+    color: blue
+  new:
+    title: New
+    color: green
+  note:
+    title: Note
+    color: purple
+  warning:
+    title: Warning
+    color: red
