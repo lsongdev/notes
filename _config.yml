@@ -12,7 +12,7 @@ aux_links:
   blog: https://blog.lsong.org
   books: https://lsong.org/books
   music: https://lsong.org/music
-  apps: https://lsong.org/apps.html
+  apps: https://lsong.org/apps
 
 compress_html:
   blanklines: true
