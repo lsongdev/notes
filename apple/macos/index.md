@@ -119,3 +119,15 @@ defaults write -g KeyRepeat -int 2
 + [Homebrew](./brew)
 + <https://github.com/milanvarady/Applite>
 + <https://github.com/alienator88/Pearcleaner>
+
+## macOS 26
+
+Rollback Launchpad to old one.
+
+```shell
+sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
+sudo defaults write /Library/Preferences/FeatureFlags/Domain/SpotlightUI.plist SpotlightPlus -dict Enabled -bool false
+
+# reboot macOS
+sudo reboot
+```
