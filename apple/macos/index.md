@@ -121,6 +121,8 @@ defaults write -g KeyRepeat -int 2
 
 ## macOS 26
 
+![](https://www.apple.com/newsroom/images/2025/06/macos-tahoe-26-makes-the-mac-more-capable-productive-and-intelligent-than-ever/article/Apple-WWDC25-macOS-Tahoe-26-hero-250609_big.jpg.large.jpg)
+
 Rollback Launchpad to old one.
 
 ```shell
