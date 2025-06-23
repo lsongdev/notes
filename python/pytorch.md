@@ -1,6 +1,6 @@
 ---
-title: PyTorch
 layout: default
+title: pytorch
 parent: Python
 ---
 

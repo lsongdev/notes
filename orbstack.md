@@ -3,6 +3,10 @@ layout: default
 title: OrbStack
 ---
 
+# OrbStack
+
+## config
+
 ```
 ~/.orbstack/config/docker.json
 orb restart docker
