@@ -6,10 +6,6 @@ parent: Radio
 
 ## MMDVM
 
-![](https://i0.wp.com/qso365.co.uk/wp-content/uploads/2019/11/MMDVM-Hotspot-Support-P25-DMR-YSF-32-bit-ARM-Processor-for-Raspberry-Pi-XY-from-eBay.jpeg?w=1024&ssl=1)
-![](https://i0.wp.com/qso365.co.uk/wp-content/uploads/2019/11/MMDVM-Hotspot-attached-to-a-Raspberry-Pi-Zero.jpeg?w=1024&ssl=1)
-![](https://i0.wp.com/qso365.co.uk/wp-content/uploads/2019/11/MMDVM-Hotspot-attached-to-the-Raspberry-Pi-Zero.jpeg?w=1024&ssl=1)
-
 ### Pi-Star Digital Voice Software
 
 Pi-Star is a software image built initially for the Raspberry Pi (produced by the Raspberry Pi Foundation).
@@ -18,3 +14,9 @@ The design concept is simple, provide the complex services and configuration for
 ![](https://www.pistar.uk/_images/Pi-Star_Screenshot.png)
 
 <https://www.pistar.uk>
+
+![](https://i0.wp.com/qso365.co.uk/wp-content/uploads/2019/11/MMDVM-Hotspot-Support-P25-DMR-YSF-32-bit-ARM-Processor-for-Raspberry-Pi-XY-from-eBay.jpeg?w=1024&ssl=1)
+![](https://i0.wp.com/qso365.co.uk/wp-content/uploads/2019/11/MMDVM-Hotspot-attached-to-a-Raspberry-Pi-Zero.jpeg?w=1024&ssl=1)
+![](https://i0.wp.com/qso365.co.uk/wp-content/uploads/2019/11/MMDVM-Hotspot-attached-to-the-Raspberry-Pi-Zero.jpeg?w=1024&ssl=1)
+
+<https://github.com/mathisschmieder/MMDVM_HS_Hat>
