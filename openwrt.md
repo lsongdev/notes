@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OpenWRT
-partent: Network
+parent: Network
 ---
 
 # OpenWRT

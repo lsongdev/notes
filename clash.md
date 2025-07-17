@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Clash
-partent: Network
+parent: Network
 ---
 
 # Clash

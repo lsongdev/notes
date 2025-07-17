@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tailscale
-partent: Network
+parent: Network
 ---
 
 # Tailscale
