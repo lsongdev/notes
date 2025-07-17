@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Clash
+partent: Network
 ---
 
 # Clash
@@ -202,7 +203,10 @@ proxy-providers:
 opkg update
 opkg install kmod-tun
 
+# see https://github.com/MetaCubeX/mihomo/releases for latest version
 wget https://github.com/MetaCubeX/mihomo/releases/download/v1.19.1/mihomo-linux-arm64-v1.19.1.gz
+wget https://github.com/MetaCubeX/mihomo/releases/download/v1.19.11/mihomo-linux-arm64-v1.19.11.gz
+
 gunzip mihomo-linux-arm64-v1.19.1.gz
 mv mihomo-linux-arm64-v1.19.1 /usr/bin/clash
 chmod +x /usr/bin/clash

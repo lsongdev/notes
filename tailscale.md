@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Tailscale
+partent: Network
 ---
 
 # Tailscale
@@ -62,6 +63,14 @@ PING 192.168.3.1 (192.168.3.1): 56 data bytes
 64 bytes from 192.168.3.1: seq=1 ttl=64 time=65.991 ms
 64 bytes from 192.168.3.1: seq=2 ttl=64 time=66.369 ms
 ```
+
+## Troubleshooting
+
+unexpected state: NoState after restart
+https://github.com/tailscale/tailscale/issues/15524
+
+
+## Refs:
 
 + https://github.com/adyanth/openwrt-tailscale-enabler
 + https://www.reddit.com/r/Tailscale/comments/11btcxf/how_to_setup_tailscale_on_openwrt_router/

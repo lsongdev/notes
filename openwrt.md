@@ -1,6 +1,7 @@
 ---
 layout: default
 title: OpenWRT
+partent: Network
 ---
 
 # OpenWRT
@@ -60,14 +61,24 @@ sysupgrade -v /tmp/openwrt-ar71xx-generic-wzr-hp-ag300h-squashfs-sysupgrade.bin
 
 使用 `ssh root@192.168.1.1` 登陆
 
-
 ```shell
+mkdir -p ~/.ssh
 dropbearkey -t ed25519 -f ~/.ssh/id_dropbear
 ```
 
 ## 配置
 
 ### 修改网络参数
+
+#### Change DHCP to PPPoE
+
+Network -> Interfaces -> wan 
+
+Protocol: DHCP Client -> PPPoE
+
+input username/password, save and apply
+
+#### Modify Gateway Address
 
 `vi /etc/config/network`
 
@@ -220,6 +231,10 @@ Disk identifier: 0x5452574f
 Device         Boot  Start      End  Sectors  Size Id Type
 /dev/mmcblk0p1 *     65536    98303    32768   16M 83 Linux
 /dev/mmcblk0p2      131072 31116287 30985216 14.8G 83 Linux
+
+Command (m for help): w
+The partition table has been altered.
+Syncing disks.
 ```
 
 这样操作下来原有的分区结束位置就被修改为最大值了，保留分区签名 数据就不会丢失了，
@@ -235,10 +250,12 @@ e2fsck -f /dev/mmcblk0p2
 
 现在我们 `reboot` 重启
 
-修复 ext4 数据。
+修复 ext4 数据
 ```shell
 resize2fs /dev/mmcblk0p2
 ```
+
+如果这一步遇到问题导致无法生效,可以将 sdcard 插在其他 linux 设备上修改.
 
 然后我们看下系统的磁盘容量
 
@@ -269,3 +286,11 @@ for more information, please refer to <https://openwrt.org/docs/guide-user/insta
 + **Destination zone**: *Device (input)*
 + **Destination address**: *-- add IP --*
 + **Destination port**: *8888*
+
+## Tailscale
+
+see [tailscale](./tailscale).
+
+## Clash
+
+Clash 的安装参考 [clash#install-安装部署](./clash#install-安装部署)

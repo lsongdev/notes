@@ -53,11 +53,3 @@ sudo dd if=openwrt-23.05.5-rockchip-armv8-friendlyarm_nanopi-r2s-squashfs-sysupg
 ```
 
 安装完成后参考 [OpenWRT - Expanding the filesystem](openwrt#expanding-the-filesystem) 部分将 NanoPi R2S 的 ext4 分区扩容。
-
-## Tailscale
-
-see [tailscale](./tailscale).
-
-## Clash
-
-Clash 的安装参考 [clash#install-安装部署](https://lsong.org/notes/clash.html#install-安装部署)
