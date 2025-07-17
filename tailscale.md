@@ -10,7 +10,6 @@ parent: Network
 opkg update
 opkg install iptables ip6tables iptables-nft ip6tables-nft kmod-tun
 opkg install tailscale
-
 ```
 
 ```shell

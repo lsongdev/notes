@@ -1,6 +1,7 @@
 ---
 layout: default
 title: mitmproxy
+parent: Network
 ---
 
 # mitmproxy

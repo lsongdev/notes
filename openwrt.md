@@ -241,8 +241,6 @@ Syncing disks.
 
 `mount -o remount,ro /`
 
-
-
 做 fsck 检查
 ```shell
 e2fsck -f /dev/mmcblk0p2
