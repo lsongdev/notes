@@ -39,3 +39,7 @@ opkg remove --force-removal-of-dependent-packages \
   luci-app-ttyd luci-app-filetransfer luci-app-socat luci-app-accesscontrol luci-app-upnp \
   luci-app-statistics  luci-app-ntpc  luci-app-commands  luci-app-arpbind luci-app-qos 
 ```
+
+## Refs
+
++ https://github.com/openwrtkitty/photonicat-hacks

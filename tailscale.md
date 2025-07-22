@@ -12,6 +12,28 @@ opkg install iptables ip6tables iptables-nft ip6tables-nft kmod-tun
 opkg install tailscale
 ```
 
+如果在一些设备上无法找到, 也可以使用脚本安装
+
+```shell
+root@photonicat:~# opkg install tailscale
+Unknown package 'tailscale'.
+Collected errors:
+ * opkg_install_cmd: Cannot install package tailscale.
+
+opkg install libustream-openssl ca-bundle kmod-tun
+
+cd /tmp
+wget https://github.com/adyanth/openwrt-tailscale-enabler/releases/download/v1.60.0-e428948-autoupdate/openwrt-tailscale-enabler-v1.60.0-e428948-autoupdate.tgz
+
+tar x -zvC / -f openwrt-tailscale-enabler-v1.60.0-e428948-autoupdate.tgz
+
+/etc/init.d/tailscale start
+tailscale up --netfilter-mode=off --advertise-exit-node --advertise-routes=192.168.2.0/24,10.0.0.0/24 --accept-routes # --reset
+tailscale up --netfilter-mode=off --advertise-exit-node --advertise-routes=192.168.3.0/24,10.0.0.0/24 --accept-routes # --reset
+tailscale up --netfilter-mode=off --advertise-exit-node --advertise-routes=192.168.6.0/24,10.0.0.0/24 --accept-routes # --reset
+tailscale up --netfilter-mode=off --advertise-exit-node --advertise-routes=172.16.0.0/24,10.0.0.0/24 --accept-routes # --reset
+```
+
 ```shell
 service tailscale enable
 service tailscale restart
