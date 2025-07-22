@@ -295,3 +295,18 @@ see [tailscale](./tailscale).
 ## Clash
 
 Clash 的安装参考 [clash#install-安装部署](./clash#install-安装部署)
+
+
+## Troubleshooting
+
+```shell
+opkg update
+opkg install vim-full
+```
+
+E1187: Failed to source defaults.vim
+https://github.com/openwrt/packages/issues/20203
+
+```shell
+cat /usr/share/vim/vimrc | tee /usr/share/vim/defaults.vim
+```
