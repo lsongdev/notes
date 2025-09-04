@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "工厂开张的一个月里发生了什么？"
-parent: "GZGC"
+parent: "干燥工厂"
 ---
 
 # 工厂开张的一个月里发生了什么？

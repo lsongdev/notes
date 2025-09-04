@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "干燥工厂开业！我们准备了 6 颗核弹卖给你"
-parent: "GZGC"
+parent: "干燥工厂"
 ---
 
 # 干燥工厂开业！我们准备了 6 颗核弹卖给你
