@@ -6,6 +6,8 @@ parent: Espressif
 
 # ESP32
 
+![esp32 s3 pinouts](https://raw.githubusercontent.com/atomic14/esp32-s3-pinouts/main/esp32.webp)
+
 ## FastLED
 
 <https://github.com/lsongdev/esp32-fastled>

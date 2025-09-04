@@ -10,10 +10,10 @@ OpenWRT is a open source Linux distribution.
 
 ## Install
 
-+ [Xiaomi CR6608](./xiaomi-cr6608.md)
++ [Xiaomi CR6608](./xiaomi-cr6608)
 + [FriendlyARM NanoPi R2S](./nanopi-r2s)
-+ [Phicomm K2](./phicomm-k2.md)
-+ [TPLink WR720N](./tplink-wr720n.md)
++ [Phicomm K2](./phicomm-k2)
++ [TPLink WR720N](./tplink-wr720n)
 
 ## First Login
 
