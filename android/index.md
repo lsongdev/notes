@@ -6,6 +6,8 @@ has_children: true
 
 # Android
 
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Android_logo_2019_%28stacked%29.svg/960px-Android_logo_2019_%28stacked%29.svg.png)
+
 Android is a mobile operating system developed by Google.
 
 ## Android Flash Tool

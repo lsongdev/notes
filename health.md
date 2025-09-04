@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Health
-parent: Biologic
+# parent: Biologic
 ---
 
 # Health

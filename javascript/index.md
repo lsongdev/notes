@@ -6,6 +6,8 @@ has_children: true
 
 # JavaScript
 
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/960px-JavaScript-logo.png?20120221235433)
+
 JavaScript is a lightweight, interpreted programming language. 
 
 ## Getting started
