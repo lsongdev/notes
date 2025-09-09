@@ -17,7 +17,12 @@ has_children: true
 > 仅供研究和学习使用，请勿使用盗版。
 
 ```shell
-slmgr /skms kms.v0v.bid && slmgr /ato
+slmgr -ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
+
+slmgr -skms kms.v0v.bid
+slmgr -skms kms.0t.net.cn
+
+slmgr -ato
 ```
 
 + <https://v0v.bid> Windows系统一句命令激活
