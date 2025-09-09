@@ -25,8 +25,6 @@ slmgr -skms kms.0t.net.cn
 slmgr -ato
 ```
 
-+ <https://v0v.bid> Windows系统一句命令激活
-
 ![](https://pbs.twimg.com/media/GY6QvsGbMAAhzsv?format=jpg&name=medium)
 
 [](https://x.com/juliastechspot/status/1841571446591783212?s=46)
