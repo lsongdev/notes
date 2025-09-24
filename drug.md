@@ -364,6 +364,8 @@ https://hdhospital.com/Html/News/Articles/12907.html
 
 ### 达泊西汀
 
+![](https://www.chemicalbook.com/NewsImg/2021-01-09/2021191351859507.jpg)
+
 达泊西汀（INN：dapoxetine），商品名Priligy 必利劲，属于一种快速起效和代谢的选择性5-羟色胺再吸收抑制剂（SSRI），是一款用于治疗16至84周岁男性早泄的药物，通常可将射精前性交时间延长2至3倍。达泊西汀是目前唯一被美国食品药品监督管理局（FDA）批准用于治疗早泄的药物。
 
 ### 外伤

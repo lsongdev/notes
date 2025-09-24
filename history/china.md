@@ -734,6 +734,8 @@ parent: History
 
 + [共和国的足迹——2005年：废除农业税](https://www.gov.cn/test/2009-10/20/content_1444032.htm)
 + [中国农业税](https://zh.wikipedia.org/zh-cn/%E4%B8%AD%E5%9B%BD%E5%86%9C%E4%B8%9A%E7%A8%8E)
++ [江西丰城抗税事件](https://zh.wikipedia.org/wiki/%E4%B8%B0%E5%9F%8E%E4%BA%8B%E4%BB%B6)
++ [江西丰城事件：上万老百姓奋起活埋乡长](https://zhuanlan.zhihu.com/p/641500798)
 + [取消农业税 - 中国政府网](https://www.gov.cn/test/2006-03/06/content_219801.htm)
 + [取消对农民进城务工就业的不合理收费](https://www.gov.cn/ztzl/nmg/content_404958.htm)
 + [孙志刚事件](https://zh.wikipedia.org/zh-hans/%E5%AD%99%E5%BF%97%E5%88%9A%E4%BA%8B%E4%BB%B6)
