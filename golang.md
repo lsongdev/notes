@@ -1071,4 +1071,4 @@ index.html
 * [Awesome Go](https://awesome-go.com/) _\(awesome-go.com\)_
 * [JustForFunc Youtube](https://www.youtube.com/channel/UC_BzFbxG2za3bp5NRRRXJSw) _\(youtube.com\)_
 * [Style Guide](https://github.com/golang/go/wiki/CodeReviewComments) _\(github.com\)_
-
+* [Memory Allocation in Go](https://nghiant3223.github.io/2025/06/03/memory_allocation_in_go.html)

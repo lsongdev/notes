@@ -19,11 +19,15 @@ has_children: true
 ```shell
 slmgr -ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
 
+slmgr -skms s1.kms.cx
 slmgr -skms kms.v0v.bid
 slmgr -skms kms.0t.net.cn
 
 slmgr -ato
+slmgr -xpr
 ```
+
+<https://kms.cx>
 
 ![](https://pbs.twimg.com/media/GY6QvsGbMAAhzsv?format=jpg&name=medium)
 
@@ -35,6 +39,7 @@ slmgr -ato
 + powertoy
 + vscode
 + https://github.com/microsoft/sudo
++ https://github.com/eythaann/Seelen-UI
 
 ## Write Protected
 
