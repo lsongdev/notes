@@ -57,6 +57,29 @@ title: Companies
 
 北京市企业服务e窗通平台
 https://ect.scjgj.beijing.gov.cn/unionEntry/comOnlineHandle
+https://ect.scjgj.beijing.gov.cn/unionEntry/comOnlineHandle
+
+找到「员工登记」进行五险一金增员
+https://ect.scjgj.beijing.gov.cn/FiveInsurancesSecond
 
 北京住房公积金管理系统
 https://dwwsyw.gjj.beijing.gov.cn/ish/home?_r=96afddc68b667f48d0d3e529063a
+
+住房公积金增员
+https://dwwsyw.gjj.beijing.gov.cn/ish/flow/substep/hjbgAdd/DATAPOOL_63c8aab8-5408-4b67-8af8-2bbf18f065e0?hjbgbjflag0=44637da418b301443c1a6be129f19e68a064
+
+住房公积金委托收款缴款
+https://dwwsyw.gjj.beijing.gov.cn/ish/flow/menu/UPLGJJ0201?_r=0.7558895836180479
+
+生产经营困难的企业，经职工代表大会或工会同意，没有职工代表大会或工会的，经2/3以上职工同意，可以申请降低缴存比例至1%-4%。
+
+公积金的月缴存额一般是工资的 10%, 单位 5%, 个人 5%
+
+### 税务
+
+电子税务局 / 个人所得税
+
+签订三方代扣缴协议 「委托划转税款协议书」自动扣缴税款. 甲方公司、乙方银行、丙方税务局.
+
+企业可以为员工代扣缴所得税
+
