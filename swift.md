@@ -1652,6 +1652,46 @@ enum ShirtSize: String {
 }
 ```
 
+
+### SwiftUI
+
+#### TabView 的黄金规则
+
+始终将 TabView 作为顶层容器，而非 NavigationStack 的跳转目标，否则会出现导航问题。
+
+**TabView 应该是容器，不是内容**
+
+✅ **正确：TabView 包含 NavigationStack**
+```swift
+TabView {
+    NavigationStack {
+        // 页面内容
+    }
+    .tabItem { Label("首页", systemImage: "house") }
+    
+    NavigationStack {
+        // 页面内容
+    }
+    .tabItem { Label("设置", systemImage: "gear") }
+}
+```
+
+❌ **错误：NavigationStack 包含 TabView**
+```swift
+NavigationStack {
+    List {
+        NavigationLink(destination: TabView { ... }) {
+            // 这会导致导航栏问题
+        }
+    }
+}
+```
+
+因为 TabView 和 NavigationStack 都想控制屏幕的"顶部区域"（导航栏）和"底部区域"（Tab Bar）。当 TabView 在 NavigationStack 内部时，它们会冲突，导致：
+- 导航栏消失或闪烁
+- 工具栏按钮无法显示
+- 标题混乱
+
 ## Also See
 
 - [Swift Documentation (Official)](https://www.swift.org/documentation/) _(swift.or)_
