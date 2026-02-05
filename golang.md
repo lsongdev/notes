@@ -1061,6 +1061,47 @@ index.html
 \{\{end\}\}
 ```
 
+
+### Command Line Flag Parsing
+
+For parsing command line arguments with strict `--flag=value` format (vs `--flag value`), here is a custom flag parser that only handles explicit assignments:
+
+```go
+package cli
+
+import (
+	"os"
+	"regexp"
+	"strings"
+)
+
+func ParseArgs() ([]string, map[string]any) {
+	args := []string{}
+	flags := map[string]any{}
+	re := regexp.MustCompile(`^--(\w+)(=(.+))?$`)
+	for _, arg := range os.Args[1:] {
+		if re.Match([]byte(arg)) {
+			p := re.FindStringSubmatch(arg)
+			k := p[1]
+			var v any
+			v = p[3]
+			if v == "" {
+				v = true
+			}
+			flags[k] = v
+		} else if strings.HasPrefix(arg, "-") {
+			for _, v := range arg[1:] {
+				flags[string(v)] = true
+			}
+		} else {
+			args = append(args, arg)
+		}
+	}
+	return args, flags
+}
+```
+
+This approach enforces explicit value assignment with `=` sign, making the distinction clear between boolean flags and value-taking flags.
 ## References
 
 * [Devhints](https://devhints.io/go) _\(devhints.io\)_
