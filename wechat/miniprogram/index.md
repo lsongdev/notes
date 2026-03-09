@@ -1,6 +1,7 @@
 ---
 layout: default
 title: WeChat Miniprogram Development
+parent: WeChat
 ---
 
 # 如何构建一个最简单的微信小程序

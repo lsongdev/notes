@@ -1,9 +1,10 @@
 ---
 layout: default
 title: iOS Development
+parent: "Apple"
 ---
 
-# 如何构建iOS程序-SwiftUI原生开发
+# iOS Development
 
 ## 第 1 章：什么是 iOS App 和 iOS App 开发
 
