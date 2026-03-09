@@ -89,6 +89,8 @@ parent: Medical
 普通感冒 身体局部痛感明显
 流行性感冒会有全身痛感
 
+上呼吸道感染大部分都是自限性疾病，不宜使用抗生素。
+
 ### 对乙酰氨基酚（Tylenol，Paracetamol）
 
 ![](https://p5.itc.cn/q_70/images03/20210204/5d4a710b516d4b05885ef92bc636a83d.jpeg)
