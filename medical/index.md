@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Medical
+has_children: true
 ---
 
 # 医学
