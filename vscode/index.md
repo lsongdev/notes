@@ -1,6 +1,7 @@
 ---
 layout: default
 title: VSCode
+has_children: true
 ---
 
 # Visual Studio Code
