@@ -4,7 +4,7 @@ title: WeChat Miniprogram Development
 parent: WeChat
 ---
 
-# 如何构建一个最简单的微信小程序
+# WeChat Miniprogram Development
 
 # 1. 什么是微信小程序和微信小程序开发
 

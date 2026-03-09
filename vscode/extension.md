@@ -1,9 +1,10 @@
 ---
 layout: default
 title: VSCode Extension Development
+parent: VSCode
 ---
 
-# 如何开发 VS Code 插件——打造你的 AI 项目助手
+# VSCode Extension Development
 
 # 第 1 章：什么是 VS Code 插件开发
 
