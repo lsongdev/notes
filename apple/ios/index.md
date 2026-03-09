@@ -1,6 +1,6 @@
 ---
 layout: default
-title: iOS Development
+title: iOS
 parent: "Apple"
 ---
 
@@ -671,20 +671,30 @@ Negative Prompt: Text, realistic details, 3D render, complex background
 
 在 App Store Connect 中，你需要为 App 创建一个完整的条目，包括但不限于：
 
-1. App 名称与 Bundle ID
-2. 描述、关键词、隐私政策链接
-3. App 图标、截图与预览素材
-4. 定价与分发地区设置
+- App 名称与 Bundle ID
+- 填写应用基本信息（名称、副标题、描述、关键词）
+- 上传应用截图（包括 iPhone 和 iPad 各尺寸）
+- 添加隐私政策 URL
+- 设置内容分级和版权信息
+- 配置价格和区域可用性
+- 完成 App Privacy 数据收集声明
 
 这些信息必须填写完整，否则无法提交审核。
 
 ### 6.3 构建与提交审查
 
+Xcode 配置
+- 设置正确的 Bundle ID
+- 配置签名证书和 Provisioning Profile
+- 确保 Info.plist 包含必要的权限声明
+- 对于加密应用，添加 ITSAppUsesNonExemptEncryption 键
+
 完成信息配置后，需要：
 
-1. 使用付费账号在 Xcode 中进行 Release 签名
-2. 构建并上传正式版本
-3. 在 App Store Connect 中提交审核
+打包上传使用付费账号在 Xcode 中进行 Release 签名
+- 执行 Archive 操作创建发布版本
+- 确保包含所有必要的 dSYM 文件
+- 通过 Xcode 或 Transporter 上传至 App Store Connect 中提交审核
 
 App 提交后会进入 Apple 的审核队列，审核时间通常为 1–3 天，具体视情况而定。
 

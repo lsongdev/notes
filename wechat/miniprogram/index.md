@@ -1,6 +1,6 @@
 ---
 layout: default
-title: WeChat Miniprogram Development
+title: Miniprogram
 parent: WeChat
 ---
 
