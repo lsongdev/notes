@@ -258,6 +258,8 @@ resize2fs /dev/mmcblk0p2
 
 如果这一步遇到问题导致无法生效,可以将 sdcard 插在其他 linux 设备上修改.
 
+参考：[Linux - Resize Partition](linux/fdisk#resize-partition)
+
 然后我们看下系统的磁盘容量
 
 ```shell
@@ -273,7 +275,53 @@ tmpfs                   512.0K         0    512.0K   0% /dev
 
 for more information, please refer to <https://openwrt.org/docs/guide-user/installation/installation_methods/sd_card>
 
-参考：[Linux - Resize Partition](linux/fdisk#resize-partition)
+update: 最近安装了 25.12 版本，新版本使用 apk 包管理器，分区格式也有了变化，所以不能通过删除重建分区来扩容。
+
+```shell
+root@OpenWrt:~# fdisk -l 
+GPT PMBR size mismatch (246304 != 62533295) will be corrected by write.
+The backup GPT table is corrupt, but the primary appears OK, so that will be used.
+The backup GPT table is not on the end of the device.
+Disk /dev/sda: 29.82 GiB, 32017047552 bytes, 62533296 sectors
+Disk model: JWX MSATA 32GB  
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 802E7767-8088-2E23-7437-B1089064F700
+
+Device      Start    End Sectors  Size Type
+/dev/sda1     512  33279   32768   16M Linux filesystem
+/dev/sda2   33280 246271  212992  104M Linux filesystem
+/dev/sda128    34    511     478  239K BIOS boot
+
+Partition table entries are not in disk order.
+root@OpenWrt:~# df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root                98.3M     23.6M     72.6M  25% /
+tmpfs                     1.9G      1.8M      1.9G   0% /tmp
+/dev/sda1                16.0M      6.2M      9.8M  39% /boot
+/dev/sda1                16.0M      6.2M      9.8M  39% /boot
+tmpfs                   512.0K         0    512.0K   0% /dev
+root@OpenWrt:~#
+```
+
+<https://openwrt.org/docs/guide-user/advanced/expand_root>
+
+```shell
+# Install packages
+apk update
+apk add parted losetup resize2fs blkid
+ 
+# Download expand-root.sh
+wget -U "" -O expand-root.sh "https://openwrt.org/_export/code/docs/guide-user/advanced/expand_root?codeblock=0"
+ 
+# Source the script (creates /etc/uci-defaults/70-rootpt-resize and /etc/uci-defaults/80-rootfs-resize, and adds them to /etc/sysupgrade.conf so they will be re-run after a sysupgrade)
+. ./expand-root.sh
+ 
+# Resize root partition and filesystem (will resize partiton, reboot resize filesystem, and reboot again)
+sh /etc/uci-defaults/70-rootpt-resize
+```
 
 ## Firewall
 
