@@ -98,3 +98,33 @@ done
 zpool import
 zpool import -f data
 ```
+
+## 订阅 APT 源
+
+```shell
+mv /etc/apt/sources.list.d/pve-enterprise.sources{,.bak}
+mv /etc/apt/sources.list.d/ceph.sources{,.bak}
+
+
+cat > /etc/apt/sources.list.d/proxmox.sources <<EOF
+Types: deb
+URIs: http://download.proxmox.com/debian/pve
+Suites: trixie
+Components: pve-no-subscription
+Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+EOF
+```
+
+https://pve.proxmox.com/wiki/Package_Repositories
+
+
+## FAQ
+
+如果遇到前端报错可以重新安装前端组件
+
+```shell
+apt update
+apt --reinstall install proxmox-widget-toolkit pve-manager
+```
+
+https://forum.proxmox.com/threads/webui-doesnt-load-with-javascript-errors.168892/
