@@ -118,6 +118,28 @@ EOF
 https://pve.proxmox.com/wiki/Package_Repositories
 
 
+## 创建虚拟机
+
+```shell
+qm create 100 \
+  --name debian \
+  --memory 2048 \
+  --cores 2 \
+  --net0 virtio,bridge=vmbr0 \
+  --ide2 local-lvm:cloudinit \
+  --scsihw virtio-scsi-pci
+```
+
+使用现有磁盘
+
+```shell
+# 挂载 data/vm-100-disk-0 到 scsi0
+qm set 100 --scsi0 data:vm-100-disk-0
+
+# 设置启动顺序（从第一个盘启动）
+qm set 100 --boot order=scsi0
+```
+
 ## FAQ
 
 如果遇到前端报错可以重新安装前端组件
