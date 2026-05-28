@@ -140,6 +140,79 @@ qm set 100 --scsi0 data:vm-100-disk-0
 qm set 100 --boot order=scsi0
 ```
 
+## Modify Hostname
+
+```shell
+root@pve01:~# cat /etc/hosts
+127.0.0.1 localhost.localdomain localhost
+192.168.3.10 pve01.lan pve01
+192.168.2.10 pve02.lan pve02
+```
+
+```shell
+hostnamectl set-hostname pve01
+hostnamectl set-hostname pve02
+
+# clear old one
+rm -rf /etc/pve/nodes/pve
+```
+
+## Create Cluster
+
+```shell
+pvecm add 192.168.3.10 \
+  -fingerprint 'E0:70:77:67:55:5C:91:63:F0:60:6B:4D:74:ED:E8:68:04:1A:49:78:56:7B:9D:C2:AD:32:4E:64:7C:D6:69:8F'
+```
+
+remove cluster
+
+```shell
+systemctl stop pve-cluster corosync && pmxcfs -l && rm -rf /etc/corosync/* /etc/pve/corosync.conf /etc/pve/nodes/* && killall pmxcfs && systemctl start pve-cluster
+```
+
+
+```shell
+pvecm updatecerts --force --silent
+systemctl restart pve-cluster corosync pvedaemon pveproxy
+
+echo -n | openssl s_client -connect 192.168.3.10:8006 2>/dev/null \
+| openssl x509 -noout -fingerprint -sha256
+```
+
+```shell
+root@pve01:~# pvecm delnode pve02
+cluster not ready - no quorum?
+root@pve01:~# pvecm expected 1
+root@pve01:~# pvecm delnode pve02
+Killing node 2
+Could not kill node (error = CS_ERR_NOT_EXIST)
+```
+
+
+```shell
+处理 pve02 彻底重置为干净单机
+# 停止集群服务
+systemctl stop pve-cluster corosync
+
+# 进入本地模式（可修改 /etc/pve）
+pmxcfs -l
+
+# 清空所有集群残留、节点目录、密钥缓存
+rm -rf /etc/corosync/*
+rm -f /etc/pve/corosync.conf
+rm -rf /etc/pve/nodes/*
+rm -rf /etc/pve/local/*
+rm -f /root/.ssh/known_hosts
+rm -f /etc/ssh/ssh_known_hosts
+
+# 退出本地模式
+killall pmxcfs
+
+# 重启服务
+# systemctl start pve-cluster corosync
+systemctl restart pve-cluster corosync pvedaemon pveproxy
+```
+
 ## FAQ
 
 如果遇到前端报错可以重新安装前端组件
