@@ -200,12 +200,13 @@ proxy-providers:
 我这里以 *OpenWRT* 为例，实际上其他系统也差不多
 
 ```shell
-opkg update
-opkg install kmod-tun
+opkg update # apk update
+opkg install kmod-tun # apk add kmod-tun
 
 # see https://github.com/MetaCubeX/mihomo/releases for latest version
 wget https://github.com/MetaCubeX/mihomo/releases/download/v1.19.1/mihomo-linux-arm64-v1.19.1.gz
 wget https://github.com/MetaCubeX/mihomo/releases/download/v1.19.11/mihomo-linux-arm64-v1.19.11.gz
+wget https://github.com/MetaCubeX/mihomo/releases/download/v1.19.26/mihomo-linux-arm64-v1.19.26.gz
 
 gunzip mihomo-linux-arm64-v1.19.1.gz
 mv mihomo-linux-arm64-v1.19.1 /usr/bin/clash

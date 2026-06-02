@@ -22,6 +22,13 @@ title: DELL PowerEdge R720
 
 如果使用的是 戴尔、超微、惠普等公司的服务器，我建议使用 [VMware](vmware)，因为通常有包含驱动的定制版本，稳定性会比较好，而一些非知名品牌的服务器或者干脆是自己组装的服务器 硬件比较特殊我建议使用 [Proxmox PVE](pve) 驱动会好解决一些。
 
+## iDRAC
+
+iDRAC is the Dell Integrated Dell Remote Access Controller.
+
+- https://www.dell.com/support/kbdoc/en-us/000178115/idrac9-versions-and-release-notes
+- https://www.dell.com/support/kbdoc/en-us/000135299/idrac7-idrac8-red007-error-when-applying-latest-idrac-firmware-from-out-of-band-interface
+
 #### Dell EMC iDRAC Service Module (VIB) for ESXi 7.0
 
 可以在 DELL iDRAC 的 「Host OS」页面中展示「Network Interfaces」等信息。
@@ -29,12 +36,16 @@ title: DELL PowerEdge R720
 https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=c8yw2
 https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=x497n
 
-## iDRAC
 
-iDRAC is the Dell Integrated Dell Remote Access Controller.
+## PERC H710 RAID Controller
 
-- https://www.dell.com/support/kbdoc/en-us/000178115/idrac9-versions-and-release-notes
-- https://www.dell.com/support/kbdoc/en-us/000135299/idrac7-idrac8-red007-error-when-applying-latest-idrac-firmware-from-out-of-band-interface
+https://www.fohdeesha.com/docs/H710-D1.html
+
+从[这里](https://fohdeesha.com/docs/store/perc/)下载 [perc-crossflash-v2.6.zip](https://fohdeesha.com/docs/store/perc/perc-crossflash-v2.6.zip)
+
+```shell
+setsas 5b083fe0d1fe2e00
+```
 
 ## Nvidia P40 GPU
 

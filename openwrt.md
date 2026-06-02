@@ -342,7 +342,7 @@ see [tailscale](./tailscale).
 
 ## Clash
 
-Clash 的安装参考 [clash#install-安装部署](./clash#install-安装部署)
+Clash 的安装参考 [clash#install-安装部署](./network/clash#install-安装部署)
 
 
 ## Troubleshooting
