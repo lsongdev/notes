@@ -160,37 +160,40 @@ rm -rf /etc/pve/nodes/pve
 ## Create Cluster
 
 ```shell
-pvecm add 192.168.3.10 \
-  -fingerprint 'E0:70:77:67:55:5C:91:63:F0:60:6B:4D:74:ED:E8:68:04:1A:49:78:56:7B:9D:C2:AD:32:4E:64:7C:D6:69:8F'
+~# pvecm create homelab
+~# pvecm status
+Cluster Name: homelab
+Nodes: 1
 ```
 
+```shell
+~# pvecm add pve02
+~# pvecm nodes
+Node 1 pve1
+Node 2 pve2
+```
+
+### QDevice
+
+```shell
+apt install corosync-qnetd
+systemctl enable --now corosync-qnetd
+
+~# pvecm qdevice setup <qdevice-ip>
+~# pvecm status
+Qdevice:
+Votes: 1
+```
+
+处理 pve02 彻底重置为干净单机
 remove cluster
 
 ```shell
 systemctl stop pve-cluster corosync && pmxcfs -l && rm -rf /etc/corosync/* /etc/pve/corosync.conf /etc/pve/nodes/* && killall pmxcfs && systemctl start pve-cluster
 ```
 
-
 ```shell
-pvecm updatecerts --force --silent
-systemctl restart pve-cluster corosync pvedaemon pveproxy
 
-echo -n | openssl s_client -connect 192.168.3.10:8006 2>/dev/null \
-| openssl x509 -noout -fingerprint -sha256
-```
-
-```shell
-root@pve01:~# pvecm delnode pve02
-cluster not ready - no quorum?
-root@pve01:~# pvecm expected 1
-root@pve01:~# pvecm delnode pve02
-Killing node 2
-Could not kill node (error = CS_ERR_NOT_EXIST)
-```
-
-
-```shell
-处理 pve02 彻底重置为干净单机
 # 停止集群服务
 systemctl stop pve-cluster corosync
 
@@ -211,6 +214,23 @@ killall pmxcfs
 # 重启服务
 # systemctl start pve-cluster corosync
 systemctl restart pve-cluster corosync pvedaemon pveproxy
+```
+
+```shell
+pvecm updatecerts --force --silent
+systemctl restart pve-cluster corosync pvedaemon pveproxy
+
+echo -n | openssl s_client -connect 192.168.3.10:8006 2>/dev/null \
+| openssl x509 -noout -fingerprint -sha256
+```
+
+```shell
+root@pve01:~# pvecm delnode pve02
+cluster not ready - no quorum?
+root@pve01:~# pvecm expected 1
+root@pve01:~# pvecm delnode pve02
+Killing node 2
+Could not kill node (error = CS_ERR_NOT_EXIST)
 ```
 
 ## FAQ
