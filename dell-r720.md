@@ -84,7 +84,12 @@ apt-get install linux-headers-$(uname -r)
 
 <https://www.nvidia.com/Download/index.aspx>
 
+
+Data Center Driver for Linux x64 580.159.04 | Linux 64-bit
+https://www.nvidia.cn/drivers/details/270465/
+
 ```shell
+wget https://us.download.nvidia.com/tesla/580.159.04/NVIDIA-Linux-x86_64-580.159.04.run # https://www.nvidia.cn/drivers/details/270465/
 wget https://us.download.nvidia.cn/tesla/515.105.01/NVIDIA-Linux-x86_64-515.105.01.run # CUDA 11
 wget https://us.download.nvidia.cn/tesla/535.129.03/NVIDIA-Linux-x86_64-535.129.03.run # CUDA 10
 wget https://us.download.nvidia.com/tesla/550.54.15/NVIDIA-Linux-x86_64-550.54.15.run # CUDA 12.4

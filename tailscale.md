@@ -82,6 +82,21 @@ Network --> Interfaces --> Add new interface
 + General settings --> Device --> tailscale0
 + Firewall Settings --> tailscale
 
+## SNAT
+
+```shell
+uci set tailscale.settings.snat_subnet_routes='0'
+uci commit tailscale
+
+/etc/init.d/tailscale restart
+
+
+tailscale debug prefs | grep NoSNAT
+
+root@blue:~# tailscale debug prefs | grep NoSNAT
+	"NoSNAT": true,
+```
+
 ## Troubleshooting
 
 unexpected state: NoState after restart
