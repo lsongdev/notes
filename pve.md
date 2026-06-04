@@ -173,27 +173,9 @@ Node 1 pve1
 Node 2 pve2
 ```
 
-### QDevice
+remove cluster 处理 pve02 彻底重置为干净单机
 
 ```shell
-apt install corosync-qnetd
-systemctl enable --now corosync-qnetd
-
-~# pvecm qdevice setup <qdevice-ip>
-~# pvecm status
-Qdevice:
-Votes: 1
-```
-
-处理 pve02 彻底重置为干净单机
-remove cluster
-
-```shell
-systemctl stop pve-cluster corosync && pmxcfs -l && rm -rf /etc/corosync/* /etc/pve/corosync.conf /etc/pve/nodes/* && killall pmxcfs && systemctl start pve-cluster
-```
-
-```shell
-
 # 停止集群服务
 systemctl stop pve-cluster corosync
 
@@ -231,6 +213,19 @@ root@pve01:~# pvecm expected 1
 root@pve01:~# pvecm delnode pve02
 Killing node 2
 Could not kill node (error = CS_ERR_NOT_EXIST)
+```
+
+### QDevice
+
+```shell
+apt install corosync-qnetd
+systemctl enable --now corosync-qnetd
+
+apt install corosync-qdevice
+~# pvecm qdevice setup <qdevice-ip>
+~# pvecm status
+Qdevice:
+Votes: 1
 ```
 
 ## FAQ
