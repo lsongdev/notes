@@ -228,6 +228,67 @@ Qdevice:
 Votes: 1
 ```
 
+## Guest Agent
+
+```shell
+qm set 100 --agent enabled=1
+```
+
+```shell
+apt update
+apt install qemu-guest-agent
+
+systemctl enable --now qemu-guest-agent
+
+systemctl status qemu-guest-agent
+```
+
+## Cloud Images
+
+https://cloud.debian.org/images/cloud/
+
+```shell
+wget https://saimei.ftp.acc.umu.se/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2
+
+qm create 9000 \
+  --name debian13-cloud \
+  --memory 2048 \
+  --cores 2 \
+  --net0 virtio,bridge=vmbr0
+
+
+qm importdisk 9000 debian-13-genericcloud-amd64.qcow2 data
+
+
+qm set 9000 \
+  --scsihw virtio-scsi-pci \
+  --scsi0 data:vm-9000-disk-0
+
+
+qm set 9000 --ide2 local:cloudinit
+qm set 9000 --boot order=scsi0
+qm set 9000 --serial0 socket --vga serial0
+qm set 9000 --agent enabled=1
+
+qm template 9000
+```
+
+Create vm with template
+
+```shell
+qm clone 9000 101 --name debian01
+
+qm set 101 --ciuser debian
+qm set 101 --sshkeys ~/.ssh/id_ed25519.pub
+qm set 101 --ipconfig0 ip=dhcp
+```
+
+## Template
+
+```shell
+qm destroy 9000 --destroy-unreferenced-disks 1
+```
+
 ## FAQ
 
 如果遇到前端报错可以重新安装前端组件
