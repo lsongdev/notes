@@ -10,6 +10,8 @@ has_children: true
 
 + [Download Windows 10](https://www.microsoft.com/software-download/windows10)
 + [Download Windows 11](https://www.microsoft.com/software-download/windows11)
++ [Windows XP](./xp.md)
++ [Windows 98](./win98.md)
 
 ## Active
 

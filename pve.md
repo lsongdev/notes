@@ -118,28 +118,6 @@ EOF
 https://pve.proxmox.com/wiki/Package_Repositories
 
 
-## 创建虚拟机
-
-```shell
-qm create 100 \
-  --name debian \
-  --memory 2048 \
-  --cores 2 \
-  --net0 virtio,bridge=vmbr0 \
-  --ide2 local-lvm:cloudinit \
-  --scsihw virtio-scsi-pci
-```
-
-使用现有磁盘
-
-```shell
-# 挂载 data/vm-100-disk-0 到 scsi0
-qm set 100 --scsi0 data:vm-100-disk-0
-
-# 设置启动顺序（从第一个盘启动）
-qm set 100 --boot order=scsi0
-```
-
 ## Modify Hostname
 
 ```shell
@@ -243,7 +221,7 @@ systemctl enable --now qemu-guest-agent
 systemctl status qemu-guest-agent
 ```
 
-## Cloud Images
+## Cloud Images / Template
 
 https://cloud.debian.org/images/cloud/
 
@@ -273,6 +251,10 @@ qm set 9000 --agent enabled=1
 qm template 9000
 ```
 
+```shell
+qm destroy 9000 --destroy-unreferenced-disks 1
+```
+
 Create vm with template
 
 ```shell
@@ -281,12 +263,29 @@ qm clone 9000 101 --name debian01
 qm set 101 --ciuser debian
 qm set 101 --sshkeys ~/.ssh/id_ed25519.pub
 qm set 101 --ipconfig0 ip=dhcp
+qm start 101
 ```
 
-## Template
+## 创建虚拟机
 
 ```shell
-qm destroy 9000 --destroy-unreferenced-disks 1
+qm create 100 \
+  --name debian \
+  --memory 2048 \
+  --cores 2 \
+  --net0 virtio,bridge=vmbr0 \
+  --ide2 local-lvm:cloudinit \
+  --scsihw virtio-scsi-pci
+```
+
+使用现有磁盘
+
+```shell
+# 挂载 data/vm-100-disk-0 到 scsi0
+qm set 100 --scsi0 data:vm-100-disk-0
+
+# 设置启动顺序（从第一个盘启动）
+qm set 100 --boot order=scsi0
 ```
 
 ## FAQ
