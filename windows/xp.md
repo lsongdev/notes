@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Windows XP
+parent: Windows
 ---
 
 # Windows XP
