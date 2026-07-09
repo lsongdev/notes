@@ -26,16 +26,45 @@ Server = http://mirrors.cloud.tencent.com/archlinux/$repo/os/$arch
 # 网易
 Server = http://mirrors.163.com/archlinux/$repo/os/$arch
 EOF
+```
 
-# 更新数据库
-pacman -Syy
+ARM
+
+```ini
+# 清华大学
+Server = http://mirrors.tuna.tsinghua.edu.cn/archlinuxarm/$arch/$repo
+# 中科大
+Server = http://mirrors.ustc.edu.cn/archlinuxarm/$arch/$repo
+# 阿里云
+Server = http://mirrors.aliyun.com/archlinuxarm/$arch/$repo
+```
+
+安装测速工具
+
+```shell
+pacman -S pacman-contrib  # 如果装不了，先手动换源再试
+```
+
+测速排序（从备份的完整列表里选）
+
+```shell
+rankmirrors -n 3 /etc/pacman.d/mirrorlist.bak > /etc/pacman.d/mirrorlist
+```
+
+更新数据库
+
+```shell
+pacman -Syyu
 ```
 
 ## 同步操作
 
 **Sy** - Synchronize
 
-    pacman -Syu
+```shell
+pacman -Syu
+```
+
 更新所有软件包
 
 **S** - Install
