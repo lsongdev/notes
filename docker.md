@@ -334,3 +334,18 @@ curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compo
 chmod +x /usr/local/bin/docker-compose
 docker-compose
 ```
+
+## Docker config
+
+~/.docker/config.json
+
+```json
+{
+    "registry-mirrors": [
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://hub-mirror.c.163.com",
+        "https://mirror.baidubce.com",
+        "https://hub.rat.dev"
+    ]
+}
+```

@@ -9,6 +9,16 @@ title: OrbStack
 
 ```
 ~/.orbstack/config/docker.json
+
+{
+    "registry-mirrors": [
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://hub-mirror.c.163.com",
+        "https://mirror.baidubce.com",
+        "https://hub.rat.dev"
+    ]
+}
+
 orb restart docker
 ```
 

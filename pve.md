@@ -227,24 +227,42 @@ https://cloud.debian.org/images/cloud/
 
 ```shell
 wget https://saimei.ftp.acc.umu.se/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2
+wget https://fastly.mirror.pkgbuild.com/images/latest/Arch-Linux-x86_64-cloudimg.qcow2
 
 qm create 9000 \
-  --name debian13-cloud \
+  --name debian13-cloud \ 
   --memory 2048 \
   --cores 2 \
   --net0 virtio,bridge=vmbr0
+  --cpu host \
+  --ostype l26 \
+  --scsihw virtio-scsi-pci
 
+qm create 9001 \
+  --name arch-cloud
 
 qm importdisk 9000 debian-13-genericcloud-amd64.qcow2 data
+qm importdisk 9001 Arch-Linux-x86_64-cloudimg.qcow2 data
 
+# 挂载为 scsi0
+qm set 9000 --scsi0 data:vm-9000-disk-0
+qm set 9001 --scsi0 data:vm-9001-disk-0
 
-qm set 9000 \
-  --scsihw virtio-scsi-pci \
-  --scsi0 data:vm-9000-disk-0
-
-
-qm set 9000 --ide2 local:cloudinit
+# 设置从 scsi0 启动
 qm set 9000 --boot order=scsi0
+qm set 9001 --boot order=scsi0
+
+# （推荐）添加 cloud-init 驱动盘
+qm set 9001 --ide2 data:cloudinit
+qm set 9000 --ide2 local:cloudinit
+qm set 9001 --ide2 local:cloudinit
+
+# 配置默认用户和 SSH 密钥
+qm set 9001 --ciuser arch \
+  --cipassword "admin123" \
+  --ipconfig0 ip=dhcp \
+  --sshkeys ~/.ssh/id_rsa.pub
+
 qm set 9000 --serial0 socket --vga serial0
 qm set 9000 --agent enabled=1
 
@@ -264,6 +282,35 @@ qm set 101 --ciuser debian
 qm set 101 --sshkeys ~/.ssh/id_ed25519.pub
 qm set 101 --ipconfig0 ip=dhcp
 qm start 101
+```
+
+做模版之前的清理工作
+
+```shell
+# 1. 先启动一次（用于清理）
+qm start 9001
+
+# 2. 通过 VNC/串口登录（cloud-init 配置的用户密码）
+# 或者直接用控制台
+
+# 3. 进入 VM 后执行清理
+sudo rm -f /etc/machine-id
+sudo touch /etc/machine-id  # 创建空文件，下次启动重新生成
+
+# 可选：清理其他应唯一化的标识
+sudo rm -f /var/lib/dbus/machine-id
+sudo ln -s /etc/machine-id /var/lib/dbus/machine-id  # 确保指向同一个
+
+# 清理 SSH host keys（克隆后会重新生成）
+sudo rm -f /etc/ssh/ssh_host_*
+
+# 清理日志和临时文件
+sudo rm -rf /var/log/journal/*
+sudo rm -rf /tmp/*
+sudo rm -rf /var/tmp/*
+
+# 4. 关机
+sudo poweroff
 ```
 
 ## 创建虚拟机
