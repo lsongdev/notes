@@ -22,6 +22,10 @@ Clockwork Pi uConsole 可以选择不同的核心板
 + <http://dl.clockworkpi.com/uConsole_CM4_v1.3g_64bit.img.7z>
 + <http://dl.clockworkpi.com/uConsole_CM4_v0.1b_xfce_64bit.img.7z>
 
+如果你喜欢 ArchLinux 可以自行编译：
+
++ <https://github.com/lsongdev/uconsole-cm3-arch-image-builder>
+
 我比较喜欢 XFCE 版本的，因为它比较简单。
 
 下载好之后通过 `dd` 将其写入到 SD 卡中
@@ -170,8 +174,27 @@ systemctl enable networkmanager
 
 ## Bluetooth
 
+蓝牙协议栈和工具
+
+```shell
+pacman -S bluez bluez-utils
+```
+
+XFCE 蓝牙托盘图标（图形化管理）
+
 ```shell
 apt install blueman
+pacman -S blueman
+```
+
+装完在 XFCE 面板右键 → 面板 → 面板首选项 → 项目 → 添加 蓝牙管理器，或者直接在应用菜单里找 Blueman。
+
+```shell
+# 看蓝牙控制器状态
+bluetoothctl show
+
+# 扫描设备
+bluetoothctl scan on
 ```
 
 ---

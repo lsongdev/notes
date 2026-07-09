@@ -93,6 +93,27 @@ sudo swapon /swapfile
 sudo mount -o remount,size=8G /tmp
 ```
 
+## DateTime
+
+```shell
+sudo localectl set-locale LANG=en_US.UTF-8
+# 或者如果你要中文
+sudo localectl set-locale LANG=zh_CN.UTF-8
+
+# 设置上海时区
+sudo timedatectl set-timezone Asia/Shanghai
+
+# 用 NTP 同步时间
+sudo timedatectl set-ntp true
+
+# 手动设置正确时间
+sudo timedatectl set-time "2026-07-09 17:56:00"
+
+# 检查时区
+timedatectl status
+
+```
+
 ---
 
 推荐了解以下内容：

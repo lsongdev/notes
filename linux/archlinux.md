@@ -93,6 +93,40 @@ When ready, exit and reboot:
 ~# reboot
 ```
 
+### SSH
+
+```shell
+pacman -S openssh
+
+systemctl enable --now sshd
+```
+
+### Add User
+
+```shell
+# 1. 把用户加入 wheel 组
+usermod -aG wheel lsong
+
+# 2. 安装 sudo（如果还没装）
+pacman -S sudo
+
+# 3. 编辑 sudoers，允许 wheel 组使用 sudo
+EDITOR=vim visudo
+```
+
+在 visudo 里找到这行，去掉前面的 `#`：
+
+```shell
+%wheel ALL=(ALL:ALL) ALL
+```
+
+or 
+
+```shell
+echo '%wheel ALL=(ALL:ALL) ALL' > /etc/sudoers.d/wheel
+chmod 440 /etc/sudoers.d/wheel
+```
+
 ## GUI Installation
 
 ### Graphics Driver Installation

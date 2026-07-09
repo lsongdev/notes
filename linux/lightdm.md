@@ -11,7 +11,9 @@ LightDM is a lightweight display manager.
 ## Install
 
 ```shell
-apt install lightdm
+apt install lightdm lightdm-gtk-greeter
+pacman -S lightdm lightdm-gtk-greeter
+systemctl enable lightdm
 ```
 
 ## Configuration
