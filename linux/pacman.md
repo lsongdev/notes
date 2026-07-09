@@ -9,6 +9,28 @@ parent: Linux
 pacman is a package manager for Unix-like operating systems such as Linux, macOS, and Windows.
 pacman 是 Arch Linux 的包管理器，用于安装、更新和删除软件包。
 
+```shell
+# 备份原配置
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+
+# 写入国内镜像源
+cat > /etc/pacman.d/mirrorlist << 'EOF'
+# 清华大学
+Server = http://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
+# 中科大
+Server = http://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch
+# 阿里云
+Server = http://mirrors.aliyun.com/archlinux/$repo/os/$arch
+# 腾讯云
+Server = http://mirrors.cloud.tencent.com/archlinux/$repo/os/$arch
+# 网易
+Server = http://mirrors.163.com/archlinux/$repo/os/$arch
+EOF
+
+# 更新数据库
+pacman -Syy
+```
+
 ## 同步操作
 
 **Sy** - Synchronize

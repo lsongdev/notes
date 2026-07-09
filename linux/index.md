@@ -78,6 +78,21 @@ Linux，作为一个复杂而又引人入胜的操作系统，有以下的一些
 
 可以参考 [Archlinux#Installation](archlinux#installation) 章节
 
+## create swapfile
+
+```shell
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+
+## 调整 tmp 分区 
+
+```shell
+sudo mount -o remount,size=8G /tmp
+```
+
 ---
 
 推荐了解以下内容：

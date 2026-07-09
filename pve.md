@@ -230,16 +230,13 @@ wget https://saimei.ftp.acc.umu.se/images/cloud/trixie/latest/debian-13-genericc
 wget https://fastly.mirror.pkgbuild.com/images/latest/Arch-Linux-x86_64-cloudimg.qcow2
 
 qm create 9000 \
-  --name debian13-cloud \ 
+  --name arch-cloud \
   --memory 2048 \
   --cores 2 \
-  --net0 virtio,bridge=vmbr0
   --cpu host \
+  --net0 virtio,bridge=vmbr0 \
   --ostype l26 \
   --scsihw virtio-scsi-pci
-
-qm create 9001 \
-  --name arch-cloud
 
 qm importdisk 9000 debian-13-genericcloud-amd64.qcow2 data
 qm importdisk 9001 Arch-Linux-x86_64-cloudimg.qcow2 data
