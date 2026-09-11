@@ -129,6 +129,29 @@ hl.monitor({
 CompositorCommand=start-hyprland -- --config /etc/sddm/hyprland-pocket3.lua
 ```
 
+如果上述文件没有生效，检查 Omarchy 的 `/etc/sddm.conf.d/10-wayland.conf`。
+在当前 Omarchy 版本中，它可能优先指定 `/usr/share/sddm/hyprland.lua`，
+导致后面的 `91-pocket3-rotation.conf` 不覆盖 `CompositorCommand`。此时使用
+最高优先级的主配置 `/etc/sddm.conf`：
+
+```ini
+[General]
+DisplayServer=wayland
+
+[Wayland]
+CompositorCommand=start-hyprland -- --config /etc/sddm/hyprland-pocket3.lua
+```
+
+只有确认 SDDM 已经加载 `/etc/sddm/hyprland-pocket3.lua` 后，调整其中的
+`transform` 才会影响登录界面。当前实际启动命令可以从 SDDM 日志中确认：
+
+```text
+start-hyprland -- --config /etc/sddm/hyprland-pocket3.lua
+```
+
+登录后再注销一次可以让 SDDM greeter 重新启动；旧的 greeter 进程不会因为
+修改配置文件而自动重载。
+
 ##### Plymouth 和控制台
 
 Omarchy 使用 Limine。修改 `/etc/default/limine`，加入：
@@ -144,6 +167,16 @@ KERNEL_CMDLINE[default]+="fbcon=rotate:1 video=DSI-1:panel_orientation=right_sid
 sudo limine-update
 sudo reboot
 ```
+
+在 Omarchy 4 中，`limine-update` 可能会把 `/etc/default/limine` 中手工追加的
+`KERNEL_CMDLINE` 行注释掉。更可靠的持久化方式是创建
+`/etc/limine-entry-tool.d/gpd-pocket3-rotation.conf`：
+
+```ini
+KERNEL_CMDLINE[default]+=" fbcon=rotate:1 video=DSI-1:panel_orientation=right_side_up"
+```
+
+然后运行 `sudo limine-update`。
 
 重启后可以确认内核参数和 DRM 面板方向：
 
@@ -171,6 +204,78 @@ panel orientation: Right Side Up
 最早出现的 GPD 固件 Logo 和 Limine bootloader 菜单运行在 Linux 接管显示器
 之前，Limine 本身也没有屏幕旋转功能，因此这两个画面仍会保持侧向；从
 Plymouth 开始可以正常转正。
+
+补充：如果为了让 Limine 菜单本身转正，在 `/boot/limine.conf` 加入
+`interface_rotation: 90`，并把内核参数改为
+`video=DSI-1:panel_orientation=inverted`，当前内核会把 DRM 面板报告为
+`Normal (value 0)`。在这一组合下，SDDM 必须改用 `transform = 3`；用户桌面
+仍保持 `transform = 3`。如果恢复为 `panel_orientation=right_side_up`，则
+SDDM 应使用前面所述的 `transform = 1`。
+
+##### 最终可用配置（Omarchy 4 / GPD Pocket 3）
+
+最终采用了下面这套组合：
+
+| 阶段 | 实际配置 |
+| --- | --- |
+| Limine 菜单方向 | `/boot/limine.conf`：`interface_rotation: 90` |
+| Limine 菜单字体 | `/boot/limine.conf`：`term_font_scale: 2x2` |
+| Linux 控制台 / Plymouth | `/etc/limine-entry-tool.d/gpd-pocket3-rotation.conf`：`fbcon=rotate:1 video=DSI-1:panel_orientation=right_side_up` |
+| SDDM greeter | `/etc/sddm.conf` 指向 `/etc/sddm/hyprland-pocket3.lua`，其中 `transform = 1` |
+| 用户桌面 | `~/.config/hypr/monitors.lua`，其中 `transform = 3` |
+| 触摸屏 / 手写笔 | `~/.config/hypr/input.lua`，其中 `transform = 3` |
+
+`/etc/limine-entry-tool.d/gpd-pocket3-rotation.conf` 的内容：
+
+```ini
+KERNEL_CMDLINE[default]+=" fbcon=rotate:1 video=DSI-1:panel_orientation=right_side_up"
+```
+
+`/etc/sddm.conf` 的内容：
+
+```ini
+[General]
+DisplayServer=wayland
+
+[Wayland]
+CompositorCommand=start-hyprland -- --config /etc/sddm/hyprland-pocket3.lua
+```
+
+SDDM 的自定义 Hyprland 配置末尾使用：
+
+```lua
+hl.monitor({ output = "DSI-1", mode = "preferred", position = "0x0", scale = 1.6, transform = 1 })
+```
+
+重要排错记录：
+
+1. 仅修改 `/etc/sddm/hyprland-pocket3.lua` 最初没有效果，因为 SDDM 实际读取的是 Omarchy 的 `/etc/sddm.conf.d/10-wayland.conf`，其中仍指向 `/usr/share/sddm/hyprland.lua`。
+2. 添加 `/etc/sddm.conf.d/91-pocket3-rotation.conf` 也没有可靠覆盖该设置；创建高优先级的 `/etc/sddm.conf` 后，日志才确认启动命令为 `start-hyprland -- --config /etc/sddm/hyprland-pocket3.lua`。
+3. 把旋转参数直接追加到 `/etc/default/limine` 会在 `limine-update` 时被注释掉；使用 `/etc/limine-entry-tool.d/*.conf` 才能持久保存。
+4. SDDM greeter 只有在重新启动实例后才会读取配置；修改文件后，注销或重启才能验证，旧 greeter 不会热加载。
+5. `interface_rotation` 只影响 Limine 菜单；`panel_orientation` 和 `fbcon` 影响 Linux 接管后的阶段，不能混用来代替 Hyprland 的 monitor transform。
+
+##### Windows 与 Limine 双系统菜单
+
+Windows 分区和 EFI 文件均保持完整，UEFI 条目为 `Boot0000 Windows Boot Manager`。
+为了保留 Limine 为默认启动器，同时在菜单中选择 Windows，在 `/boot/limine.conf`
+中加入：
+
+```text
+/Windows Boot Manager
+comment: Start the verified Windows UEFI boot entry
+protocol: efi_boot_entry
+entry: Windows Boot Manager
+```
+
+`efi_boot_entry` 比直接复制或跨分区链式加载 `bootmgfw.efi` 更稳，因为它调用
+固件已经验证过的 Windows 启动项。修改后运行：
+
+```shell
+sudo limine-update
+```
+
+原配置备份为 `/boot/limine.conf.before-windows-entry`。
 
 
 #### Install intel video drivers
