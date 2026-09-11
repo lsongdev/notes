@@ -221,7 +221,7 @@ SDDM 应使用前面所述的 `transform = 1`。
 | Limine 菜单方向 | `/boot/limine.conf`：`interface_rotation: 90` |
 | Limine 菜单字体 | `/boot/limine.conf`：`term_font_scale: 2x2` |
 | Linux 控制台 / Plymouth | `/etc/limine-entry-tool.d/gpd-pocket3-rotation.conf`：`fbcon=rotate:1 video=DSI-1:panel_orientation=right_side_up` |
-| SDDM greeter | `/etc/sddm.conf` 指向 `/etc/sddm/hyprland-pocket3.lua`，其中 `transform = 1` |
+| SDDM greeter | 使用 Omarchy 默认 SDDM/Hyprland 配置；正确的 DRM `panel_orientation` 会自动使其转正 |
 | 用户桌面 | `~/.config/hypr/monitors.lua`，其中 `transform = 3` |
 | 触摸屏 / 手写笔 | `~/.config/hypr/input.lua`，其中 `transform = 3` |
 
@@ -241,11 +241,15 @@ DisplayServer=wayland
 CompositorCommand=start-hyprland -- --config /etc/sddm/hyprland-pocket3.lua
 ```
 
-SDDM 的自定义 Hyprland 配置末尾使用：
+曾经用于诊断的 SDDM 自定义 Hyprland 配置末尾使用：
 
 ```lua
 hl.monitor({ output = "DSI-1", mode = "preferred", position = "0x0", scale = 1.6, transform = 1 })
 ```
+
+最终验证表明，上述 SDDM 自定义 Lua 并不需要保留；恢复 Omarchy 默认 SDDM
+配置后，登录界面同样正常。当前只需要保证 DRM 的 `right_side_up` 参数存在，
+不需要维护 `/etc/sddm.conf` 或 `/etc/sddm/hyprland-pocket3.lua`。
 
 重要排错记录：
 
