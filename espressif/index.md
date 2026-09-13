@@ -2,6 +2,7 @@
 layout: default
 title: Espressif
 parent: Electricity
+has_children: true
 ---
 
 # [Espressif](https://www.espressif.com)
