@@ -369,6 +369,219 @@ EndSection
 ~# pacman -S sof-firmware
 ```
 
+## Linux 传感器与指纹驱动（2026-09）
+
+GPD Pocket 3 的 DMI 信息：
+
+```text
+sys_vendor: GPD
+product_name: G1621-02
+board_name: G1621-02
+```
+
+### 屏幕方向传感器
+
+内核已经识别到 MXC6655 加速度计，驱动名为 `mxc4005`：
+
+```text
+/dev/iio:device0
+/sys/bus/iio/devices/iio:device0
+```
+
+读取原始数据：
+
+```shell
+for f in name in_accel_x_raw in_accel_y_raw in_accel_z_raw \
+         in_accel_scale in_accel_mount_matrix; do
+  printf '%s: ' "$f"
+  cat "/sys/bus/iio/devices/iio:device0/$f"
+done
+```
+
+ArchWiki 推荐安装 `iio-sensor-proxy`，Hyprland 使用
+[`iio-hyprland`](https://github.com/JeanSchoeller/iio-hyprland) 自动旋转屏幕；
+Sway 则可使用 [`iio-sway`](https://github.com/okeri/iio-sway)。
+
+### FocalTech 指纹识别
+
+Pocket 3 的指纹芯片是 **FocalTech FTE3600**，通过 SPI 连接，不会出现在
+`lsusb` 中。ArchWiki 推荐两个 AUR 包：
+
+```shell
+focaltech-spi-dkms
+libfprint-ftexx00
+```
+
+第一个提供 `focal_spi` DKMS 内核模块，第二个提供 FocalTech 专用的
+`libfprint` 实现；安装后预期会出现：
+
+```text
+/dev/focal_moh_spi
+```
+
+然后安装并使用 `fprintd`：
+
+```shell
+fprintd-enroll
+fprintd-list "$USER"
+```
+
+> `libfprint-ftexx00` 会与普通 `libfprint` 冲突；它是 FocalTech 专用驱动，
+> 不要和普通 `libfprint` 同时安装。
+
+### 本次安装记录
+
+已经通过系统仓库安装成功：
+
+```shell
+omarchy pkg add iio-sensor-proxy fprintd
+```
+
+实际安装了 `iio-sensor-proxy`、`fprintd`、普通 `libfprint` 以及依赖。
+
+AUR 包已经下载到 `~/.cache/yay/`。直接执行：
+
+```shell
+yay -S --needed --noconfirm focaltech-spi-dkms libfprint-ftexx00
+```
+
+在没有交互式 sudo 终端的 Agent/SSH 环境中会失败：
+
+```text
+sudo: a terminal is required to read the password
+```
+
+本次采用的可复用安装流程是：
+
+```shell
+# 官方依赖；图形授权不会要求当前终端输入 sudo 密码
+pkexec pacman -S --needed --noconfirm dkms linux-headers
+
+# 以普通用户构建 AUR 包，不要用 root makepkg
+cd ~/.cache/yay/focaltech-spi-dkms
+makepkg --noconfirm --nodeps
+
+cd ~/.cache/yay/libfprint-ftexx00
+makepkg --noconfirm --nodeps
+
+# libfprint-ftexx00 与官方 libfprint 冲突，先移除官方实现
+pkexec pacman -Rdd --noconfirm libfprint
+
+pkexec pacman -U --noconfirm \
+  ~/.cache/yay/focaltech-spi-dkms/focaltech-spi-dkms-*.pkg.tar.zst \
+  ~/.cache/yay/libfprint-ftexx00/libfprint-ftexx00-*.pkg.tar.zst
+
+pkexec modprobe focal_spi
+```
+
+本次实际安装结果：
+
+```text
+focaltech-spi-dkms 1.0.3-3
+libfprint-ftexx00 1.94.4_20250112-3
+/dev/focal_moh_spi
+```
+
+`fprintd-list "$USER"` 已经能找到设备：
+
+```text
+FocalTech Systems Co., Ltd fingerprint
+User lsong has no fingers enrolled
+```
+
+录入指纹：
+
+```shell
+fprintd-enroll
+fprintd-list "$USER"
+```
+
+方向传感器部分已经安装并验证：
+
+```shell
+pkexec pacman -S --needed --noconfirm iio-sensor-proxy
+```
+
+Hyprland 自动旋转程序使用 AUR 的 `iio-hyprland-git`。本次安装了 Meson 后以普通用户构建，
+再用 `pkexec pacman -U` 安装；当前版本为 `r93.8f56219-1`。
+
+在 `~/.config/hypr/autostart.lua` 中加入：
+
+```lua
+o.launch_on_start("iio-hyprland --transform 0,1,2,3 DSI-1")
+```
+
+本机的 `MXC6655` 在正常横向使用姿态下报告 `right-up`，而 Pocket 3 当前桌面需要 Hyprland `transform = 3`；因此本机使用标准映射 `0,1,2,3`，使 `right-up` 对应 `transform = 3`。如果画面仍偏转 90 度，应只调整这个映射，不要修改传感器驱动。修改后执行：
+
+```shell
+hyprctl reload
+hyprctl configerrors
+```
+
+重新登录后它会自动启动；当前会话临时测试可以运行：
+
+```shell
+nohup iio-hyprland --transform 3,0,1,2 DSI-1 \
+  >~/.local/state/iio-hyprland.log 2>&1 &
+```
+
+验证传感器服务：
+
+```shell
+monitor-sensor
+```
+
+应显示 `Has accelerometer` 和当前方向。
+
+### SDDM 登录指纹
+
+本机使用 SDDM，并且原来启用了自动登录：
+
+```text
+/etc/sddm.conf.d/autologin.conf
+```
+
+自动登录不会执行 PAM 认证，因此需要先禁用它，再给 SDDM 的 PAM 栈加入指纹认证：
+
+```shell
+sudo cp /etc/pam.d/sddm /etc/pam.d/sddm.bak.$(date +%Y%m%d-%H%M%S)
+sudo cp /etc/sddm.conf.d/autologin.conf /etc/sddm.conf.d/autologin.conf.bak.$(date +%Y%m%d-%H%M%S)
+sudo sed -i '/^auth[[:space:]]\+include[[:space:]]\+system-login/i auth        sufficient  pam_fprintd.so' /etc/pam.d/sddm
+sudo mv /etc/sddm.conf.d/autologin.conf /etc/sddm.conf.d/autologin.conf.disabled
+```
+
+当前配置为：
+
+```text
+auth        sufficient  pam_fprintd.so
+auth        include     system-login
+```
+
+`pam_fprintd.so` 成功时使用指纹登录，失败或取消时仍可回退到密码。修改后
+注销或重启，下一次 SDDM 登录即可测试；当前桌面不会被强制退出。
+
+恢复自动登录：
+
+```shell
+sudo mv /etc/sddm.conf.d/autologin.conf.disabled /etc/sddm.conf.d/autologin.conf
+```
+
+如果 DKMS 模块没有自动加载，可以检查：
+
+```shell
+dkms status
+modinfo focal_spi
+journalctl -k -b | grep -iE 'focal|fte|spi|finger'
+```
+
+参考：
+
+- <https://wiki.archlinux.org/title/GPD_Pocket_3>
+- <https://aur.archlinux.org/packages/focaltech-spi-dkms>
+- <https://aur.archlinux.org/packages/libfprint-ftexx00>
+- <https://github.com/vobademi/FTEXX00-Ubuntu>
+- <https://github.com/oneXfive/ubuntu_spi>
+
 ## Sources Used in this Document
 
 * [arch linux's GPD Pocket device wiki](https://wiki.archlinux.org/index.php/GPD_Pocket)
