@@ -198,3 +198,156 @@ bluetoothctl scan on
 ```
 
 ---
+
+## 2026-09-15：Arch Linux ARM 切换到 Wayland（进行中）
+
+目标：在 `devterm`（ClockworkPi uConsole CM4，Arch Linux ARM，aarch64）上使用轻量的
+`greetd + tuigreet + Sway + Wayland`，逐步配置 Quickshell；保留 `Xwayland` 作为旧版
+X11 应用兼容层。
+
+### 设备状态
+
+```text
+Kernel: 6.12.45-1-uconsole-rpi64
+RAM: 3.7 GiB
+磁盘: 29 GiB，约 12 GiB 可用
+用户: lsong
+```
+
+### 已完成
+
+- 通过 `root@devterm` SSH 操作，避免 sudo 密码交互。
+- 完成一次 `pacman -Syu`，系统无待升级包。
+- 安装 Wayland 基础包、Quickshell、SDDM、portal、截图和剪贴板工具。
+- 安装并验证 `sway`，已能运行 Sway Wayland 会话。
+- 禁用并停止 `lightdm`，启用 `sddm`。
+- SDDM 已自动登录 `sway.desktop`；当前进程显示为 `SDDM -> Xorg greeter -> Sway`。
+- 发现仓库中的 Hyprland 与 aquamarine SONAME 不匹配（Hyprland 要求 `.so=13`，仓库提供 `.so=14`），没有强行忽略依赖。
+- 已改为从源码准备编译 Hyprland，但当前轻量方案优先使用 Sway。
+
+### 当前迁移命令记录
+
+```bash
+pacman -Syu --noconfirm
+pacman -S --needed sddm quickshell xdg-desktop-portal-hyprland qt6-wayland \
+  wl-clipboard grim slurp brightnessctl playerctl network-manager-applet
+systemctl disable --now lightdm.service
+systemctl enable sddm.service
+systemctl set-default graphical.target
+```
+
+### 迁移前计划（已完成）
+
+1. 在 aarch64 上编译安装 `tuigreet`。
+2. 写入 `/etc/greetd/config.toml`，命令使用 `tuigreet --cmd sway`。
+3. 停用 SDDM，并启用 greetd；重启后确认 `loginctl` 显示 `Type=wayland`。
+4. 移除 `lightdm`、`lightdm-gtk-greeter`、`sddm` 及不再使用的 XFCE 桌面包。
+5. 原计划保留 `xwayland`；实际系统之前也没有安装 `xorg-xwayland`，目前保持未安装状态。
+6. 检查并处理 `swap-swapfile.swap` failed 状态，再按服务实际占用决定是否禁用 avahi、bluetooth 等。
+
+### 回滚
+
+```bash
+systemctl disable --now greetd
+systemctl enable --now sddm
+systemctl set-default graphical.target
+```
+
+如果需要完整 X11 XFCE，则重新安装并启用：
+
+```bash
+pacman -S xfce4 lightdm lightdm-gtk-greeter xorg-server
+systemctl disable greetd
+systemctl enable --now lightdm
+```
+
+### 2026-09-15：已切换到 greetd + Sway
+
+```bash
+pacman -S --needed greetd rust scdoc
+# tuigreet 0.7.3 在 devterm/aarch64 上从源码编译
+install -Dm755 target/release/tuigreet /usr/local/bin/tuigreet
+
+cat >/etc/greetd/config.toml <<'EOF'
+[terminal]
+vt = 1
+
+[default_session]
+command = "/usr/local/bin/tuigreet --time --remember --remember-session --cmd sway"
+user = "greeter"
+EOF
+
+systemctl disable --now sddm.service
+systemctl enable --now greetd.service
+```
+
+验证结果：
+
+```text
+greetd: active/enabled
+sway: running
+Xorg server: removed
+SDDM/LightDM: removed
+```
+
+移除的旧桌面包包括 `xfce4-session`、`xfce4-panel`、`xfwm4`、XFCE 插件和
+`xorg-server`、`xorg-xinit`。保留了 `thunar` 及必要 GTK/Wayland 库。
+
+注意：不要把所有名字带 `xorg` 的库都删除；如果以后要运行 Firefox、Electron 或
+其他旧版 X11 程序，建议额外安装 `xorg-xwayland`，它不会启动独立的 Xorg 桌面。
+
+### 服务清理
+
+保留：`NetworkManager`、`wpa_supplicant`、`bluetooth`、`uconsole-audio-switch`、
+`pipewire/wireplumber`、`sshd`、`systemd-timesyncd`。
+
+已禁用：`avahi-daemon`/socket（不使用局域网 mDNS 时可关闭）、
+`NetworkManager-wait-online`（避免启动等待网络）。
+
+`/swap/swapfile` 是失效的旧 fstab 条目；实际可用的 `/swapfile` 仍保留并启用，
+因此删除旧条目后 `systemctl --failed` 不再显示 swap 失败。
+
+### 最终冷启动验证
+
+重启后结果：
+
+```text
+greetd: enabled + active
+tuigreet: running on the console
+Sway: 等待用户在 tuigreet 登录后启动
+Xorg server: not installed
+LightDM/SDDM: not installed
+failed systemd units: 0
+RAM at greetd screen: 198 MiB used / 3.4 GiB free
+swap: /swapfile 1 GiB active
+```
+
+登录后可用 `loginctl` 验证：
+
+```bash
+loginctl list-sessions
+loginctl show-session <SESSION_ID> -p Type -p Desktop
+```
+
+预期为 `Type=wayland`、`Desktop=sway`。
+
+### 2026-09-15：配置纳入 devterm 的 confbook
+
+窗口管理器配置放在设备上的：
+
+```text
+~/Projects/confbook/wm/sway/config
+~/Projects/confbook/wm/quickshell/minimal/shell.qml
+~/Projects/confbook/wm/README.md
+```
+
+并通过软链接接入当前用户配置：
+
+```text
+~/.config/sway/config -> ~/Projects/confbook/wm/sway/config
+~/.config/quickshell/minimal -> ~/Projects/confbook/wm/quickshell/minimal
+```
+
+Sway 当前保留原有快捷键，删除 Waybar/Swaybar，使用 `exec_always` 启动最小
+Quickshell 顶栏。当前顶栏只显示设备名、Sway/Wayland 标识和时钟，后续再逐项增加
+电池、音量、网络和工作区模块。
