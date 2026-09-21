@@ -123,6 +123,11 @@ jq empty singbox/config.json
 新增的策略组和出站名使用英文；provider 节点名保持订阅原文，避免扩大改名
 范围，也方便与上游配置逐项核对。
 
+`US Auto` 不是手写节点清单：更新脚本每次从 provider 的当前节点中按 `美国`
+或 `US` 名称标记动态筛选。筛选结果为空时必须中止生成，不能静默回退到全部
+节点，否则订阅命名变化会让 AI 流量发生地区漂移。旧 Clash 配置里的
+`us-auto` 实际没有国家 filter，只是一个包含两个 provider 的 selector。
+
 ### 安全切换
 
 不能直接在远程路由器上执行“停 Clash、启动 sing-box”，否则配置错误会让
