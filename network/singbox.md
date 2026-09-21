@@ -70,25 +70,25 @@ Linux/OpenWrt 上使用：
 ### 节点更新
 
 最初的 sing-box 配置内嵌了 2025 年的 98 个节点，实际健康检查全部失败。
-当前 Clash provider 已更新，因此从以下文件转换节点：
+迁移时参考了原 provider 的订阅地址，但现在订阅清单已经独立保存在：
 
 ```text
-confbook/clash/proxies/cf.yaml
-confbook/clash/proxies/trojanflare.yaml
+confbook/singbox/subscriptions.json
 ```
 
 转换脚本是 `confbook/singbox/update-providers.rb`，支持 `vless`、`trojan`、
-`anytls` 和 `hysteria2`，并同步 Clash 的 mixed proxy 用户认证。脚本这次生成
-37 个节点，实测多条线路可用，自动选择约 190–360 ms。
+`anytls` 和 `hysteria2`。它直接下载上述清单中的订阅，不读取 Clash provider
+缓存；mixed proxy 用户认证由 sing-box 的 `config.json` 自己维护。脚本这次
+生成 37 个节点，实测多条线路可用，自动选择约 190–360 ms。
 
 URLTest 使用扁平节点列表而不是两层嵌套分组。嵌套组在冷启动时可能先使用
 provider 的第一个失效节点，使规则集下载和 DNS 同时失败。
 
 ### 业务分流
 
-`confbook/singbox/update-rules.rb` 会读取现有 `clash/rules/*.yaml`，把 Clash
-classical 规则转换成 sing-box 内联 rule-set。使用内联格式后，部署仍然只需
-传一个 `config.json`，不会在路由器上留下需要单独同步的规则文件。
+迁移时参考了旧规则内容，但维护边界已经切断。规则源现在是
+`confbook/singbox/rules.json`，直接使用 sing-box source rule-set 字段；
+`update-rules.rb` 只在 `singbox/` 目录内同步规则，不读取 `clash/rules`。
 
 策略组及默认出口：
 
@@ -125,35 +125,33 @@ jq empty singbox/config.json
 
 `US Auto` 不是手写节点清单：更新脚本每次从 provider 的当前节点中按 `美国`
 或 `US` 名称标记动态筛选。筛选结果为空时必须中止生成，不能静默回退到全部
-节点，否则订阅命名变化会让 AI 流量发生地区漂移。旧 Clash 配置里的
-`us-auto` 实际没有国家 filter，只是一个包含两个 provider 的 selector。
+节点，否则订阅命名变化会让 AI 流量发生地区漂移。旧配置中的同名分组只作为
+迁移时的意图参考，不参与当前生成过程。
 
 ### 安全切换
 
-不能直接在远程路由器上执行“停 Clash、启动 sing-box”，否则配置错误会让
-SSH 一起失联。使用 `confbook/singbox/openwrt-deploy.sh`：
+远程更新 TUN 配置时，配置错误可能让 SSH 一起失联。使用
+`confbook/singbox/openwrt-deploy.sh`：
 
 - 切换前运行 `sing-box check`；
 - 备份原配置；
 - 另起 90 秒 watchdog；
 - 启动后检查 SOCKS、透明代理和 Clash API；
-- 任意一步失败都恢复 Clash；
-- 全部通过后才修改开机自启动状态。
+- 任意一步失败都恢复上一份 sing-box 配置并重启；
+- 全部通过后才确认开机自启动状态。
 
-配置以 `/root/confbook/singbox/config.json` 为唯一来源，运行路径使用软连接：
+整个 `/root/confbook/singbox` 是唯一配置来源，运行目录使用软连接：
 
 ```sh
-ln -sfn /root/confbook/singbox/config.json /etc/sing-box/config.json
-readlink /etc/sing-box/config.json
+ln -s /root/confbook/singbox /etc/sing-box
+readlink /etc/sing-box
 ```
 
 后续部署先在开发机提交并推送 confbook，再在路由器上 `git pull --ff-only`，然后
-运行仓库内的 `singbox/openwrt-deploy.sh`。部署脚本会维护该软连接；回滚时恢复
-的也是仓库配置文件内容，不会把 `/etc/sing-box/config.json` 改回普通文件。
-
-部署脚本需要允许“Clash 已停止”这一状态：OpenWrt 上 `/etc/init.d/clash stop`
-在没有 PID 文件时会返回非零。该返回值不是部署失败，脚本会忽略它，以便后续
-配置更新可以幂等执行；sing-box 健康检查的失败仍会触发回滚。
+运行仓库内的 `singbox/openwrt-deploy.sh`。脚本只操作 sing-box，不再检查或控制
+Clash。配置备份位于 `/root/sing-box-backups`，不会污染 Git 工作区；部署成功后
+才更新 `last-known-good.json`，所以在 `git pull` 已覆盖工作树后仍能回滚到上一
+份实际验证过的配置。
 
 ### 两个容易忽略的坑
 
@@ -182,7 +180,7 @@ sing-box: 1.14.1，已启用并运行
 Clash: 已停止并禁用自启动
 TUN: singtun0，IPv4/IPv6 均启用
 DNS: 127.0.0.1:1053
-Mixed proxy: 192.168.8.1:1080（沿用 Clash 用户认证）
+Mixed proxy: 192.168.8.1:1080（认证由 sing-box 配置维护）
 Clash API / Yacd: http://192.168.8.1:7880/ui/
 ```
 
@@ -192,15 +190,13 @@ API、TUN/nftables 规则、业务分流命中，以及 sing-box 服务重启后
 ### 回滚
 
 ```sh
-/etc/init.d/sing-box stop
-/etc/init.d/sing-box disable
-/etc/init.d/clash enable
-/etc/init.d/clash start
+cp /root/sing-box-backups/config-YYYYmmdd-HHMMSS.json \
+  /root/confbook/singbox/config.json
+/etc/init.d/sing-box restart
 ```
 
-部署前的 sing-box 配置内容备份位于
-`/etc/sing-box/config.json.backup-YYYYmmdd-HHMMSS`；恢复时应复制到
-`/root/confbook/singbox/config.json`。
+首次目录链接转换前的 `/etc/sing-box` 会保留为
+`/etc/sing-box.before-repo-YYYYmmdd-HHMMSS`。
 
 ### 参考
 
