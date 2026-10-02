@@ -10,7 +10,7 @@ ip is a command-line utility for networking.
 
 显示或操纵路由、设备、策略路由和隧道
 
-macOS 原生没有 `ip` 命令需要通过 [brew](../macos/brew) 安装.
+macOS 原生没有 `ip` 命令需要通过 [brew](../apple/macos/brew) 安装.
 
 ```shell
 brew install iproute2mac
@@ -32,7 +32,7 @@ ip addr
 
 显示或修改路由表
 
-在 Linux 中，route 是 ip 的子命令，而 macOS 中 [route](../macos/route) 是独立的命令。
+在 Linux 中，route 是 ip 的子命令，而 macOS 中 `route` 是独立的命令。
 
 ### 查看路由规则
 

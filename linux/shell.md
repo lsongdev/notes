@@ -260,7 +260,7 @@ elif [[ -n "$string" ]]; then
 fi
 ```
 
-See: [Conditionals](bash.md#conditionals-2)
+See: [Conditionals](#conditionals-2)
 
 ## Parameter expansions
 
@@ -1019,7 +1019,7 @@ get_name() {
 echo "You are $(get_name)"
 ```
 
-See: [Functions](bash.md#functions-2)
+See: [Functions](#functions-2)
 
 
 ### Shell execution
@@ -1114,4 +1114,3 @@ See: [Unofficial bash strict mode](http://redsymbol.net/articles/unofficial-bash
 * [Bash Guide](http://mywiki.wooledge.org/BashGuide) _\(mywiki.wooledge.org\)_
 * [ShellCheck](https://www.shellcheck.net/) _\(shellcheck.net\)_
 * [shell - Standard Shell](https://devmanual.gentoo.org/tools-reference/bash/index.html) _\(devmanual.gentoo.org\)_
-

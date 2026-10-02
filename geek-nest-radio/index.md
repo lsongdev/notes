@@ -24,7 +24,7 @@ parent: Radio
 
 ### 使用说明
 
-设备顶部左侧 SMA 接口可以使用 50欧姆阻抗天线，可以使用拉杆天线，[甜甜圈天线 by 会飞的鱼](../hfdy) 需要使用 Hi-Z 阻抗转换器。
+设备顶部左侧 SMA 接口可以使用 50欧姆阻抗天线，可以使用拉杆天线，甜甜圈天线 by 会飞的鱼需要使用 Hi-Z 阻抗转换器。
 
 设备顶部右侧是编码器旋钮，按下可以切换模式：
 
@@ -122,7 +122,7 @@ TODO: 存储频道
 
 ![WebESP](https://github.com/song940/webesp/raw/master/webesp.png)
 
-可以参考 [ESP32刷写固件](../espx#Flash) 方面的说明
+可以参考 [ESP32刷写固件](../espressif/esp32#flash) 方面的说明
 
 选择固件 [FW_0.2.9.8_for_V5A_240412.bin](https://drive.google.com/file/d/1U7W7IpZCjkehXae285qaNFG_euhQPNQP/view?usp=sharing)，起始地址为：`0x00000000`，点 Flash 即可。
 

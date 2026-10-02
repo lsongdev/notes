@@ -24,7 +24,7 @@ $ find . -name "2020*.csv"
 $ find . -name "json_*"
 ```
 
-* [Regex reference](./regex)
+* [Regex reference](../regex)
 * [Find cheatsheet](https://gist.github.com/gr1ev0us/3a9b9d9dbdd38f6379288eb2686fc538) _(gist.github.com)_
 
 ### Option Examples
@@ -36,7 +36,7 @@ $ find . -name "json_*"
 | `-iname`    | find . -type f -iname "hello"               | Find file by name (case-insensitive)                                                                                              |
 | `-size`     | find . -size +1G                            | Find files larger than 1G                                                                                                         |
 | `-user`     | find . -type d -user jack                   | Find jack's file                                                                                                                  |
-| `-regex`    | find /var -regex '.\*/tmp/.\*\[0-9]\*.file' | Using Regex with find. See [regex](./regex) |
+| `-regex`    | find /var -regex '.\*/tmp/.\*\[0-9]\*.file' | Using Regex with find. See [regex](../regex) |
 | `-maxdepth` | find . -maxdepth 1 -name "a.txt"            | In the current directory and subdirectories                                                                                       |
 | `-mindepth` | find / -mindepth 3 -maxdepth 5 -name pass   | Between sub-directory level 2 and 4                                                                                               |
 

@@ -54,8 +54,8 @@ Wildcards are accepted in filename.
 
 ### Refer
 
-* [Regex syntax](./regex)
-* [Regex examples](./regex#regex-examples)
+* [Regex syntax](../regex)
+* [Regex examples](../regex#regex-examples)
 
 Please refer to the full version of the regex cheat sheet for more complex requirements.
 
@@ -103,4 +103,3 @@ Please refer to the full version of the regex cheat sheet for more complex requi
 | `^$` | Empty line. |
 | `\<` | Start of word. |
 | `\>` | End of word. |
-

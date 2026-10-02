@@ -17,7 +17,7 @@ JavaScript is a lightweight, interpreted programming language.
 JavaScript is a lightweight, interpreted programming language.
 
 * [Learn X in Y minutes](https://learnxinyminutes.com/docs/javascript/) _(learnxinyminutes.com)_
-* [Regex in JavaScript](./regex#regex-in-javascript)
+* [Regex in JavaScript](../regex#regex-in-javascript)
 
 ### console.log()
 

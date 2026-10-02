@@ -13,11 +13,11 @@ Regex is a pattern matching language.
 
 This is a quick cheat sheet to getting started with regular expressions.
 
-* [Regex in Python](regex#regex-in-python) 
-* [Regex in JavaScript](regex#regex-in-javascript) 
-* [Regex in PHP](regex#regex-in-php) 
-* [Regex in Java](regex#regex-in-java) 
-* [Regex in MySQL](regex#regex-in-mysql) 
+* [Regex in Python](#regex-in-python)
+* [Regex in JavaScript](#regex-in-javascript)
+* [Regex in PHP](#regex-in-php)
+* [Regex in Java](#regex-in-java)
+* [Regex in MySQL](#regex-in-mysql)
 * [Regex in Vim](vim#search-and-replace) 
 * [Regex in Emacs](emacs#search) 
 * [Online regex tester](https://regex101.com/) _(regex101.com)_

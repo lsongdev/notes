@@ -8,11 +8,11 @@ parent: Network
 
 路由器是一种限制了特定用途的计算机设备，它的主要用途是为了连接网络。一般来说具备以下功能：
 
-* [PPPoE 拨号服务](./pppoe)
+* PPPoE 拨号服务
 * [DHCP 动态主机配置协议](./dhcp)
 * [DNS 域名解析服务](./dns)
-* [NAT 网络地址转换](./nat)
-* [Firewall 防火墙](./firewall)
+* NAT 网络地址转换
+* Firewall 防火墙
 * [VPN 虚拟专用网络](./vpn)
 
 ### 交换机

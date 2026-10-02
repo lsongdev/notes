@@ -49,7 +49,7 @@ b, c := 1, 2             // int
 d := true                // bool
 ```
 
-See: [Basic types](golang.md#basic-types)
+See: [Basic types](#basic-types)
 
 ### Functions
 
@@ -69,7 +69,7 @@ func say(message string) {
 }
 ```
 
-See: [Functions](golang.md#functions-2)
+See: [Functions](#functions-2)
 
 ### Comments
 
@@ -88,7 +88,7 @@ if true {
 }
 ```
 
-See: [Flow control](golang.md#flow-control)
+See: [Flow control](#flow-control)
 
 ## Basic types
 
@@ -130,7 +130,7 @@ fmt.Println("x + 4 =", x + 4)
 fmt.Println("x * 4 =", x * 4)
 ```
 
-See: [More Operators](golang.md#operators-and-punctuation)
+See: [More Operators](#operators-and-punctuation)
 
 ### Booleans
 
@@ -149,7 +149,7 @@ fmt.Println(true || false)  // true
 fmt.Println(!true)          // false
 ```
 
-See: [More Operators](golang.md#operators-and-punctuation)
+See: [More Operators](#operators-and-punctuation)
 
 ### Arrays
 

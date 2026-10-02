@@ -58,7 +58,7 @@ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 * [Python](https://www.python.org/)  _\(python.org\)_
 * [Learn X in Y minutes](https://learnxinyminutes.com/docs/python/) _\(learnxinyminutes.com\)_
-* [Regex in python](./regex#regex-in-python)
+* [Regex in python](../regex#regex-in-python)
 
 ### Hello World
 
@@ -91,7 +91,7 @@ Python has no command for declaring a variable.
 | `bool` | Boolean |
 | `bytes`, `bytearray`, `memoryview` | Binary |
 
-See: [Data Types](python.md#data-types-2)
+See: [Data Types](#data-types-2)
 
 ### Slicing String
 
@@ -101,7 +101,7 @@ See: [Data Types](python.md#data-types-2)
 llo
 ```
 
-See: [Strings](python.md#strings-3)
+See: [Strings](#strings-3)
 
 ### Lists
 
@@ -113,7 +113,7 @@ for x in mylist:
     print(x) # prints out 1,2
 ```
 
-See: [Lists](python.md#lists-3)
+See: [Lists](#lists-3)
 
 ### If Else
 
@@ -125,7 +125,7 @@ else:
     print("a is not greater than 0")
 ```
 
-See: [Flow control](python.md#flow-control)
+See: [Flow control](#flow-control)
 
 ### Loops
 
@@ -137,7 +137,7 @@ else:
     print("Finally finished!")
 ```
 
-See: [Loops](python.md#loops-2)
+See: [Loops](#loops-2)
 
 ### Functions
 
@@ -149,7 +149,7 @@ See: [Loops](python.md#loops-2)
 Hello from a function
 ```
 
-See: [Functions](python.md#functions-2)
+See: [Functions](#functions-2)
 
 ### File Handling
 
@@ -159,7 +159,7 @@ with open("myfile.txt", "r", encoding='utf8') as file:
         print(x)
 ```
 
-See: [File Handling](python.md#file-handling-2)
+See: [File Handling](#file-handling-2)
 
 ### Arithmetic
 
@@ -198,7 +198,7 @@ Lorem ipsum dolor sit amet,
 consectetur adipiscing elit """
 ```
 
-See: [Strings](python.md#strings-2)
+See: [Strings](#strings-2)
 
 ### Numbers
 
@@ -230,7 +230,7 @@ list3 = [1, 5, 7, 9, 3]
 list4 = list((1, 5, 7, 9, 3))
 ```
 
-See: [Lists](python.md#lists-3)
+See: [Lists](#lists-3)
 
 ### Tuple
 
