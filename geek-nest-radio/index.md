@@ -89,6 +89,108 @@ TODO: 存储频道
 + 同时按下 *select* + *down* 可以切换*主题配色*和*屏幕方向*旋转。
 + 同时按下 *select* + *down* 旋转编码器可以调整屏幕亮度。
 
+## 硬件
+
+咕咕机 V5A 的硬件工程已经由 [巢主Sama#](https://oshwhub.com/alec_cy/geek-nest-full-band-radio-v5a-op) 公布，主控仍然是 ESP32，搭配外部 Flash 和 PSRAM。
+
+这里整理一下后续写固件可能用到的硬件资源。资料来自作者的硬件说明、[V5A 的 ёRadio 适配代码](https://github.com/aleccy/yoradio) 和 [katsumo 的开发记录](https://note.com/katsumo/n/n974036c34047)，还没有在我这台机器上逐项测量，主板版本不同也可能有差异。
+
+| 模块 | 芯片 / 方案 | 说明 |
+| --- | --- | --- |
+| 主控 | ESP32 + Flash + PSRAM | 具体型号和容量待确认 |
+| 收音 | SI4732 | FM / AM / SSB |
+| 航空波段 | Si5351 + SA602 | 本振和混频，扩展接收频率范围 |
+| 屏幕 | ST7789 | 原配 2 寸，ёRadio 按 240 × 320 初始化 |
+| 数字功放 | MAX98357 | I2S 输入 |
+| IO 扩展 | 9555 / XL9555 | 控制收音板的复位、供电和信号路径 |
+| RTC | PCF8523T | 作者建议可以改 DS3231，但是不兼容原来的引脚布局 |
+| 电源 | 单节锂电 + FP6276B | 升压给混频器和功放供电 |
+| UHF 扩展 | AT1846S | 需要另接扩展板 |
+
+航空波段并不是 SI4732 直接接收 118MHz ~ 137MHz，而是经过 Si5351 和 SA602 混频后再接收。katsumo 的实验使用 10.7MHz 中频，本振频率的计算方式还需要核对原理图。
+
+### GPIO
+
+下面的编号都是 **ESP32 GPIO 编号**，不是芯片或连接器的物理脚序，来自 [myoptions.h](https://github.com/aleccy/yoradio/blob/b4b1a00cde7dbc1c55a957a72f501a77c160a358/yoRadio/src/myoptions.h) 和 [main.cpp](https://github.com/aleccy/yoradio/blob/b4b1a00cde7dbc1c55a957a72f501a77c160a358/yoRadio/src/main.cpp)。我自己的 ёRadio 分支使用的屏幕、按键和音频配置也是这些引脚。
+
+| 功能 | 配置项 | GPIO |
+| --- | --- | --- |
+| 屏幕时钟 | TFT_SCLK | 18 |
+| 屏幕数据 | TFT_MOSI | 19 |
+| 屏幕片选 | TFT_CS | 22 |
+| 屏幕数据 / 命令 | TFT_DC | 23 |
+| 背光 | BRIGHTNESS_PIN | 21 |
+| I2S 位时钟 | I2S_BCLK | 25 |
+| I2S 音频数据输出 | I2S_DOUT | 26 |
+| I2S 帧时钟 | I2S_LRC | 27 |
+| select 按键 | BTN_CENTER | 35 |
+| up 按键 | BTN_UP | 32 |
+| down 按键 | BTN_DOWN | 12 |
+| 编码器一相 | ENC_BTNL | 38 |
+| 编码器另一相 | ENC_BTNR | 37 |
+| 编码器按下 | ENC_BTNB | 36 |
+| 电池电压 | ADC1_CHANNEL_3 | 39 |
+| 电源保持 | OUTPUT / HIGH | 4 |
+
+按键在代码中按低电平触发处理，实际 A / B / C 的对应关系和编码器旋转方向还需要测试。
+
+屏幕采用硬件 SPI，配置为 `DSP_HSPI=true`，驱动默认使用 40MHz 时钟，横屏旋转为 1 或 3。`TFT_RST=-1` 表示代码没有通过 GPIO 控制屏幕复位，并不能据此判断硬件复位脚没有接线。
+
+GPIO35 ~ GPIO39 只能作为输入使用，也不能依赖内部上拉，编码器配置里已经关闭了内部上拉。GPIO12 是启动配置引脚，修改按键电路时需要留意上电状态。可以参考 [ESP32 Datasheet](https://documentation.espressif.com/esp32_datasheet_en.html)。
+
+电池检测使用 ADC1 的 channel 3，也就是 GPIO39，ёRadio 的换算代码约为采样电压的 2 倍，具体分压电阻和校准值还需要测量。
+
+较新的主板还有电源保持电路，ёRadio 在启动时执行：
+
+```cpp
+pinMode(4, OUTPUT);
+digitalWrite(4, HIGH);
+```
+
+[katsumo](https://note.com/katsumo/n/n974036c34047) 提到 v1.0.12 及以后的主板刷写时需要打开电源开关并按住编码器，启动后由 GPIO4 保持供电。写自己的固件时要先确认主板版本，否则可能刚启动就断电。
+
+### 收音板和 I2C
+
+ёRadio 配置中注释掉的 RTC 引脚是 `SDA=13`、`SCL=15`，katsumo 的 V5A 实验也使用这组 I2C 引脚：
+
+| 设备 / 信号 | 地址 / 引脚 | 说明 |
+| --- | --- | --- |
+| I2C SDA | GPIO13 | 共用总线 |
+| I2C SCL | GPIO15 | 共用总线 |
+| XL9555 | 0x20 | 7 位 I2C 地址，来自实验代码 |
+| SI4732 | 0x11 | 7 位 I2C 地址，来自实验代码 |
+| SI4732 RESET | XL9555 P0.0 | 拉低后再拉高复位 |
+
+这里比较特别的是，**SI4732 的复位接在 IO 扩展器上**，不能直接照抄普通 ESP32 + SI4732 开发板的 GPIO 复位代码。
+
+katsumo 的实验还用到了下面几个端口，不过作者也注明了初始化问题，部分信号极性没有确定，暂时只作为查线的线索：
+
+| XL9555 端口 | 实验中的用途 | 实验操作 |
+| --- | --- | --- |
+| P0.5 | AM 射频路径 | 写低，作者对极性有疑问 |
+| P1.2 | SA602 电源 | 写低开启 |
+| P1.5 | 放大器 | 写低开启，具体是哪一级放大器待确认 |
+| P1.6 | 模拟音频路径 | 写高开启 |
+
+作者的硬件说明中，*AMP* 同时控制 `ANT_IN_SW` 和 `RADIO_LNA_SW`，高为开启，低为关闭。这两个信号的具体端口还没核实，不能直接把它们和上面的 P1.5 对应起来。
+
+TODO: 核对 XL9555 全部端口的用途、输入输出方向和上电默认值。实验代码把两个端口全部设为输出，这部分不能直接拿来作为新固件的初始化。
+
+### 音频输出
+
+咕咕机采用单声道方案，通过双刀双掷物理开关切换两路功放的输出：
+
++ 数字输出：I2S → MAX98357 → 扬声器
++ 模拟输出：SI4732 模拟音频 → 收音板模拟功放 → 扬声器
+
+作者说明中提到扬声器使用 3Ω / 4W 负载，实物规格和模拟功放型号还需要确认。SSB 不支持这里的数字音频输出，所以单边带模式要走模拟输出。
+
+前面 GPIO25 / 26 / 27 的定义，确认的是 ёRadio 中 **ESP32 向数字功放播放音频** 的方向。SI4732 的数字音频怎样进入 ESP32，输入数据脚、时钟方向和格式还没核实，不能把 `I2S_DOUT` 当成收音芯片的数据输入。
+
+顶部的 Analog / Digital 和磁棒天线开关也可能只是切换硬件线路，是否有 GPIO 能读取开关状态还需要查线。
+
+TODO: SI4732 数字音频接线、模拟功放使能 / 静音、射频路径切换、两个物理开关的状态检测。
+
 ## 外壳
 
 ***3D 打印外壳文件来自群友 @Sandy 提供。***
@@ -157,5 +259,27 @@ TODO: 存储频道
 在页面中配置 Wi-Fi 信息，然后上传 `yoRadio/data/www` 所有文件，然后通过连接后的 IP 地址打开就有 WebRadio 的播放界面了。
 
 点击页面左上角的 「🎵播放列表」 图标，进入播放列表界面，点击 「IMPORT」导入 [data/playlist.csv](https://github.com/song940/yoradio/blob/geek-nest-radio/yoRadio/data/data/playlist.csv) 播放列表就可以播放电台了。
+
+
+## 全波段开源固件
+
+目前找到的 V5A 开源固件主要是网络收音机 ёRadio。作者的适配版本在 <https://github.com/aleccy/yoradio>，使用 GPL-3.0 协议，可以参考屏幕、按键、编码器、背光、电池检测和 I2S 播放的实现。
+
+全波段固件可以在 [V5A 说明书仓库](https://github.com/LuBiBi98/User-manual-for-V5A-radio) 和作者的硬件工程附件中找到，不过目前看到的是 `.bin`，还没找到完整源码。`V5A_open.bin` 是给公开版硬件使用的固件，不能因为名字里有 *open* 就当作源代码已经公开。
+
+作者说明公开版和量产版使用的授权芯片不同，固件不能互刷。硬件页面标了 CERN 协议，同时又写了仅供个人学习、禁止商用，具体版本和授权范围还需要确认，不能把所有资料都按同一个开源协议处理。
+
+如果自己写全波段固件，可以参考：
+
++ [pu2clr/SI4735](https://github.com/pu2clr/SI4735)：SI4732 / SI4735 的 FM、AM、SSB 驱动，需要适配通过 XL9555 复位的方式。SSB patch 的授权也需要单独确认。
++ [etherkit/Si5351Arduino](https://github.com/etherkit/Si5351Arduino)：Si5351 本振控制。
++ [esp32-si4732/ats-mini](https://github.com/esp32-si4732/ats-mini)：另一款 ESP32 + SI4732 收音机的开源固件，可以参考功能实现，但是硬件不同，不能直接刷入咕咕机。
++ [katsumo 的 V5A 实验](https://note.com/katsumo/n/n974036c34047)：有少量接线和初始化代码，作者注明代码还有问题，文章也没有明确代码许可证，先作为硬件线索参考。
+
+我后续打算先确认 MCU 板和收音板的版本、补齐 IO 定义，再从点亮屏幕、读取按键和模拟 FM 接收开始，逐步加入 MW / SW、SSB 和航空波段。网络电台和蓝牙可以放在后面整合。
+
+TODO: 完整原理图 / netlist、Flash / PSRAM 容量、I2C 设备扫描、XL9555 端口定义和音频接线。刷写前先备份原来的完整 Flash，方便恢复。
+
+资料整理于 2026-10-08，上面的引脚还需要按实物版本验证。
 
 ---
