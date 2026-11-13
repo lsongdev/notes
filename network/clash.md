@@ -247,3 +247,42 @@ config dnsmasq
 Set ***input*** and ***forwarding*** from `reject` to `allow` in OpenWRT's **Firewall Zone Settings**.
 
 Reboot the Router.
+
+### 使用 OpenWrt 系统日志
+
+OpenWrt 的 `/tmp` 通常是内存盘，持续追加到 `/tmp/log/clash.log` 会挤占可用 RAM。让 `procd` 把 Clash 的标准输出和标准错误交给 `logd`，可使用固定容量的环形缓冲区保留近期日志。 [OpenWrt 日志说明](https://openwrt.org/docs/guide-user/base-system/log.essentials) · [procd 启动脚本](https://openwrt.org/docs/guide-developer/procd-init-scripts)
+
+编辑实际运行的 `/etc/init.d/clash`。保留现有服务选项，在 `start_service()` 的实例配置中直接启动程序并接管输出。
+
+```sh
+procd_open_instance
+procd_set_param command /usr/bin/clash -d /etc/clash
+procd_set_param stdout 1
+procd_set_param stderr 1
+procd_close_instance
+```
+
+移除原命令中写入 `clash.log` 的重定向。若旧脚本的 `stop_service()` 只负责从 PID 文件取 PID 并发送信号，可以交给 `procd` 停止实例。编辑 `/etc/clash/config.yaml`，将日志级别调到 `error` 以减少重复的连接失败警告。 [Mihomo 日志级别](https://wiki.metacubex.one/en/config/general/#log-level)
+
+```yaml
+log-level: error
+```
+
+验证配置后重启 Clash。远程操作时保留可直连的管理通道，重启期间代理流量可能中断。
+
+```sh
+sh -n /etc/init.d/clash
+/usr/bin/clash -t -d /etc/clash -f /etc/clash/config.yaml
+/etc/init.d/clash restart
+logread -e clash | tail -20
+pidof clash
+netstat -lntp
+df -h /tmp
+grep MemAvailable /proc/meminfo
+```
+
+如日志出现端口占用或 TUN 设备忙，用 `netstat -lntp` 核对实际监听进程，再用 `ubus call service list '{"name":"clash"}'` 核对 procd 管理的实例。若确认旧进程仍在，停止新实例，向已确认的旧 PID 发送 TERM，等待它退出后再启动服务。随后核对代理和 DNS 端口、TUN 接口以及公网管理通道。
+
+旧日志不会随启动方式切换自动释放。如果只需保留故障样本，可先将末尾若干行保存到有权限保护的持久目录，再截断原日志。确认新实例的 stdout 和 stderr 都指向管道，并检查旧文件大小保持为零。
+
+一次 NanoPi R2S 实测中，旧 Clash 日志在内存盘占约 441 MiB，可用内存降至约 12 MiB。清理日志并完成 Clash 进程切换后，`/tmp` 使用率从 92% 降到 2%，可用内存约 777 MiB。公网 SSH、HTTPS 出网及 Tailscale 子网访问均恢复或通过验证。该次操作保持 TUN 的 `gvisor` 设置，未测量不同 TUN 栈的内存差异。
