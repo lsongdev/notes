@@ -49,6 +49,43 @@ df -h / /overlay
 3. 用 `block info /dev/mmcblk0p3` 查文件系统 UUID。在 `/etc/config/fstab` 添加启用的挂载项，目标设为 `/overlay`，并将同一份配置复制到新分区的 `upper/etc/config/fstab`。同步并卸载临时挂载点后重启。
 4. 检查 `grep " /overlay " /proc/mounts` 和 `df -h / /overlay`。本机确认挂载源为 `/dev/mmcblk0p3`（ext4），可写层容量约 56.7 GiB。 [OpenWrt extroot 操作说明](https://openwrt.org/docs/guide-user/additional-software/extroot_configuration)
 
+## 硬件识别与串口
+
+本机通过 `ubus call system board` 识别为 Ariaboard Photonicat，设备树标识为 `ariaboard,photonicat`，平台为 `rockchip/armv8`，系统架构为 `aarch64`。
+
+RM520N-GL 是 USB 复合设备。本机在 USB 路径 `6-1` 枚举到 `2c7c:0801`，同一块模块同时提供以下接口。 [Quectel Linux USB 驱动手册，表 1](https://quectel.com/content/uploads/2024/04/Quectel_UMTS_LTE_5G_Linux_USB_Driver_User_Guide_V3.2.pdf)
+
+| USB 接口号 | 本机设备 | 用途 |
+| --- | --- | --- |
+| 0 | `/dev/ttyUSB0` | DIAG 基带诊断 |
+| 1 | `/dev/ttyUSB1` | GNSS 定位，输出 NMEA |
+| 2 | `/dev/ttyUSB2` | 主 AT 命令口，用于 SIM、信号和短信 |
+| 3 | `/dev/ttyUSB3` | Modem 串口，可用于传统拨号 |
+| 4 | `/dev/cdc-wdm0`、`wwan0` | `qmi_wwan` 驱动提供的 QMI 控制节点和 IP 数据接口 |
+
+接入其他 USB 串口设备后，`ttyUSB*` 编号可能变化。程序可通过 sysfs 用 USB ID 和接口号 2 定位 AT 口。
+
+| 板载串口 | 本机状态 |
+| --- | --- |
+| `ttyS1` | 内核识别到 UART，未创建 `/dev/ttyS1` |
+| `/dev/ttyS2` | 内核调试控制台，配置为 1500000 波特率 |
+| `/dev/ttyS3` | 硬件 UART，检查时未被进程打开，引脚用途待确认 |
+| `/dev/ttyS4` | 硬件 UART，由 `pcat-mgr` 打开 |
+
+`ttyS0` 和 `ttyS5`–`ttyS15` 是 8250 驱动的占位节点，内核报告 `uart:unknown`。
+
+### 查询信号与收发短信
+
+在主 AT 口用 115200 波特率验证了 `AT+CPIN?`、`AT+C5GREG?` 和 `AT+QENG="servingcell"`。后者可查询服务小区、频段和信号指标。QMI 也可直接查询信号：
+
+```sh
+uqmi -t 3000 -d /dev/cdc-wdm0 --get-signal-info
+```
+
+一次实测连到 5G SA n78，RSRP 约 −80 dBm。SIM 已就绪且已注册到 5G 时，QMI 数据会话仍可能处于 `disconnected`。当时 netifd 保留了上一次拨号的 `PIN_STATUS_FAILED`，见下文的拨号排查。
+
+短信可通过同一 AT 口读取（`AT+CMGL`、`AT+CMGR`）、发送（`AT+CMGS`）和订阅通知（`AT+CNMI`，处理 `+CMTI` 或 `+CMT`）。中文短信可使用 PDU 模式。本机尚未实测短信收发。 [Quectel RM520N 产品页与 AT 命令手册](https://www.quectel.com/product/5g-rm520n-series/)
+
 ## 配置 RM520N-GL 蜂窝拨号
 
 本机的 USB ID 为 `2c7c:0801`。QMI 模式下，控制设备为 `/dev/cdc-wdm0`，数据接口为 `wwan0`，AT 口为 `/dev/ttyUSB2`。先确认这些设备存在。ImmortalWrt 25.12.2 实测已自动绑定 USB 串口和 QMI 驱动。LuCI 显示 *Unsupported protocol type* 时，安装 `luci-proto-qmi` 并刷新页面。若模组配置为 MBIM，则使用对应的 MBIM 驱动、`umbim` 和 `luci-proto-mbim`。
