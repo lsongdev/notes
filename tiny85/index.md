@@ -1,4 +1,9 @@
-# How to Get Started with ATtiny85 Boards
+---
+layout: default
+title: AT tiny85
+---
+
+# ATtiny85 Boards
 
 This guide shows how to identify the two ATtiny85 boards in this folder, build a first blink sketch with PlatformIO, upload it over USB, and switch to ISP programming if USB upload is unavailable.
 
