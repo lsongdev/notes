@@ -180,3 +180,7 @@ SD-WAN（Software-Defined Wide Area Network，软件定义广域网）是一种�
 
 
 ---
+
+## 实践记录
+
+- [IPTV：把运营商电视接入家庭局域网](./iptv)——端口隔离、镜像抓包、组播转 HTTP、播放列表自动校验与节目单排查。
